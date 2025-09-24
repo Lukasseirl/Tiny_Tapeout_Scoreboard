@@ -9,11 +9,11 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+You select one of the input switches (1-5) and then the 7 Segment display displays the selected number.
 
 ## How to test
 
-Explain how to use your project
+Select the switches and see how the segment display changes.
 
 ## External hardware
 
