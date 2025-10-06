@@ -9,8 +9,7 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
-Infos coming soon...
+You can press 2 Buttons to increase the Score of the two players. The score is displayed with 7-segment displays.
 
 ## How to test
 
