@@ -13,10 +13,8 @@ You can press 2 Buttons to increase the Score of the two players. The score is d
 
 ## How to test
 
-Explain how to use your project
-Info coming soon...
+You need 2 Buttons and a Seven Segment Display. Build the Circuit and test ist
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
-Info coming soon...
+Push Buttons with a pull down Resistance
