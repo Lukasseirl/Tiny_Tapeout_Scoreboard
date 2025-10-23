@@ -9,12 +9,13 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Plathaltertext - infos cooming soon
+Platzhalter - infos folgen
 
 ## How to test
 
-Plathaltertext - infos cooming soon
+Platzhalter - infos folgen
 
 ## External hardware
 
-Plathaltertext - infos cooming soon
+Platzhalter - infos folgen
+
