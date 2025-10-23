@@ -33,24 +33,24 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "Seg_A"
+  uo[1]: "Seg_B"
+  uo[2]: "Seg_C"
+  uo[3]: "Seg_D"
+  uo[4]: "Seg_E"
+  uo[5]: "Seg_F"
+  uo[6]: "Seg_G"
+  uo[7]: "Seg_H"
 
   # Bidirectional pins
-  uio[0]: "Seg_A"
-  uio[1]: "Seg_B"
-  uio[2]: "Seg_C"
-  uio[3]: "Seg_D"
-  uio[4]: "Seg_E"
-  uio[5]: "Seg_F"
-  uio[6]: "Seg_G"
-  uio[7]: "Seg_H"
+  uio[0]: ""
+  uio[1]: ""
+  uio[2]: ""
+  uio[3]: ""
+  uio[4]: ""
+  uio[5]: ""
+  uio[6]: ""
+  uio[7]: ""
 
 # Do not change!
 yaml_version: 6
