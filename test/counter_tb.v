@@ -14,7 +14,7 @@ module counter_tb;
       // inputs
       reg rst_i = 1'b1;
       reg clk_i = 1'b0;
-      reg mod = 1'b0;
+      reg mod_i = 1'b0;
       wire [BW-1:0] cnt_val;
 
       // DUT
@@ -22,7 +22,7 @@ module counter_tb;
             #(BW)
       counter_dut (
             .clk_i(clk_up_i),          // signal for counting
-            .mod(mod),      // mode
+            .mod_i(mod_i),      // mode
             .rst_i(~rst_i),
             .counter_val_o(cnt_val)
       );
@@ -38,7 +38,7 @@ module counter_tb;
 
             /* verilator lint_off STMTDLY */
             #20 rst_i = 1'b0;
-            #200 mod = 0;
+            #200 mod_i = 0;
             #300 $finish;
             /* verilator lint_on STMTDLY */
       end
