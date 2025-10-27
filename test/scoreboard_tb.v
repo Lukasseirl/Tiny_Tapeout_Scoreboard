@@ -3,12 +3,12 @@
 */  
 
 `timescale 1ns / 1ns
-`include "../src/tt_um_scoreboard_simple_top.v"
-`include "../src/scoreboard_simple_controller.v"
-`include "../src/display_simple_controller.v"
-`include "../src/button_debouncer.v"
-`include "../src/long_press_detector.v"
-`include "../src/seven_segment_decoder.v"
+`include "tt_um_scoreboard_simple_top.v"
+`include "scoreboard_simple_controller.v"
+`include "display_simple_controller.v"
+`include "button_debouncer.v"
+`include "long_press_detector.v"
+`include "seven_segment_decoder.v"
 
 module scoreboard_tb;
 
