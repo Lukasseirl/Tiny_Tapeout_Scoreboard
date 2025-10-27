@@ -14,7 +14,7 @@ module counter_tb;
       // inputs
       reg rst_i = 1'b1;
       reg clk_i = 1'b0;
-      reg mod_i = 1'b0;
+      reg mod_i = 1'b1;
       wire [BW-1:0] cnt_val;
 
       // DUT
