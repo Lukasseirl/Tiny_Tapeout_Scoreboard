@@ -50,11 +50,11 @@ module counter
                 counter_val <= counter_val + {{(BW-1){1'b0}}, 1'b1};
             end else begin
                 counter_val <= counter_val - {{(BW-1){1'b0}}, 1'b1};
+            end
         end
     end
         
     
     // assign counter value
     assign counter_val_o = counter_val;
-
 endmodule
