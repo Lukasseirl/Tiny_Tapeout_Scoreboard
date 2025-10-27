@@ -40,7 +40,7 @@ module counter_tb;
             #20 rst_i = 1'b1;
             #20 rst_i = 1'b0;
             #20 rst_i = 1'b1;
-            #200 mod_i = 0;
+            #250 mod_i = 0;
             #300 $finish;
             /* verilator lint_on STMTDLY */
       end
