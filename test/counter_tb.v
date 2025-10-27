@@ -30,7 +30,7 @@ module counter_tb;
       // generate clock
       /* verilator lint_off STMTDLY */
       always #1 clk_up_i = ~clk_up_i;   // 5ns for up counter
-      always #5 clk_down_i = ~clk_down_i;   // faster down counter
+      //always #5 clk_down_i = ~clk_down_i;   // faster down counter
       /* verilator lint_on STMTDLY */
 
       initial begin
