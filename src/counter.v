@@ -14,47 +14,47 @@ module counter
     input    rst_i, 
     output wire [BW-1:0] counter_val_o
 );
-
-// register to store the counter value
-reg [BW-1:0] counter_val;
-
-// Single always block for both counting directions
-/*
-always @(posedge clk_i) begin
-    if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset the counter value
-    end else begin
-        // check counting mode
-        if (mod_i == 1'b1) begin
-            // counting UP - check upper limit
-            if (counter_val < 7'd99) begin
-                counter_val <= counter_val + 1; // increment
-            end
-                // otherwise stay at 99
+    
+    // register to store the counter value
+    reg [BW-1:0] counter_val;
+    
+    // Single always block for both counting directions
+    /*
+    always @(posedge clk_i) begin
+        if (rst_i == 1'b1) begin
+            counter_val <= {BW{1'b0}}; // reset the counter value
         end else begin
-            // counting DOWN - check lower limit
-            if (counter_val > 7'd0) begin
-                counter_val <= counter_val - 1; // decrement
+            // check counting mode
+            if (mod_i == 1'b1) begin
+                // counting UP - check upper limit
+                if (counter_val < 7'd99) begin
+                    counter_val <= counter_val + 1; // increment
+                end
+                    // otherwise stay at 99
+            end else begin
+                // counting DOWN - check lower limit
+                if (counter_val > 7'd0) begin
+                    counter_val <= counter_val - 1; // decrement
+                end
+                    // otherwise stay at 0
             end
-                // otherwise stay at 0
         end
     end
-end
-*/
-always @(posedge clk_i) begin
-    if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset the counter value
-    end else begin
-        // check counting mode
-        if (mod_i == 1'b1) begin
-            counter_val <= counter_val + {{(BW-1){1'b0}}, 1'b1};
+    */
+    always @(posedge clk_i) begin
+        if (rst_i == 1'b1) begin
+            counter_val <= {BW{1'b0}}; // reset the counter value
         end else begin
-            counter_val <= counter_val - {{(BW-1){1'b0}}, 1'b1};
+            // check counting mode
+            if (mod_i == 1'b1) begin
+                counter_val <= counter_val + {{(BW-1){1'b0}}, 1'b1};
+            end else begin
+                counter_val <= counter_val - {{(BW-1){1'b0}}, 1'b1};
+        end
     end
-end
+        
     
-
-// assign counter value
-assign counter_val_o = counter_val;
+    // assign counter value
+    assign counter_val_o = counter_val;
 
 endmodule
