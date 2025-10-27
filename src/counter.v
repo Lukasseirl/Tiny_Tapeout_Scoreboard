@@ -9,8 +9,8 @@ module counter
     parameter BW = 7 // 7 Bit = 0-127 | optional parameter
 ) (
     // define inputs and outputs of module
-    input    clk_up_i,      // input signal for counting up
-    input    clk_down_i,    // input signal for counting down
+    input    clk_i,      // clock signal for counting
+    input    mod,        // mode: 1=up, 0=down
     input    rst_i, 
     output wire [BW-1:0] counter_val_o
 );
@@ -18,29 +18,25 @@ module counter
 // register to store the counter value
 reg [BW-1:0] counter_val;
 
-// Always block for counting UP
-always @(posedge clk_up_i) begin
+// Single always block for both counting directions
+always @(posedge clk_i) begin
     if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset
+        counter_val <= {BW{1'b0}}; // reset the counter value
     end else begin
-        // max limit: 99
-        if (counter_val < 7'd99) begin
-            counter_val <= counter_val + 1'b1;
+        // check counting mode
+        if (mod == 1'b1) begin
+            // counting UP - check upper limit
+            if (counter_val < 7'd99) begin
+                counter_val <= counter_val + 1; // increment
+            end
+                // otherwise stay at 99
+        end else begin
+            // counting DOWN - check lower limit
+            if (counter_val > 7'd0) begin
+                counter_val <= counter_val - 1; // decrement
+            end
+                // otherwise stay at 0
         end
-        // stay at 99
-    end
-end
-
-// Always block for counting DOWN
-always @(posedge clk_down_i) begin
-    if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset
-    end else begin
-        // min limit: 00
-        if (counter_val > 7'd0) begin
-            counter_val <= counter_val - 1'b1;
-        end
-        // stay at 00
     end
 end
 
