@@ -12,7 +12,7 @@ RTL=../src
 TEST_FOLDER=.
 
 echo -e "${GREEN}Verilator:------------------------------------------ ${NC}"
-verilator --lint-only -I"$RTL" "$TEST_FOLDER/${name}_tb.v"
+verilator --lint-only --timing -I"$RTL" "$TEST_FOLDER/${name}_tb.v"
 
 echo -e "${GREEN}IVerilog:------------------------------------------- ${NC}"
 iverilog -g2005 -I"$RTL" \
