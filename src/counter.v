@@ -19,7 +19,7 @@ module counter
     reg [BW-1:0] counter_val;
     
     // Single always block for both counting directions
-    /*
+    
     always @(posedge clk_i) begin
         if (rst_i == 1'b1) begin
             counter_val <= {BW{1'b0}}; // reset the counter value
@@ -40,7 +40,8 @@ module counter
             end
         end
     end
-    */
+    /*
+    
     always @(posedge clk_i) begin
         if (rst_i == 1'b1) begin
             counter_val <= {BW{1'b0}}; // reset the counter value
@@ -53,7 +54,7 @@ module counter
             end
         end
     end
-        
+    */ 
     
     // assign counter value
     assign counter_val_o = counter_val;
