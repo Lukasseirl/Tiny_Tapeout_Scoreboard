@@ -9,13 +9,13 @@
 
 module counter_tb;
 
-      parameter BW = 4;
+      parameter BW = 7;
       
       // inputs
       reg rst_i = 1'b1;
       reg clk_up_i = 1'b0;
       reg clk_down_i = 1'b0;
-      wire [6:0] cnt_val;
+      wire [BW-1:0] cnt_val;
 
       // DUT
       counter 
@@ -24,6 +24,7 @@ module counter_tb;
             .clk_up_i(clk_up_i),          // signal for counting up
             .clk_down_i(clk_down_i),      // signal for counting down
             .rst_i(~rst_i)
+            .counter_val_o(cnt_val)
       );
 
       // generate clock
