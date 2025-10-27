@@ -63,7 +63,7 @@ module tt_um_scoreboard_simple_top (
     
     // Output assignments - KORREKTUR: Keine multiple Zuweisungen!
     assign uo_out = {1'b0, segments[6:0]};  // Einheitliche Zuweisung
-    assign uio_out = {display_state, segment_select_o}; // State + Segment Select
+    assign uio_out = {1'b0, display_state, segment_select_o}; // State + Segment Select
     assign uio_oe = 8'b11111111;
     
     // Unused inputs
