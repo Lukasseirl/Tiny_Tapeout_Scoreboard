@@ -23,7 +23,7 @@ module counter_tb;
       counter_dut (
             .clk_up_i(clk_up_i),          // signal for counting up
             .clk_down_i(clk_down_i),      // signal for counting down
-            .rst_i(~rst_i)
+            .rst_i(~rst_i),
             .counter_val_o(cnt_val)
       );
 
