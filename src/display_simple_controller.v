@@ -25,10 +25,10 @@ module display_simple_controller (
     reg [2:0]  next_state;
     
     // Score digits - KORREKTUR: Explizite Typumwandlung
-    wire [3:0] p1_tens = p1_score_i / 8'd10;
-    wire [3:0] p1_ones = p1_score_i % 8'd10;
-    wire [3:0] p2_tens = p2_score_i / 8'd10;
-    wire [3:0] p2_ones = p2_score_i % 8'd10;
+    wire [3:0] p1_tens = p1_score_i / 4'd10;
+    wire [3:0] p1_ones = p1_score_i % 4'd10;
+    wire [3:0] p2_tens = p2_score_i / 4'd10;
+    wire [3:0] p2_ones = p2_score_i % 4'd10;
     
     // State transition
     always @(posedge clk_i or posedge rst_i) begin
