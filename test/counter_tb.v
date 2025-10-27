@@ -13,16 +13,16 @@ module counter_tb;
       
       // inputs
       reg rst_i = 1'b1;
-      reg clk_up_i = 1'b0;
-      reg clk_down_i = 1'b0;
+      reg clk_i = 1'b0;
+      reg mod = 1'b0;
       wire [BW-1:0] cnt_val;
 
       // DUT
       counter 
             #(BW)
       counter_dut (
-            .clk_up_i(clk_up_i),          // signal for counting up
-            .clk_down_i(clk_down_i),      // signal for counting down
+            .clk_i(clk_up_i),          // signal for counting
+            .mod(mod),      // mode
             .rst_i(~rst_i),
             .counter_val_o(cnt_val)
       );
@@ -30,7 +30,6 @@ module counter_tb;
       // generate clock
       /* verilator lint_off STMTDLY */
       always #1 clk_up_i = ~clk_up_i;   // 5ns for up counter
-      //always #5 clk_down_i = ~clk_down_i;   // faster down counter
       /* verilator lint_on STMTDLY */
 
       initial begin
@@ -39,7 +38,7 @@ module counter_tb;
 
             /* verilator lint_off STMTDLY */
             #20 rst_i = 1'b0;
-            #200 clk_up_i = 0; // deactivate up clock
+            #200 mod = 0;
             #300 $finish;
             /* verilator lint_on STMTDLY */
       end
