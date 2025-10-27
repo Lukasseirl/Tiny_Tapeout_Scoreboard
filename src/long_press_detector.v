@@ -36,7 +36,7 @@ module long_press_detector (
                 end
             end else if (detecting_press && button_i) begin
                 // Button still pressed
-                if (press_counter < 28'd300000000) begin // Avoid overflow
+                if (press_counter < 28'd250000000) begin // Korrektur: 250M statt 300M
                     press_counter <= press_counter + 28'd1;
                 end
                 
