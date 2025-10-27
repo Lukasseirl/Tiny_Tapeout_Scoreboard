@@ -18,32 +18,31 @@ module counter
 // register to store the counter value
 reg [BW-1:0] counter_val;
 
-// Always block for counting UP
-always @(posedge clk_up_i) begin
+// Always block for counting UP and DOWN
+always @(posedge clk_up_i or posedge clk_down_i) begin
     if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset
+        counter_val <= {BW{1'b0}}; // reset the counter value
     end else begin
-        // max limit: 99
-        if (counter_val < 7'd99) begin
-            counter_val <= counter_val + 1'b1;
-        end
-        // stay at 99
+        // decide which clock triggered
+        case (1'b1)
+            clk_up_i: begin
+                // counting UP - check upper limit
+                if (counter_val < 7'd99) begin
+                    counter_val <= counter_val + 1'b1; // increment
+                end
+                // otherwise stay at 99
+            end
+            clk_down_i: begin
+                // counting DOWN - check lower limit  
+                if (counter_val > 7'd0) begin
+                    counter_val <= counter_val - 1'b1; // decrement
+                end
+                // otherwise stay at 0
+            end
+        endcase
     end
 end
-
-// Always block for counting DOWN
-always @(posedge clk_down_i) begin
-    if (rst_i == 1'b1) begin
-        counter_val <= {BW{1'b0}}; // reset
-    end else begin
-        // min limit: 00
-        if (counter_val > 7'd0) begin
-            counter_val <= counter_val - 1'b1;
-        end
-        // stay at 00
-    end
-end
-
+    
 // assign counter value
 assign counter_val_o = counter_val;
 
