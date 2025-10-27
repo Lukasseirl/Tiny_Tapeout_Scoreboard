@@ -17,7 +17,7 @@ module counter_tb;
       // DUT
       counter counter_dut (
             .clk_up_i(clk_up_i),          // signal for counting up
-            .clk_down_i(clk_down_i);      // signal for counting down
+            .clk_down_i(clk_down_i),      // signal for counting down
             .rst_i(~rst_i)
       );
 
@@ -39,7 +39,7 @@ module counter_tb;
             #600 clk_up_i = 0;  // deactivate up clock
 
             clk_down_i = 1;   // activate down count
-            #300 &finish;
+            #300 $finish;
             
             /* verilator lint_on STMTDLY */
       end
