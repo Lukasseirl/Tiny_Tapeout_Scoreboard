@@ -13,5 +13,37 @@ module counter_tb;
       reg clk_up_i = 1'b0;
       reg clk_down_i = 1'b0;
       wire [6:0] = cnt_val;
+
+      // DUT
+      counter counter_dut (
+            .clk_up_i(clk_up_i),          // signal for counting up
+            .clk_down_i(clk_down_i);      // signal for counting down
+            .rst_i(~rst_i)
+      );
+
+      // generate clock
+      /* verilator lint_off STMTDLY */
+      always #5 clk_up_i = ~clk_up_i;   // 5ns for up counter
+      always #2 clk_down_i = ~clk_down_i;   // faster down counter
+      /* verilator lint_on STMTDLY */
+
+      initial begin
+            $dumpfile("counter_tb.vcd");
+            $dumpvars;
+
+            // deactivate both down clock
+            clk_down_i = 0;
+            
+            /* verilator lint_off STMTDLY */
+            #20 rst_i = 1'b0;
+            #600 clk_up_i = 0;  // deactivate up clock
+
+            clk_down_i = 1;   // activate down count
+            #300 &finish;
+            
+            /* verilator lint_on STMTDLY */
+      end
+endmodule // counter_tb
+            
       
-  
+      
