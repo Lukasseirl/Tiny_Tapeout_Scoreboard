@@ -24,6 +24,7 @@ module tt_um_scoreboard_simple_top (
     wire [7:0] p1_score;
     wire [7:0] p2_score;
     wire [3:0] display_digit;
+    wire [3:0] segment_select_o;
     wire [2:0] display_state;
     
     // Input assignments
@@ -49,7 +50,7 @@ module tt_um_scoreboard_simple_top (
         .p1_score_i(p1_score),
         .p2_score_i(p2_score),
         .digit_o(display_digit),
-        .segment_select_o(uo_out[3:0]),
+        .segment_select_o(segment_select_o),
         .state_o(display_state)
     );
     
@@ -60,10 +61,9 @@ module tt_um_scoreboard_simple_top (
         .segments_o(segments)
     );
     
-    // Output assignments
-    assign uo_out[7:4] = 4'b0000;
-    assign uo_out[2:0] = segments[6:4];
-    assign uio_out[7:0] = {1'b0, segments[3:0], display_state};
+    // Output assignments - KORREKTUR: Keine multiple Zuweisungen!
+    assign uo_out = {1'b0, segments[6:0]};  // Einheitliche Zuweisung
+    assign uio_out = {display_state, segment_select_o}; // State + Segment Select
     assign uio_oe = 8'b11111111;
     
     // Unused inputs
