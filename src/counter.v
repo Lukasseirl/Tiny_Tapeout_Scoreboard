@@ -10,7 +10,7 @@ module counter
 ) (
     // define inputs and outputs of module
     input    clk_i,      // clock signal for counting
-    input    mod,        // mode: 1=up, 0=down
+    input    mod_i,        // mode: 1=up, 0=down
     input    rst_i, 
     output wire [BW-1:0] counter_val_o
 );
@@ -24,7 +24,7 @@ always @(posedge clk_i) begin
         counter_val <= {BW{1'b0}}; // reset the counter value
     end else begin
         // check counting mode
-        if (mod == 1'b1) begin
+        if (mod_i == 1'b1) begin
             // counting UP - check upper limit
             if (counter_val < 7'd99) begin
                 counter_val <= counter_val + 1; // increment
