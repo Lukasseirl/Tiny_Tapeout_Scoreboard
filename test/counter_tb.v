@@ -12,7 +12,7 @@ module counter_tb;
       reg rst_i = 1'b1;
       reg clk_up_i = 1'b0;
       reg clk_down_i = 1'b0;
-      wire [6:0] = cnt_val;
+      wire [6:0] cnt_val;
 
       // DUT
       counter counter_dut (
