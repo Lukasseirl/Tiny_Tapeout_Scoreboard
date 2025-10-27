@@ -21,7 +21,7 @@ module counter_tb;
       counter 
             #(BW)
       counter_dut (
-            .clk_i(clk_up_i),          // signal for counting
+            .clk_i(clk_i),          // signal for counting
             .mod_i(mod_i),      // mode
             .rst_i(~rst_i),
             .counter_val_o(cnt_val)
@@ -29,7 +29,7 @@ module counter_tb;
 
       // generate clock
       /* verilator lint_off STMTDLY */
-      always #1 clk_up_i = ~clk_up_i;   // 5ns for up counter
+      always #1 clk_i = ~clk_i;   // 5ns for up counter
       /* verilator lint_on STMTDLY */
 
       initial begin
