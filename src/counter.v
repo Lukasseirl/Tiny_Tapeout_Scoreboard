@@ -1,6 +1,7 @@
 /*
     Simple counter with fixed bitwidth of 7.
-    The counter value is hold inbetween 0-99 because thats the displayable area
+    Depending on two input signals the counter can count up or down.
+    The counter value is hold inbetween 0-99 because thats the displayable area.
 */
 
 module counter
@@ -8,7 +9,8 @@ module counter
     parameter BW = 7 // 7 Bit = 0-127 | optional parameter
 ) (
     // define inputs and outputs of module
-    input    clk_i,
+    input    clk_up_i,      // input signal for counting up
+    input    clk_down_i,    // input signal for counting down
     input    rst_i, 
     output wire [BW-1:0] counter_val_o
 );
@@ -16,21 +18,33 @@ module counter
 // register to store the counter value
 reg [BW-1:0] counter_val;
 
-// gets active when a positive edge of clock signal occours
-always @(posedge clk_i) begin
+// Always block for counting UP
+always @(posedge clk_up_i) begin
     if (rst_i == 1'b1) begin
-        // if reset is enabled => counter gets reset
-        counter_val <= 7'b0;
+        counter_val <= {BW{1'b0}}; // reset
     end else begin
-        // Prüfen ob nächster Wert 100 wäre
-        if (counter_val >= 7'd99) begin
-            counter_val <= 7'b0;
-        end else begin
+        // max limit: 99
+        if (counter_val < 7'd99) begin
             counter_val <= counter_val + 1'b1;
         end
+        // stay at 99
     end
 end
 
+// Always block for counting DOWN
+always @(posedge clk_down_i) begin
+    if (rst_i == 1'b1) begin
+        counter_val <= {BW{1'b0}}; // reset
+    end else begin
+        // min limit: 00
+        if (counter_val > 7'd0) begin
+            counter_val <= counter_val - 1'b1;
+        end
+        // stay at 00
+    end
+end
+
+// assign counter value
 assign counter_val_o = counter_val;
 
 endmodule
