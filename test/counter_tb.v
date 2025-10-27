@@ -8,6 +8,9 @@
 `include "../src/counter.v"
 
 module counter_tb;
+
+      parameter BW = 4;
+      
       // inputs
       reg rst_i = 1'b1;
       reg clk_up_i = 1'b0;
@@ -15,7 +18,9 @@ module counter_tb;
       wire [6:0] cnt_val;
 
       // DUT
-      counter counter_dut (
+      counter 
+            #(BW)
+      counter_dut (
             .clk_up_i(clk_up_i),          // signal for counting up
             .clk_down_i(clk_down_i),      // signal for counting down
             .rst_i(~rst_i)
