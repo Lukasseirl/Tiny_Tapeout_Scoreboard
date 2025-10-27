@@ -23,9 +23,9 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "Reset"
-  ui[1]: "P1"
-  ui[2]: "P2"
+  ui[0]: "P1"  # push button for player 1
+  ui[1]: "P2"  # push button for player 2
+  ui[2]: ""
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""
@@ -33,24 +33,24 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: "Seg_A"
-  uo[1]: "Seg_B"
-  uo[2]: "Seg_C"
-  uo[3]: "Seg_D"
-  uo[4]: "Seg_E"
-  uo[5]: "Seg_F"
-  uo[6]: "Seg_G"
-  uo[7]: "Seg_H"
+  uo[0]: "Seg_A1"    # output pins for seven segment display of the ONES 
+  uo[1]: "Seg_B1"
+  uo[2]: "Seg_C1"
+  uo[3]: "Seg_D1"
+  uo[4]: "Seg_E1"
+  uo[5]: "Seg_F1"
+  uo[6]: "Seg_G1"
+  uo[7]: "Seg_H1"
 
   # Bidirectional pins
-  uio[0]: "-"
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "Seg_A2"    # output pins for seven segment display of the TENS
+  uio[1]: "Seg_B2"
+  uio[2]: "Seg_C2"
+  uio[3]: "Seg_D2"
+  uio[4]: "Seg_E2"
+  uio[5]: "Seg_F2"
+  uio[6]: "Seg_G2"
+  uio[7]: "Seg_H2"
 
 # Do not change!
 yaml_version: 6
