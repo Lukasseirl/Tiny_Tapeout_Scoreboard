@@ -38,6 +38,7 @@ module counter_tb;
             $dumpvars;
 
             /* verilator lint_off STMTDLY */
+            #20 rst_i = 1'b0;
             #200 clk_up_i = 0; // deactivate up clock
             #300 $finish;
             /* verilator lint_on STMTDLY */
