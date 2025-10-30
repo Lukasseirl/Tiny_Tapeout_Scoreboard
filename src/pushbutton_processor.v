@@ -37,13 +37,13 @@ always @(posedge clk_1khz) begin
     end
 end
 
-// Pulse counter for output signals
+// Pulse counter for output signals - CORRECTED
 always @(posedge clk_1khz) begin
     if (rst_i) begin
         pulse_counter_en <= 1'b0;
         pulse_counter <= 0;
-        count_up <= 1'b0;           // Explizit auf 0 setzen
-        count_down <= 1'b0;         // Explizit auf 0 setzen
+        count_up <= 1'b0;
+        count_down <= 1'b0;
     end else if (pulse_counter_en) begin
         if (pulse_counter < PULSE_WIDTH) begin
             pulse_counter <= pulse_counter + 1;
@@ -54,22 +54,22 @@ always @(posedge clk_1khz) begin
             count_up <= 1'b0;
             count_down <= 1'b0;
         end
-    end else begin
-        // WICHTIG: Sicherstellen dass Ausgänge 0 bleiben wenn kein Puls aktiv
-        count_up <= 1'b0;
-        count_down <= 1'b0;
     end
+    // NO else here - outputs remain unchanged when no pulse is active!
 end
 
-// Main state machine
+// Main state machine - CORRECTED
 always @(posedge clk_1khz) begin
     if (rst_i) begin
         state <= IDLE;
         counter <= 0;
+        // count_up and count_down are reset in pulse counter
     end else begin
         case (state)
             IDLE: begin
                 counter <= 0;
+                count_up <= 1'b0;
+                count_down <= 1'b0;
                 if (button_sync) begin
                     // Button pressed, start debouncing
                     state <= DEBOUNCING;
@@ -78,6 +78,8 @@ always @(posedge clk_1khz) begin
             end
             
             DEBOUNCING: begin
+                count_up <= 1'b0;
+                count_down <= 1'b0;
                 if (button_sync) begin
                     if (counter >= DEBOUNCE_TIME) begin
                         // Debouncing complete, button is stable
@@ -93,6 +95,8 @@ always @(posedge clk_1khz) begin
             end
             
             PRESSED: begin
+                count_up <= 1'b0;
+                count_down <= 1'b0;
                 if (button_sync) begin
                     if (counter >= LONG_PRESS_TIME) begin
                         // Long press detected (>1.5s)
@@ -115,6 +119,8 @@ always @(posedge clk_1khz) begin
             end
             
             LONG_PRESS: begin
+                count_up <= 1'b0;
+                count_down <= 1'b0;
                 // Wait for button release
                 if (!button_sync) begin
                     state <= IDLE;
@@ -125,6 +131,8 @@ always @(posedge clk_1khz) begin
             default: begin
                 state <= IDLE;
                 counter <= 0;
+                count_up <= 1'b0;
+                count_down <= 1'b0;
             end
         endcase
     end
