@@ -5,9 +5,9 @@
 */
 
 `timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
-`include "../src/counter.v"
+`include "../src/counter_v2.v"
 
-module counter_tb;
+module counter_v2_tb;
 
       parameter BW = 7;
       
