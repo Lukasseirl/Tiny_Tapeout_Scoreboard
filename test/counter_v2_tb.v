@@ -22,7 +22,7 @@ module counter_v2_tb;
       reg swi_down = 1'b0;
       
       // DUT
-      counter 
+      counter_v2 
             #(BW)
       counter_dut (
             .clk_up_i(clk_up_i),          // counting up
