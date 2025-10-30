@@ -27,7 +27,7 @@ module counter_tb;
       counter_dut (
             .clk_up_i(clk_up_i),          // counting up
             .clk_down_i(clk_down_i),      // counting down
-            .rst_i(~rst_i),
+            .rst_i(rst_i),
             .counter_val_o(cnt_val)
       );
 
@@ -52,7 +52,6 @@ module counter_tb;
 
             /* verilator lint_off STMTDLY */
             #20 rst_i = 1'b0;
-            #20 rst_i = 1'b1;
 
             #300 swi_down = 1'b1;
             #20 swi_up = 1'b0;
