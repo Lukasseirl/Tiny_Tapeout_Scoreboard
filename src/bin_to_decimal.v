@@ -12,11 +12,11 @@ always @(posedge clk_i or posedge rst_i) begin
         zehner <= 4'b0;
         einer <= 4'b0;
     end else begin
-        // Berechne Zehnerstelle durch Division
-        zehner <= bin_input / 10;
+        // Berechne Zehnerstelle durch Division (explizit auf 4-bit kürzen)
+        zehner <= (bin_input / 8'd10)[3:0];
         
-        // Berechne Einerstelle durch Modulo
-        einer <= bin_input % 10;
+        // Berechne Einerstelle durch Modulo (explizit auf 4-bit kürzen)
+        einer <= (bin_input % 8'd10)[3:0];
     end
 end
 
