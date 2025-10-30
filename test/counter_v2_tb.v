@@ -47,7 +47,7 @@ module counter_tb;
       /* verilator lint_on STMTDLY */
 
       initial begin
-            $dumpfile("counter_count_up_tb.vcd");
+            $dumpfile("counter_v2_tb.vcd");
             $dumpvars;
 
             /* verilator lint_off STMTDLY */
