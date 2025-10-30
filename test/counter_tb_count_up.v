@@ -5,7 +5,7 @@
 */
 
 `timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
-`include "../src/counter.v"
+`include "../src/counter_v2.v"
 
 module counter_tb;
 
@@ -13,23 +13,23 @@ module counter_tb;
       
       // inputs
       reg rst_i = 1'b1;
-      reg clk_i = 1'b0;
-      reg mod_i = 1'b1;
+      reg clk_up_i = 1'b0;
+      reg clk_down_i = 1'b0;
       wire [BW-1:0] cnt_val;
 
       // DUT
       counter 
             #(BW)
       counter_dut (
-            .clk_i(clk_i),          // signal for counting
-            .mod_i(mod_i),      // mode
+            .clk_up_i(clk_up_i),          // counting up
+            .clk_down_i(clk_down_i),      // counting down
             .rst_i(~rst_i),
             .counter_val_o(cnt_val)
       );
 
       // generate clock
       /* verilator lint_off STMTDLY */
-      always #1 clk_i = ~clk_i;   // 5ns for up counter
+      always #1 clk_up_i = ~clk_up_i;   // 5ns for up counter
       /* verilator lint_on STMTDLY */
 
       initial begin
@@ -40,7 +40,6 @@ module counter_tb;
             #20 rst_i = 1'b1;
             #20 rst_i = 1'b0;
             #20 rst_i = 1'b1;
-            #250 mod_i = 0;
             #300 $finish;
             /* verilator lint_on STMTDLY */
       end
