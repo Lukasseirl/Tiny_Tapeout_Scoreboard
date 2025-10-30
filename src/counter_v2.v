@@ -4,7 +4,7 @@
     The counter value is hold inbetween 0-99 because thats the displayable area.
 */
 
-module counter
+module counter_v2
 #(
     parameter BW = 7 // 7 Bit = 0-127 | optional parameter
 ) (
