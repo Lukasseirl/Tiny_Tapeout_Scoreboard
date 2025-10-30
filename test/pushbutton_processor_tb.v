@@ -19,6 +19,9 @@ module tb_pushbutton_processor;
     always #500000 clk_1khz = ~clk_1khz;
     
     initial begin
+        $dumpfile("pushbutton_processor_tb.vcd");
+        $dumpvars;
+        
         // Initialize signals
         clk_1khz = 0;
         pushbutton_i = 0;
@@ -40,6 +43,7 @@ module tb_pushbutton_processor;
         
         $display("Simulation finished at %t", $time);
         $finish;
+        
     end
     
     // Monitor signals
