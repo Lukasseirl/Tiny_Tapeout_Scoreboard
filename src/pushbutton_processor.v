@@ -42,8 +42,8 @@ always @(posedge clk_1khz) begin
     if (rst_i) begin
         pulse_counter_en <= 1'b0;
         pulse_counter <= 0;
-        count_up <= 1'b0;
-        count_down <= 1'b0;
+        count_up <= 1'b0;           // Explizit auf 0 setzen
+        count_down <= 1'b0;         // Explizit auf 0 setzen
     end else if (pulse_counter_en) begin
         if (pulse_counter < PULSE_WIDTH) begin
             pulse_counter <= pulse_counter + 1;
@@ -54,6 +54,10 @@ always @(posedge clk_1khz) begin
             count_up <= 1'b0;
             count_down <= 1'b0;
         end
+    end else begin
+        // WICHTIG: Sicherstellen dass Ausgänge 0 bleiben wenn kein Puls aktiv
+        count_up <= 1'b0;
+        count_down <= 1'b0;
     end
 end
 
@@ -118,7 +122,10 @@ always @(posedge clk_1khz) begin
                 end
             end
             
-            default: state <= IDLE;
+            default: begin
+                state <= IDLE;
+                counter <= 0;
+            end
         endcase
     end
 end
