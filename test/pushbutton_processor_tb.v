@@ -5,8 +5,8 @@ module tb_pushbutton_processor;
     reg clk_1khz;
     reg rst_i = 1'b1;
     reg pushbutton_i;
-    wire count_up;
-    wire count_down;
+    wire count_up = 1'b0;
+    wire count_down = 1'b0;;
     
     // Instantiate unit under test
     pushbutton_processor uut (
@@ -30,7 +30,7 @@ module tb_pushbutton_processor;
         pushbutton_i = 0;
 
         // initial reset
-        #20 rst_i = 1'b0;
+        #50 rst_i = 1'b0;
 
         /* verilator lint_off STMTDLY */
         // Test 1: Short press
