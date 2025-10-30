@@ -2,8 +2,8 @@
 `include "../src/pushbutton_processor.v"
 
 module tb_pushbutton_processor;
-    reg rst_i = 1'b1;
     reg clk_1khz;
+    reg rst_i = 1'b1;
     reg pushbutton_i;
     wire count_up;
     wire count_down;
@@ -11,6 +11,7 @@ module tb_pushbutton_processor;
     // Instantiate unit under test
     pushbutton_processor uut (
         .clk_1khz(clk_1khz),
+        .rst_i(rst_i),
         .pushbutton_i(pushbutton_i),
         .count_up(count_up),
         .count_down(count_down)
