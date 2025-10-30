@@ -1,3 +1,6 @@
+`timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
+`include "../src/bin_to_decimal.v"
+
 module tb_bin_to_decimal;
     reg clk_i;
     reg rst_i = 1'b1;
