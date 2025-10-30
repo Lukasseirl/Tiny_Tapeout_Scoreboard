@@ -36,7 +36,7 @@ module tb_pushbutton_processor;
         // Test 1: Short press
         #10000000;  // Wait 1ms
         pushbutton_i = 1;
-        #1000000 pushbutton_i = 0;
+        #1000000 pushbutton_i = 0;  // bouncing
         #2000000 pushbutton_i = 1;
         #2000000 pushbutton_i = 0;
         #1000000 pushbutton_i = 1;
@@ -52,6 +52,10 @@ module tb_pushbutton_processor;
         #30000000;  // Wait for debounce
         #2100000000; // Hold for 2.1s (>2s)
         pushbutton_i = 0;
+        #2000000 pushbutton_i = 1;  // bouncing
+        #2000000 pushbutton_i = 0;
+        #1000000 pushbutton_i = 1;
+        #2000000 pushbutton_i = 0;
         #50000000;
         /* verilator lint_on STMTDLY */
         $display("Simulation finished at %t", $time);
