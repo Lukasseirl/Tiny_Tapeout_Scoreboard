@@ -17,6 +17,9 @@ module tb_bin_to_decimal;
     always #5 clk_i = ~clk_i;
     
     initial begin
+        $dumpfile("bin_to_decimal_tb.vcd");
+        $dumpvars;
+        
         // Initialisierung
         clk_i = 0;
         rst_i = 1;
