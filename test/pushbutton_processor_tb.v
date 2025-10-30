@@ -20,12 +20,17 @@ module tb_pushbutton_processor;
     
     initial begin
         $dumpfile("pushbutton_processor_tb.vcd");
-        $dumpvars;
+        $dumpvars;          
+                       
         
         // Initialize signals
         clk_1khz = 0;
         pushbutton_i = 0;
-        
+
+        // initial reset
+        #20 rst_i = 1'b0;
+
+        /* verilator lint_off STMTDLY */
         // Test 1: Short press
         #10000000;  // Wait 1ms
         pushbutton_i = 1;
@@ -46,7 +51,7 @@ module tb_pushbutton_processor;
         #2100000000; // Hold for 2.1s (>2s)
         pushbutton_i = 0;
         #50000000;
-        
+        /* verilator lint_on STMTDLY */
         $display("Simulation finished at %t", $time);
         $finish;
         
