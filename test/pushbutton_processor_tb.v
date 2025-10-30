@@ -1,60 +1,73 @@
 `timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
 `include "../src/pushbutton_processor.v"
 
-module tb_pulse_check;
-    reg clk_1mhz;
+module tb_pushbutton_processor;
+    reg clk_1khz;
     reg pushbutton_i;
     wire count_up;
     wire count_down;
     
+    // Instantiate unit under test
     pushbutton_processor uut (
-        .clk_1mhz(clk_1mhz),
+        .clk_1khz(clk_1khz),
         .pushbutton_i(pushbutton_i),
         .count_up(count_up),
         .count_down(count_down)
     );
     
-    // 1MHz Clock
-    always #500 clk_1mhz = ~clk_1mhz;
+    // 1kHz Clock Generator (500,000ns high, 500,000ns low)
+    always #500000 clk_1khz = ~clk_1khz;
     
     initial begin
-        clk_1mhz = 0;
+        // Initialize signals
+        clk_1khz = 0;
         pushbutton_i = 0;
         
-        // Kurzer Druck testen
+        // Test 1: Short press
+        #1000000;  // Wait 1ms
+        pushbutton_i = 1;
+        #30000000; // Hold for 30ms (longer than debounce time)
+        pushbutton_i = 0;
+        #50000000; // Wait 50ms
+        
+        // Test 2: Long press (>2s)
         #1000000;
         pushbutton_i = 1;
-        #50000;  // 50ms gedrückt halten
+        #30000000;  // Wait for debounce
+        #2100000000; // Hold for 2.1s (>2s)
         pushbutton_i = 0;
+        #50000000;
         
-        // Warten und langen Druck testen
-        #1000000;
-        pushbutton_i = 1;
-        #2100000; // 2.1s gedrückt halten (>2s)
-        pushbutton_i = 0;
-        
-        #1000000;
+        $display("Simulation finished at %t", $time);
         $finish;
     end
     
-    // Puls-Länge überwachen
-    integer up_pulse_start, down_pulse_start;
+    // Monitor signals
+    initial begin
+        $monitor("Time: %t ms, Button: %b, Count_Up: %b, Count_Down: %b", 
+                 $time/1000000.0, pushbutton_i, count_up, count_down);
+    end
+    
+    // Pulse monitoring
+    time up_pulse_start, down_pulse_start;
     
     always @(posedge count_up) begin
         up_pulse_start = $time;
-        $display("Count Up Puls START bei %t", $time);
+        $display("Count Up pulse START at %t ms", $time/1000000.0);
     end
     
     always @(negedge count_up) begin
-        $display("Count Up Puls ENDE bei %t, Dauer: %t", $time, $time - up_pulse_start);
+        $display("Count Up pulse END at %t ms, Duration: %t ms", 
+                 $time/1000000.0, ($time - up_pulse_start)/1000000.0);
     end
     
     always @(posedge count_down) begin
         down_pulse_start = $time;
-        $display("Count Down Puls START bei %t", $time);
+        $display("Count Down pulse START at %t ms", $time/1000000.0);
     end
     
     always @(negedge count_down) begin
-        $display("Count Down Puls ENDE bei %t, Dauer: %t", $time, $time - down_pulse_start);
+        $display("Count Down pulse END at %t ms, Duration: %t ms", 
+                 $time/1000000.0, ($time - down_pulse_start)/1000000.0);
     end
 endmodule
