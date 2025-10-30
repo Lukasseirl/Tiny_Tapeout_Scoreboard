@@ -5,7 +5,7 @@
 */
 
 `timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
-`include "../src/counter_v2.v"
+`include "../src/counter.v"
 
 module counter_tb;
 
