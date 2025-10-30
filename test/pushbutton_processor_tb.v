@@ -30,8 +30,10 @@ module tb_pushbutton_processor;
         #10000000;  // Wait 1ms
         pushbutton_i = 1;
         #1000000 pushbutton_i = 0;
-        #20000000 pushbutton_i = 1;
-        #20000000 pushbutton_i = 0;
+        #2000000 pushbutton_i = 1;
+        #2000000 pushbutton_i = 0;
+        #1000000 pushbutton_i = 1;
+        #2000000 pushbutton_i = 0;
         pushbutton_i = 1;
         #30000000; // Hold for 30ms (longer than debounce time)
         pushbutton_i = 0;
