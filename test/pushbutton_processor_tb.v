@@ -1,3 +1,6 @@
+`timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
+`include "../src/pushbutton_processor.v"
+
 module tb_pulse_check;
     reg clk_1mhz;
     reg pushbutton_i;
