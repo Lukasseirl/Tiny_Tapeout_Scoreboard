@@ -45,33 +45,4 @@ module tb_pushbutton_processor;
         $finish;
         
     end
-    
-    // Monitor signals
-    initial begin
-        $monitor("Time: %t ms, Button: %b, Count_Up: %b, Count_Down: %b", 
-                 $time/1000000.0, pushbutton_i, count_up, count_down);
-    end
-    
-    // Pulse monitoring
-    time up_pulse_start, down_pulse_start;
-    
-    always @(posedge count_up) begin
-        up_pulse_start = $time;
-        $display("Count Up pulse START at %t ms", $time/1000000.0);
-    end
-    
-    always @(negedge count_up) begin
-        $display("Count Up pulse END at %t ms, Duration: %t ms", 
-                 $time/1000000.0, ($time - up_pulse_start)/1000000.0);
-    end
-    
-    always @(posedge count_down) begin
-        down_pulse_start = $time;
-        $display("Count Down pulse START at %t ms", $time/1000000.0);
-    end
-    
-    always @(negedge count_down) begin
-        $display("Count Down pulse END at %t ms, Duration: %t ms", 
-                 $time/1000000.0, ($time - down_pulse_start)/1000000.0);
-    end
 endmodule
