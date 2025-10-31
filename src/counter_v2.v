@@ -24,7 +24,7 @@ module counter_v2
             counter_val <= {BW{1'b0}}; // reset the counter value
         end else begin
           // heck lower limit
-          if (counter_val < 7'd99) begin
+          if (counter_val < 99) begin
             counter_val <= counter_val + 1; // increment
           end
             // otherwise stay at 99
@@ -37,7 +37,7 @@ module counter_v2
             counter_val <= {BW{1'b0}}; // reset the counter value
         end else begin
           // check lower limit
-          if (counter_val > 7'd0) begin
+          if (counter_val > 0) begin
             counter_val <= counter_val - 1; // decrement
           end
             // otherwise stay at 0
