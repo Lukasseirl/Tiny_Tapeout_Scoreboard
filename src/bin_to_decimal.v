@@ -7,15 +7,11 @@
 `ifndef __BIN_TO_DECIMAL__
 `define __BIN_TO_DECIMAL__
 
-module bin_to_decimal
-#(
-    parameter BW = 8   // Bit width of the input binary number
-)
-(
+module bin_to_decimal (
     // define I/O's of the module
     input  wire              clk_i,   // clock
     input  wire              rst_i,   // reset (active high)
-    input  wire [BW-1:0]     bin_i,   // binary input value
+    input  wire [7:0]     bin_i,   // binary input value
     output reg  [3:0]        tens_o,  // decimal tens output
     output reg  [3:0]        ones_o   // decimal ones output
 );
