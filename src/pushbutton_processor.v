@@ -13,7 +13,7 @@ module pushbutton_processor (
 // Timing parameters for 1kHz clock
 parameter DEBOUNCE_TIME = 20;     // 20ms debounce time (20 ticks at 1kHz)
 parameter LONG_PRESS_TIME = 1500; // 1.5s long press detection (1500 ticks at 1kHz)
-parameter PULSE_WIDTH = 1;        // 1ms output pulse width (1 tick at 1kHz)
+parameter PULSE_WIDTH = 10;        // 1ms output pulse width (1 tick at 1kHz)
 
 // State machine definitions
 reg [1:0] state;
