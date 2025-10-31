@@ -26,27 +26,27 @@ module tb_bin_to_decimal;
         // Initialisierung
         clk_i = 0;
         rst_i = 1;
-        bin_i = 8'd0;
+        bin_i = 7'd0;
         
         // Reset Phase
         #20 rst_i = 0;
         
         // Testfälle
-        bin_i = 8'd0;   #10; // Sollte 0 und 0 ausgeben
-        bin_i = 8'd5;   #10; // Sollte 0 und 5 ausgeben
-        bin_i = 8'd15;  #10; // Sollte 1 und 5 ausgeben
-        bin_i = 8'd42;  #10; // Sollte 4 und 2 ausgeben
+        bin_i = 7'd0;   #10; // Sollte 0 und 0 ausgeben
+        bin_i = 7'd5;   #10; // Sollte 0 und 5 ausgeben
+        bin_i = 7'd15;  #10; // Sollte 1 und 5 ausgeben
+        bin_i = 7'd42;  #10; // Sollte 4 und 2 ausgeben
   
         // Reset testen
         rst_i = 1;
         #10;
-        bin_i = 8'd99;  // Sollte ignoriert werden wegen Reset
+        bin_i = 7'd99;  // Sollte ignoriert werden wegen Reset
         #10;
         rst_i = 0;
         
         // Weitere Tests nach Reset
-        bin_i = 8'd73;  #10; // Sollte 7 und 3 ausgeben
-        bin_i = 8'd99;  #10; // Sollte 9 und 9 ausgeben
+        bin_i = 7'd73;  #10; // Sollte 7 und 3 ausgeben
+        bin_i = 7'd99;  #10; // Sollte 9 und 9 ausgeben
         
         #10;
         $finish;
