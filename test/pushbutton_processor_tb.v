@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns // 'timescale <time_unit> / <time_precision>
+`timescale 1ms / 1ms // 'timescale <time_unit> / <time_precision>
 `include "../src/pushbutton_processor.v"
 
 module tb_pushbutton_processor;
@@ -18,7 +18,7 @@ module tb_pushbutton_processor;
     );
     
     // 1kHz Clock Generator (500,000ns high, 500,000ns low)
-    always #500000 clk_1khz = ~clk_1khz;
+    always #0.5 clk_1khz = ~clk_1khz;
     
     initial begin
         $dumpfile("pushbutton_processor_tb.vcd");
@@ -30,35 +30,35 @@ module tb_pushbutton_processor;
         pushbutton_i = 0;
 
         // initial reset
-        #50 rst_i = 1'b0;
-        #50 rst_i = 1'b1;
-        #50 rst_i = 1'b0;
+        #5 rst_i = 1'b0;
+        #5 rst_i = 1'b1;
+        #5 rst_i = 1'b0;
 
         /* verilator lint_off STMTDLY */
         // Test 1: Short press
-        #10000000;  // Wait 1ms
+        #1;  // Wait 1ms
         pushbutton_i = 1;
-        #1000000 pushbutton_i = 0;  // bouncing
-        #2000000 pushbutton_i = 1;
-        #2000000 pushbutton_i = 0;
-        #1000000 pushbutton_i = 1;
-        #2000000 pushbutton_i = 0;
+        #1 pushbutton_i = 0;  // bouncing
+        #2 pushbutton_i = 1;
+        #2 pushbutton_i = 0;
+        #1 pushbutton_i = 1;
+        #2 pushbutton_i = 0;
         pushbutton_i = 1;
-        #30000000; // Hold for 30ms (longer than debounce time)
+        #30; // Hold for 30ms (longer than debounce time)
         pushbutton_i = 0;
-        #50000000; // Wait 50ms
+        #50; // Wait 50ms
         
         // Test 2: Long press (>2s)
-        #1000000;
+        #1;
         pushbutton_i = 1;
-        #30000000;  // Wait for debounce
-        #2100000000; // Hold for 2.1s (>2s)
+        #30;  // Wait for debounce
+        #2100; // Hold for 2.1s (>2s)
         pushbutton_i = 0;
-        #2000000 pushbutton_i = 1;  // bouncing
-        #2000000 pushbutton_i = 0;
-        #1000000 pushbutton_i = 1;
-        #2000000 pushbutton_i = 0;
-        #50000000;
+        #2 pushbutton_i = 1;  // bouncing
+        #2 pushbutton_i = 0;
+        #1 pushbutton_i = 1;
+        #2 pushbutton_i = 0;
+        #50;
         /* verilator lint_on STMTDLY */
         $display("Simulation finished at %t", $time);
         $finish;
