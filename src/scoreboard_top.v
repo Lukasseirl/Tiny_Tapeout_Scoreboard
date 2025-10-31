@@ -27,7 +27,7 @@ module scoreboard_top
 
     wire count_up_w;          // short press pulse
     wire count_down_w;        // long press pulse
-    wire [7:0] counter_val_w; // 8-bit counter value
+    wire [6:0] counter_val_w; // 7-bit counter value
     wire [3:0] tens_w;        // tens digit
     wire [3:0] ones_w;        // ones digit
 
@@ -46,7 +46,7 @@ module scoreboard_top
     // Counter
     //--------------------------------------------------------------------------
     counter_v2 #(
-        .BW(8)    // 8-bit counter (0–255)
+        .BW(7)    // 7-bit counter (0–127 for score of 00-99)
     ) counter_inst (
         .clk_up_i     (count_up_w),
         .clk_down_i   (count_down_w),
