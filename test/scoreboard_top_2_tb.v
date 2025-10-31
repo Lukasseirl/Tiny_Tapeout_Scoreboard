@@ -48,10 +48,14 @@ module top_level_tb;
             // initial reset
             #2 rst_i = 1'b0; // 2 ms reset phase
 
+            // Simulate long press (≈1.6 s real time )
+            pushbutton_press_long();
+            #500
+            
             // Simulate short presses 
-            repeat (3) begin
+            repeat (10) begin
                   pushbutton_press_short();
-                  #5; // wait 5 ms between presses
+                  #500; // wait .5 s between presses
             end
 
         // Simulate long press (≈1.6 s real time )
