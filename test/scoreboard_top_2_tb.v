@@ -42,7 +42,7 @@ module top_level_tb;
       // Test sequence
       //----------------------------------------------------------------------
       initial begin
-            $dumpfile("scoreboard_top_tb.vcd");
+            $dumpfile("scoreboard_top_2_tb.vcd");
             $dumpvars;
 
             // initial reset
