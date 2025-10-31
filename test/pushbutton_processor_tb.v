@@ -1,4 +1,4 @@
-`timescale 1ms / 1ns // 'timescale <time_unit> / <time_precision>
+`timescale 1ms // 'timescale <time_unit> / <time_precision>
 `include "../src/pushbutton_processor.v"
 
 module tb_pushbutton_processor;
