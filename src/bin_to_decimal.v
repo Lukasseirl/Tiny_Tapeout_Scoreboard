@@ -11,7 +11,7 @@ module bin_to_decimal (
     // define I/O's of the module
     input  wire              clk_i,   // clock
     input  wire              rst_i,   // reset (active high)
-    input  wire [6:0]     bin_i,   // binary input value
+    input  wire [7:0]     bin_i,   // binary input value
     output reg  [3:0]        tens_o,  // decimal tens output
     output reg  [3:0]        ones_o   // decimal ones output
 );
