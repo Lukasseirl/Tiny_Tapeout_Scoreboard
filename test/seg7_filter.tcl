@@ -1,17 +1,35 @@
 proc transform {value} {
+    # Common Cathode 7-Segment Mapping
     array set seg7_map {
-        0x3F 0
-        0x06 1
-        0x5B 2
-        0x4F 3
-        0x66 4
-        0x6D 5
-        0x7D 6
-        0x07 7
+        0x7E 0
+        0x30 1
+        0x6D 2
+        0x79 3
+        0x33 4
+        0x5B 5
+        0x5F 6
+        0x70 7
         0x7F 8
-        0x6F 9
+        0x7B 9
+        0x77 A
+        0x1F B
+        0x4E C
+        0x3D D
+        0x4F E
+        0x47 F
+        0x00 " "
+        0x02 "-"
+        0x80 "."
     }
     
+    # Wert normalisieren (falls nötig)
+    if {[string length $value] == 1} {
+        set value "0x0$value"
+    } elseif {![string match "0x*" $value]} {
+        set value "0x$value"
+    }
+    
+    # Übersetzung
     if {[info exists seg7_map($value)]} {
         return $seg7_map($value)
     } else {
