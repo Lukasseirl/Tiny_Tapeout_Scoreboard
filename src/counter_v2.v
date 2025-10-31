@@ -9,6 +9,7 @@ module counter_v2
     parameter BW = 7 // 7 Bit = 0-127 | optional parameter
 ) (
     // define inputs and outputs of module
+    input    clk_i,         // general clock signal
     input    clk_up_i,      // signal for counting up
     input    clk_down_i,    // signal for counting down
     input    rst_i, 
@@ -18,28 +19,21 @@ module counter_v2
     // register to store the counter value
     reg [BW-1:0] counter_val;
 
-    // always block for counting up
-    always @(posedge clk_up_i) begin
+    // always block for counting up with general clock
+    always @(posedge clk_i) begin
         if (rst_i == 1'b1) begin
             counter_val <= {BW{1'b0}}; // reset the counter value
-        end else begin
-          // heck lower limit
-          if (counter_val < 99) begin
-            counter_val <= counter_val + 1; // increment
-          end
+        end else if (clk_up_i == 1'b1) begin
+            // check upper limit
+            if (counter_val < 99) begin
+                counter_val <= counter_val + 1; // increment
+            end
             // otherwise stay at 99
-        end
-    end
-
-     // always block for counting down
-    always @(posedge clk_down_i) begin
-        if (rst_i == 1'b1) begin
-            counter_val <= {BW{1'b0}}; // reset the counter value
-        end else begin
-          // check lower limit
-          if (counter_val > 0) begin
-            counter_val <= counter_val - 1; // decrement
-          end
+        end else if (clk_down_i == 1'b1) begin
+            // check lower limit
+            if (counter_val > 0) begin
+                counter_val <= counter_val - 1; // decrement
+            end
             // otherwise stay at 0
         end
     end
