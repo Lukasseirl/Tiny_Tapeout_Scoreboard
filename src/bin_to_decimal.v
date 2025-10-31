@@ -39,48 +39,41 @@ module bin_to_decimal (
         end else begin
             case (state)
                 IDLE: begin
-                    // Initialize registers
                     bin_reg <= bin_i;
                     bcd_reg <= 12'b0;
                     count   <= 4'b0;
-                    state   <= SHIFT;
-                end
-
-                SHIFT: begin
-                    // Shift left: bcd <- bcd & bin_reg[MSB]
-                    bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
-                    bin_reg <= {bin_reg[5:0], 1'b0};
                     state   <= ADD;
                 end
-
+            
                 ADD: begin
-                    // Add 3 to BCD digits if >= 5
+                    // Add 3 if >=5 before shifting
                     if (bcd_reg[3:0] >= 5)
                         bcd_reg[3:0] <= bcd_reg[3:0] + 3;
                     if (bcd_reg[7:4] >= 5)
                         bcd_reg[7:4] <= bcd_reg[7:4] + 3;
                     if (bcd_reg[11:8] >= 5)
                         bcd_reg[11:8] <= bcd_reg[11:8] + 3;
-
-                    // Check if done
-                    if (count == 4'd6) begin
+            
+                    state <= SHIFT;
+                end
+            
+                SHIFT: begin
+                    // Shift left
+                    bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
+                    bin_reg <= {bin_reg[5:0], 1'b0};
+            
+                    if (count == 4'd6)
                         state <= DONE;
-                    end else begin
+                    else begin
                         count <= count + 1;
-                        state <= SHIFT;
+                        state <= ADD;
                     end
                 end
-
+            
                 DONE: begin
-                    // Output the result WITHOUT final shift
-                    // After 7 iterations, the result is already in bcd_reg
                     tens_o <= bcd_reg[7:4];
                     ones_o <= bcd_reg[3:0];
                     state  <= IDLE;
-                end
-
-                default: begin
-                    state <= IDLE;
                 end
             endcase
         end
