@@ -4,7 +4,7 @@
       => Uses 1 kHz
 */
 
-`timescale 1ms / 1ms
+`timescale 1ms / 1us
 `include "../src/scoreboard_top.v"
 `include "../src/pushbutton_processor.v"
 `include "../src/counter_v2.v"
