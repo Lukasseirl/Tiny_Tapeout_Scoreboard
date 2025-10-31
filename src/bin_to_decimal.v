@@ -12,7 +12,8 @@ module bin_to_decimal (
     input  wire        rst_i,
     input  wire [6:0]  bin_i,
     output reg  [3:0]  tens_o,
-    output reg  [3:0]  ones_o
+    output reg  [3:0]  ones_o,
+    output reg         ready_o  // Signal when conversion is done
 );
 
     // State definitions
@@ -23,45 +24,56 @@ module bin_to_decimal (
 
     // Internal registers
     reg [1:0] state;
-    reg [2:0] count;
+    reg [3:0] count;      // Need 4 bits for 0-7
     reg [6:0] bin_reg;
-    reg [7:0] bcd_reg; // [7:4] = tens, [3:0] = ones
+    reg [11:0] bcd_reg;   // Need 12 bits for 3 BCD digits (8+4)
 
     always @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
             // Reset all registers
             state   <= IDLE;
-            count   <= 3'b0;
+            count   <= 4'b0;
             bin_reg <= 7'b0;
-            bcd_reg <= 8'b0;
+            bcd_reg <= 12'b0;
             tens_o  <= 4'b0;
             ones_o  <= 4'b0;
+            ready_o <= 1'b0;
         end else begin
+            ready_o <= 1'b0;  // Default not ready
+            
             case (state)
                 IDLE: begin
                     // Initialize registers
                     bin_reg <= bin_i;
-                    bcd_reg <= 8'b0;
-                    count   <= 3'b0;
+                    bcd_reg <= 12'b0;
+                    count   <= 4'b0;
                     state   <= SHIFT;
+                    ready_o <= 1'b0;
                 end
 
                 SHIFT: begin
                     // Shift left: bcd <- bcd & bin_reg[MSB]
-                    bcd_reg <= {bcd_reg[6:0], bin_reg[6]};
+                    bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
                     bin_reg <= {bin_reg[5:0], 1'b0};
                     state   <= ADD;
                 end
 
                 ADD: begin
                     // Add 3 to BCD digits if >= 5
-                    if (bcd_reg[3:0] > 4)
+                    // Check ones digit (bits 3:0)
+                    if (bcd_reg[3:0] >= 5)
                         bcd_reg[3:0] <= bcd_reg[3:0] + 3;
-                    if (bcd_reg[7:4] > 4)
+                    
+                    // Check tens digit (bits 7:4)  
+                    if (bcd_reg[7:4] >= 5)
                         bcd_reg[7:4] <= bcd_reg[7:4] + 3;
+                    
+                    // Check hundreds digit (bits 11:8) - for values 100-127
+                    if (bcd_reg[11:8] >= 5)
+                        bcd_reg[11:8] <= bcd_reg[11:8] + 3;
 
-                    // Check if done
-                    if (count == 3'd6) begin
+                    // Check if done (7 iterations for 7 bits)
+                    if (count == 4'd6) begin
                         state <= DONE;
                     end else begin
                         count <= count + 1;
@@ -70,10 +82,13 @@ module bin_to_decimal (
                 end
 
                 DONE: begin
-                    // Final shift and output
-                    bcd_reg <= {bcd_reg[6:0], bin_reg[6]};
+                    // Final shift
+                    bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
+                    
+                    // Extract tens and ones (ignore hundreds for 0-99)
                     tens_o  <= bcd_reg[7:4];
                     ones_o  <= bcd_reg[3:0];
+                    ready_o <= 1'b1;
                     state   <= IDLE;
                 end
 
