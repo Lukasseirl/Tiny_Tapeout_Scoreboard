@@ -11,8 +11,8 @@ always @(posedge clk_i or posedge rst_i) begin
         zehner <= 4'b0;
         einer <= 4'b0;
     end else begin
-        zehner <= bin_input / 8'd10;
-        einer <= bin_input % 8'd10;
+        zehner <= 4'(bin_input / 8'd10);
+        einer <= 4'(bin_input % 8'd10);
     end
 end
 
