@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Your Name
+ * Copyright (c) 2025 Lukas Seirlehner
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -16,12 +16,27 @@ module tt_um_Lukasseirl (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  // Wire definitions
+  wire [6:0] seg_tens;
+  wire [6:0] seg_ones;
+  
+  // Instantiate the scoreboard module
+  scoreboard_top scoreboard_inst (
+    .clk_1khz_i   (clk),           // Using main clock as 1kHz clock
+    .rst_i        (~rst_n),        // Convert active-low reset to active-high
+    .pushbutton_i (ui_in[0]),      // Using first UI input as pushbutton
+    .seg_tens_o   (seg_tens),      // Tens digit
+    .seg_ones_o   (seg_ones)       // Ones digit
+  );
+
+  // Assign outputs - tens digit to uo_out, ones digit to uio_out
+  assign uo_out = {1'b0, seg_tens};  // Pad with 0 to make 8 bits
+  assign uio_out = {1'b0, seg_ones}; // Pad with 0 to make 8 bits
+  
+  // Set I/O enable: all uio pins as outputs
+  assign uio_oe = 8'b11111111;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{ena, ui_in[7:1], uio_in, 1'b0};
 
 endmodule
