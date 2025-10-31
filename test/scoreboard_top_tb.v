@@ -6,7 +6,7 @@
 */
 
 `timescale 1ns / 1ns
-`include "../src/top_level.v"
+`include "../src/scoreboard_top.v"
 `include "../src/pushbutton_processor.v"
 `include "../src/counter_v2.v"
 `include "../src/bin_to_decimal.v"
@@ -24,7 +24,7 @@ module top_level_tb;
       wire [6:0] seg_ones_o;
 
       // DUT
-      top_level top_dut (
+      scoreboard_top top_dut (
             .clk_1khz_i   (clk_1mhz_i),   // simulated 1 MHz clock (scaled)
             .rst_i        (rst_i),
             .pushbutton_i (pushbutton_i),
