@@ -8,15 +8,11 @@ module bin_to_decimal (
 
 always @(posedge clk_i or posedge rst_i) begin
     if (rst_i) begin
-        // Reset-Zustand
         zehner <= 4'b0;
         einer <= 4'b0;
     end else begin
-        // Berechne Zehnerstelle durch Division (explizit auf 4-bit kürzen)
-        zehner <= (bin_input / 8'd10)[3:0];
-        
-        // Berechne Einerstelle durch Modulo (explizit auf 4-bit kürzen)
-        einer <= (bin_input % 8'd10)[3:0];
+        zehner <= bin_input / 8'd10;
+        einer <= bin_input % 8'd10;
     end
 end
 
