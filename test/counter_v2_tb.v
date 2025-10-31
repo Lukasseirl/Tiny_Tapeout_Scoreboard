@@ -37,13 +37,13 @@ module counter_v2_tb;
       /* verilator lint_off STMTDLY */
       always #1 clk_i = ~clk_i;
 
-      always #1 begin
+      always #10 begin
         if (swi_up) begin
           clk_up_i = ~clk_up_i;
         end
       end
 
-      always #1 begin
+      always #10 begin
         if (swi_down) begin
           clk_down_i = ~clk_down_i;
         end
@@ -57,9 +57,9 @@ module counter_v2_tb;
             /* verilator lint_off STMTDLY */
             #20 rst_i = 1'b0;
 
-            #300 swi_down = 1'b1;
-            #20 swi_up = 1'b0;
-            #300 $finish;
+            #3000 swi_down = 1'b1;
+            #200 swi_up = 1'b0;
+            #3000 $finish;
             /* verilator lint_on STMTDLY */
       end
 endmodule // counter_tb
