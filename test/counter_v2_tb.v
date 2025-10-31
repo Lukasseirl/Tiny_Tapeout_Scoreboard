@@ -13,6 +13,7 @@ module counter_v2_tb;
       
       // inputs
       reg rst_i = 1'b1;
+      reg clk_i = 1'b0;
       reg clk_up_i = 1'b0;
       reg clk_down_i = 1'b0;
       wire [BW-1:0] cnt_val;
@@ -25,6 +26,7 @@ module counter_v2_tb;
       counter_v2 
             #(BW)
       counter_dut (
+            .clk_i(clk_i),
             .clk_up_i(clk_up_i),          // counting up
             .clk_down_i(clk_down_i),      // counting down
             .rst_i(rst_i),
@@ -33,6 +35,8 @@ module counter_v2_tb;
 
       // generate clock
       /* verilator lint_off STMTDLY */
+      always #1 clk_i = ~clk_i;
+
       always #1 begin
         if (swi_up) begin
           clk_up_i = ~clk_up_i;
