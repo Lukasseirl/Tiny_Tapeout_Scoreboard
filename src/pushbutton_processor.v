@@ -26,7 +26,7 @@ localparam LONG_PRESS = 2'b11;
 reg [10:0] counter;          // 11-bit counter for timing (max 2048 ticks)
 reg button_sync;             // Synchronized button signal
 reg pulse_counter_en;        // Pulse counter enable
-reg pulse_counter;           // Pulse width counter
+reg [3:0] pulse_counter;           // Pulse width counter
 
 // Button synchronization for metastability protection
 always @(posedge clk_1khz) begin
