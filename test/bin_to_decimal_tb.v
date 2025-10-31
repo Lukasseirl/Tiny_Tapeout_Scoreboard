@@ -4,7 +4,7 @@
 module tb_bin_to_decimal;
     reg clk_i;
     reg rst_i = 1'b1;
-    reg [7:0] bin_i;
+    reg [6:0] bin_i;
     wire [3:0] tens_o, ones_o;
     
     // Instanziere das Modul
