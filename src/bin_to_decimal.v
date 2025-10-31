@@ -1,3 +1,12 @@
+//------------------------------------------------------------------------------
+//  Binary to BCD (Tens and Ones) Converter using Double-Dabble
+//  Converts an 7-bit binary number into decimal tens and ones.
+//------------------------------------------------------------------------------
+
+`default_nettype none
+`ifndef __BIN_TO_DECIMAL__
+`define __BIN_TO_DECIMAL__
+
 module bin_to_decimal (
     input  wire        clk_i,
     input  wire        rst_i,
@@ -6,18 +15,21 @@ module bin_to_decimal (
     output reg  [3:0]  ones_o
 );
 
+    // State definitions
     localparam IDLE  = 2'b00;
     localparam SHIFT = 2'b01;
     localparam ADD   = 2'b10;
     localparam DONE  = 2'b11;
 
+    // Internal registers
     reg [1:0] state;
     reg [3:0] count;
     reg [6:0] bin_reg;
-    reg [11:0] bcd_reg;
+    reg [11:0] bcd_reg;   // 3 BCD digits (hundreds, tens, ones)
 
     always @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
+            // Reset all registers
             state   <= IDLE;
             count   <= 4'b0;
             bin_reg <= 7'b0;
@@ -27,6 +39,7 @@ module bin_to_decimal (
         end else begin
             case (state)
                 IDLE: begin
+                    // Initialize registers
                     bin_reg <= bin_i;
                     bcd_reg <= 12'b0;
                     count   <= 4'b0;
@@ -34,16 +47,22 @@ module bin_to_decimal (
                 end
 
                 SHIFT: begin
+                    // Shift left: bcd <- bcd & bin_reg[MSB]
                     bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
                     bin_reg <= {bin_reg[5:0], 1'b0};
                     state   <= ADD;
                 end
 
                 ADD: begin
-                    if (bcd_reg[3:0] >= 5) bcd_reg[3:0] <= bcd_reg[3:0] + 3;
-                    if (bcd_reg[7:4] >= 5) bcd_reg[7:4] <= bcd_reg[7:4] + 3;
-                    if (bcd_reg[11:8] >= 5) bcd_reg[11:8] <= bcd_reg[11:8] + 3;
+                    // Add 3 to BCD digits if >= 5
+                    if (bcd_reg[3:0] >= 5)
+                        bcd_reg[3:0] <= bcd_reg[3:0] + 3;
+                    if (bcd_reg[7:4] >= 5)
+                        bcd_reg[7:4] <= bcd_reg[7:4] + 3;
+                    if (bcd_reg[11:8] >= 5)
+                        bcd_reg[11:8] <= bcd_reg[11:8] + 3;
 
+                    // Check if done
                     if (count == 4'd6) begin
                         state <= DONE;
                     end else begin
@@ -53,18 +72,23 @@ module bin_to_decimal (
                 end
 
                 DONE: begin
-                    bcd_reg <= {bcd_reg[10:0], bin_reg[6]};
-                    tens_o  <= bcd_reg[7:4];
-                    ones_o  <= bcd_reg[3:0];
-                    state   <= IDLE;
+                    // Output the result WITHOUT final shift
+                    // After 7 iterations, the result is already in bcd_reg
+                    tens_o <= bcd_reg[7:4];
+                    ones_o <= bcd_reg[3:0];
+                    state  <= IDLE;
                 end
 
-                default: state <= IDLE;
+                default: begin
+                    state <= IDLE;
+                end
             endcase
         end
     end
 
 endmodule
+`endif
+`default_nettype wire
 
 
 /* Old version of double-dabble Code for 7 and 8 Bit Input
