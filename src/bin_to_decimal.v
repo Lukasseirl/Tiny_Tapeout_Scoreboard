@@ -27,7 +27,7 @@ module bin_to_decimal (
     reg [6:0] bin_reg;
     reg [11:0] bcd_reg;   // 3 BCD digits (hundreds, tens, ones)
 
-    always @(posedge clk_i or posedge rst_i) begin
+    always @(posedge clk_i) begin
         if (rst_i) begin
             // Reset all registers
             state   <= IDLE;
