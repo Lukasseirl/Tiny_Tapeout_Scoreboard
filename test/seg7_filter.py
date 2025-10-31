@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 def transform(value):
     # Common Cathode 7-Segment Mapping
@@ -38,3 +39,20 @@ def transform(value):
     except (ValueError, TypeError):
         return "?"
 
+def main():
+    fh_in = sys.stdin
+    fh_out = sys.stdout
+
+    while True:
+        # incoming values have newline
+        l = fh_in.readline().strip()
+        if not l:
+            return 0
+
+        # outgoing filtered values must have a newline
+        filtered_value = transform(l)
+        fh_out.write("%s\n" % filtered_value)
+        fh_out.flush()
+
+if __name__ == '__main__':
+    sys.exit(main())
