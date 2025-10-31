@@ -1,8 +1,46 @@
 //------------------------------------------------------------------------------
 //  Binary to BCD (Tens and Ones) Converter
-//  Converts an 8-bit binary number into decimal tens and ones.
+//  Converts an 7-bit binary number into decimal tens and ones.
 //------------------------------------------------------------------------------
 
+module bin_to_decimal (
+    input  wire              clk_i,
+    input  wire              rst_i,
+    input  wire [6:0]        bin_i,   // Jetzt 7 Bit statt 8
+    output reg  [3:0]        tens_o,
+    output reg  [3:0]        ones_o
+);
+
+    integer i;
+    reg [19:0] shift;
+
+    always @(posedge clk_i) begin
+        if (rst_i == 1'b1) begin
+            shift   <= {20{1'b0}};
+            tens_o  <= 4'd0;
+            ones_o  <= 4'd0;
+        end else begin
+            shift = 0;
+            shift[6:0] = bin_i;  // Anpassung: 7 Bit statt 8
+
+            // Double Dabble für 7 Bit (8 Iterationen sind immer noch korrekt)
+            for (i = 0; i < 8; i = i + 1) begin
+                if (shift[11:8] >= 5)
+                    shift[11:8] = shift[11:8] + 3;
+                if (shift[15:12] >= 5)
+                    shift[15:12] = shift[15:12] + 3;
+                shift = shift << 1;
+            end
+
+            tens_o <= shift[15:12];
+            ones_o <= shift[11:8];
+        end
+    end
+
+endmodule
+
+
+/* Old Code for 8 Bit Input
 `default_nettype none
 `ifndef __BIN_TO_DECIMAL__
 `define __BIN_TO_DECIMAL__
@@ -50,3 +88,4 @@ module bin_to_decimal (
 endmodule // bin2bcd
 `endif
 `default_nettype wire
+*/
