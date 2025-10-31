@@ -51,6 +51,7 @@ module scoreboard_top
         .clk_up_i     (count_up_w),
         .clk_down_i   (count_down_w),
         .rst_i        (rst_i),
+        .clk_i        (clk_1khz_i),
         .counter_val_o(counter_val_w)
     );
 
