@@ -32,21 +32,21 @@ module tb_bin_to_decimal;
         #20 rst_i = 0;
         
         // Testfälle
-        bin_i = 7'd0;   #150; // Sollte 0 und 0 ausgeben
-        bin_i = 7'd5;   #150; // Sollte 0 und 5 ausgeben
-        bin_i = 7'd15;  #150; // Sollte 1 und 5 ausgeben
-        bin_i = 7'd42;  #150; // Sollte 4 und 2 ausgeben
+        bin_i = 7'd0;   #1500; // Sollte 0 und 0 ausgeben
+        bin_i = 7'd5;   #1500; // Sollte 0 und 5 ausgeben
+        bin_i = 7'd15;  #1500; // Sollte 1 und 5 ausgeben
+        bin_i = 7'd42;  #1500; // Sollte 4 und 2 ausgeben
   
         // Reset testen
         rst_i = 1;
-        #150;
+        #1500;
         bin_i = 7'd99;  // Sollte ignoriert werden wegen Reset
-        #150;
+        #1500;
         rst_i = 0;
         
         // Weitere Tests nach Reset
-        bin_i = 7'd73;  #150; // Sollte 7 und 3 ausgeben
-        bin_i = 7'd99;  #150; // Sollte 9 und 9 ausgeben
+        bin_i = 7'd73;  #1500; // Sollte 7 und 3 ausgeben
+        bin_i = 7'd99;  #1500; // Sollte 9 und 9 ausgeben
         
         #10;
         $finish;
