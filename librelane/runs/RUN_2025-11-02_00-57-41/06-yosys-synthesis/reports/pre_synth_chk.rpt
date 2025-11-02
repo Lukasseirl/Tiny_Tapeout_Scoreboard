@@ -1,0 +1,30 @@
+
+24. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_Lukasseirl...
+Checking module $paramod\counter_v2\BW=s32'00000000000000000000000000000111...
+Checking module bin_to_decimal...
+Checking module dual_7_seg...
+Checking module scoreboard_top...
+Checking module pushbutton_processor...
+Warning: multiple conflicting drivers for pushbutton_processor.\count_up:
+    port Q[0] of cell $procdff$318 ($dff)
+    port Q[0] of cell $procdff$312 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\count_down:
+    port Q[0] of cell $procdff$319 ($dff)
+    port Q[0] of cell $procdff$313 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter_en:
+    port Q[0] of cell $procdff$320 ($dff)
+    port Q[0] of cell $procdff$316 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [3]:
+    port Q[3] of cell $procdff$321 ($dff)
+    port Q[3] of cell $procdff$317 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [2]:
+    port Q[2] of cell $procdff$321 ($dff)
+    port Q[2] of cell $procdff$317 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [1]:
+    port Q[1] of cell $procdff$321 ($dff)
+    port Q[1] of cell $procdff$317 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [0]:
+    port Q[0] of cell $procdff$321 ($dff)
+    port Q[0] of cell $procdff$317 ($dff)
+Found and reported 7 problems.

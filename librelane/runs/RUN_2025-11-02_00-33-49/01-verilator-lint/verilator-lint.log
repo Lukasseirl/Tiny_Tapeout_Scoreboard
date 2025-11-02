@@ -1,0 +1,11 @@
+%Error: Cannot find file containing module: '/foss/designs/Tiny_Tapeout_Scoreboard/src'
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.040 for more assistance.
+        ... This may be because there's no search path specified with -I<dir>.
+        ... Looked in:
+             /foss/designs/Tiny_Tapeout_Scoreboard/src
+             /foss/designs/Tiny_Tapeout_Scoreboard/src.v
+             /foss/designs/Tiny_Tapeout_Scoreboard/src.sv
+             obj_dir//foss/designs/Tiny_Tapeout_Scoreboard/src
+             obj_dir//foss/designs/Tiny_Tapeout_Scoreboard/src.v
+             obj_dir//foss/designs/Tiny_Tapeout_Scoreboard/src.sv
+%Error: Exiting due to 1 error(s)

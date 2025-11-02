@@ -1,0 +1,13 @@
+%Error-MODMISSING: /foss/designs/Tiny_Tapeout_Scoreboard/src/project.v:24:3: Cannot find file containing module: 'scoreboard_top'
+   24 |   scoreboard_top scoreboard_inst (
+      |   ^~~~~~~~~~~~~~
+                   ... For error description see https://verilator.org/warn/MODMISSING?v=5.040
+                   ... This may be because there's no search path specified with -I<dir>.
+                   ... Looked in:
+                        scoreboard_top
+                        scoreboard_top.v
+                        scoreboard_top.sv
+                        obj_dir/scoreboard_top
+                        obj_dir/scoreboard_top.v
+                        obj_dir/scoreboard_top.sv
+%Error: Exiting due to 1 error(s)
