@@ -33,6 +33,9 @@ module tb_display_controller;
     
     // Test sequence
     initial begin
+        $dumpfile("display_controller_tb.vcd");
+        $dumpvars;
+        
         // Initialize signals
         clk_1khz = 0;
         rst_i = 1;
