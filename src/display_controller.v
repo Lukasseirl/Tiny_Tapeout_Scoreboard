@@ -131,3 +131,5 @@ module display_controller (
     end
 
 endmodule
+`endif
+`default_nettype wire
