@@ -1,5 +1,5 @@
 
-
+'''
 #!/usr/bin/env bash
 
 # =====================================================
@@ -60,4 +60,4 @@ librelane --manual-pdk config.json
 
 # Open Layout in OpenROAD GUI
 librelane --manual-pdk config.json --last-run --flow OpenInOpenROAD
-'''
+
