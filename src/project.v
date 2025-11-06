@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2025 Lukas Seirlehner
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -22,11 +22,12 @@ module tt_um_Lukasseirl (
   
   // Instantiate the scoreboard module
   scoreboard_top scoreboard_inst (
-    .clk_1khz_i   (clk),           // Using main clock as 1kHz clock
-    .rst_i        (~rst_n),        // Convert active-low reset to active-high
-    .pushbutton_i (ui_in[0]),      // Using first UI input as pushbutton
-    .seg_tens_o   (seg_tens),      // Tens digit
-    .seg_ones_o   (seg_ones)       // Ones digit
+    .clk_1khz_i     (clk),           // Using main clock as 1kHz clock
+    .rst_i          (~rst_n),        // Convert active-low reset to active-high
+    .pushbutton_p1_i(ui_in[0]),      // Spieler 1 Pushbutton
+    .pushbutton_p2_i(ui_in[1]),      // Spieler 2 Pushbutton (neuer Input)
+    .seg_tens_o     (seg_tens),      // Tens digit
+    .seg_ones_o     (seg_ones)       // Ones digit
   );
 
   // Assign outputs - tens digit to uo_out, ones digit to uio_out
@@ -37,6 +38,6 @@ module tt_um_Lukasseirl (
   assign uio_oe = 8'b11111111;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, ui_in[7:1], uio_in, 1'b0};
+  wire _unused = &{ena, ui_in[7:2], uio_in, 1'b0};
 
 endmodule
