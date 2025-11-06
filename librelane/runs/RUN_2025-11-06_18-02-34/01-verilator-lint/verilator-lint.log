@@ -1,0 +1,13 @@
+%Warning-UNUSEDSIGNAL: /foss/designs/Tiny_Tapeout_Scoreboard/src/bin_to_decimal.v:12:16: Bits of signal are not used: 'tens_full'[6:4]
+                                                                                       : ... note: In instance 'tt_um_Lukasseirl.scoreboard_inst.bin2dec_inst'
+   12 |     wire [6:0] tens_full     = (bin_i / 7'd10) % 7'd10;
+      |                ^~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.040
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: /foss/designs/Tiny_Tapeout_Scoreboard/src/bin_to_decimal.v:13:16: Bits of signal are not used: 'ones_full'[6:4]
+                                                                                       : ... note: In instance 'tt_um_Lukasseirl.scoreboard_inst.bin2dec_inst'
+   13 |     wire [6:0] ones_full     = bin_i % 7'd10;
+      |                ^~~~~~~~~
+- V e r i l a t i o n   R e p o r t: Verilator 5.040 2025-08-30 rev v5.040
+- Verilator: Built from 1.386 MB sources in 453 modules, into 0.028 MB in 5 C++ files needing 0.000 MB
+- Verilator: Walltime 0.053 s (elab=0.006, cvt=0.003, bld=0.000); cpu 0.053 s on 1 threads; alloced 38.691 MB

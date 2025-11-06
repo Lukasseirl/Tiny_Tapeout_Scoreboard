@@ -1,0 +1,8 @@
+%Error-PINNOTFOUND: /foss/designs/Tiny_Tapeout_Scoreboard/src/scoreboard_top.v:62:10: Pin not found: 'clk_i'
+   62 |         .clk_i  (clk_1khz_i),
+      |          ^~~~~
+                    ... For error description see https://verilator.org/warn/PINNOTFOUND?v=5.040
+%Error-PINNOTFOUND: /foss/designs/Tiny_Tapeout_Scoreboard/src/scoreboard_top.v:63:10: Pin not found: 'rst_i'
+   63 |         .rst_i  (rst_i),
+      |          ^~~~~
+%Error: Exiting due to 2 error(s)

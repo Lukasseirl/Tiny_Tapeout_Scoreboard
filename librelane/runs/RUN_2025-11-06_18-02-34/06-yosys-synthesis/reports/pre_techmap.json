@@ -1,0 +1,39 @@
+{
+   "creator": "Yosys 0.57 (git sha1 3aca86049, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib ",
+   "modules": {
+      "\\tt_um_Lukasseirl": {
+         "num_wires":         8,
+         "num_wire_bits":     43,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_SDFF_PN0_": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         8,
+         "num_wire_bits":     43,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_SDFF_PN0_": 1
+         }
+      }
+}
+

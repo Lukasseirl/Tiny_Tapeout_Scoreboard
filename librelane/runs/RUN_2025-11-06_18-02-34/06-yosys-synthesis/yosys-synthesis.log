@@ -1,0 +1,1293 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.57 (git sha1 3aca86049, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)
+
+1. Executing Liberty frontend: /foss/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+[INFO] Using SDC file '/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/synthesis.abc.sdc' for ABC…
+
+2. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/project.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/project.v' to AST representation.
+Storing AST representation for module `$abstract\tt_um_Lukasseirl'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/scoreboard_top.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/scoreboard_top.v' to AST representation.
+Storing AST representation for module `$abstract\scoreboard_top'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/bin_to_decimal.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/bin_to_decimal.v' to AST representation.
+Storing AST representation for module `$abstract\bin_to_decimal'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v' to AST representation.
+Storing AST representation for module `$abstract\counter_v2'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v' to AST representation.
+Storing AST representation for module `$abstract\dual_7_seg'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: /foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v
+Parsing SystemVerilog input from `/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v' to AST representation.
+Storing AST representation for module `$abstract\pushbutton_processor'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+9. Executing AST frontend in derive mode using pre-parsed AST for module `\tt_um_Lukasseirl'.
+Generating RTLIL representation for module `\tt_um_Lukasseirl'.
+
+9.1. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+
+9.2. Executing AST frontend in derive mode using pre-parsed AST for module `\scoreboard_top'.
+Generating RTLIL representation for module `\scoreboard_top'.
+
+9.3. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Used module:     \scoreboard_top
+
+9.4. Executing AST frontend in derive mode using pre-parsed AST for module `\dual_7_seg'.
+Generating RTLIL representation for module `\dual_7_seg'.
+
+9.5. Executing AST frontend in derive mode using pre-parsed AST for module `\bin_to_decimal'.
+Generating RTLIL representation for module `\bin_to_decimal'.
+Parameter \BW = 7
+
+9.6. Executing AST frontend in derive mode using pre-parsed AST for module `\counter_v2'.
+Parameter \BW = 7
+Generating RTLIL representation for module `$paramod\counter_v2\BW=s32'00000000000000000000000000000111'.
+
+9.7. Executing AST frontend in derive mode using pre-parsed AST for module `\pushbutton_processor'.
+Generating RTLIL representation for module `\pushbutton_processor'.
+
+9.8. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Used module:     \scoreboard_top
+Used module:         \dual_7_seg
+Used module:         \bin_to_decimal
+Used module:         $paramod\counter_v2\BW=s32'00000000000000000000000000000111
+Used module:         \pushbutton_processor
+
+9.9. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Used module:     \scoreboard_top
+Used module:         \dual_7_seg
+Used module:         \bin_to_decimal
+Used module:         $paramod\counter_v2\BW=s32'00000000000000000000000000000111
+Used module:         \pushbutton_processor
+Removing unused module `$abstract\pushbutton_processor'.
+Removing unused module `$abstract\dual_7_seg'.
+Removing unused module `$abstract\counter_v2'.
+Removing unused module `$abstract\bin_to_decimal'.
+Removing unused module `$abstract\scoreboard_top'.
+Removing unused module `$abstract\tt_um_Lukasseirl'.
+Removed 6 unused modules.
+Renaming module tt_um_Lukasseirl to tt_um_Lukasseirl.
+
+10. Generating Graphviz representation of design.
+Writing dot description to `/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/hierarchy.dot'.
+Dumping module tt_um_Lukasseirl to page 1.
+
+11. Executing TRIBUF pass.
+
+12. Executing HIERARCHY pass (managing design hierarchy).
+
+12.1. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Used module:     \scoreboard_top
+Used module:         \dual_7_seg
+Used module:         \bin_to_decimal
+Used module:         $paramod\counter_v2\BW=s32'00000000000000000000000000000111
+Used module:         \pushbutton_processor
+
+12.2. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Used module:     \scoreboard_top
+Used module:         \dual_7_seg
+Used module:         \bin_to_decimal
+Used module:         $paramod\counter_v2\BW=s32'00000000000000000000000000000111
+Used module:         \pushbutton_processor
+Removed 0 unused modules.
+
+13. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+14. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24 in module $paramod\counter_v2\BW=s32'00000000000000000000000000000111.
+Marked 3 switch rules as full_case in process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5 in module dual_7_seg.
+Removed 1 dead cases from process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34 in module pushbutton_processor.
+Marked 6 switch rules as full_case in process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34 in module pushbutton_processor.
+Marked 2 switch rules as full_case in process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31 in module pushbutton_processor.
+Marked 1 switch rules as full_case in process $proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:32$30 in module pushbutton_processor.
+Removed a total of 1 dead cases.
+
+15. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 5 redundant assignments.
+Promoted 4 assignments to connections.
+
+16. Executing PROC_INIT pass (extract init attributes).
+
+17. Executing PROC_ARST pass (detect async resets in processes).
+
+18. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 2 switches.
+<suppressed ~18 debug messages>
+
+19. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+     1/3: $0\clk_down_i_prev[0:0]
+     2/3: $0\clk_up_i_prev[0:0]
+     3/3: $0\counter_val[6:0]
+Creating decoders for process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+     1/8: $2\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.$result[6:0]$16
+     2/8: $2\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.$result[6:0]$15
+     3/8: $0\seg_ones_o[6:0]
+     4/8: $0\seg_tens_o[6:0]
+     5/8: $1\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.bcd[3:0]$14
+     6/8: $1\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.$result[6:0]$13
+     7/8: $1\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.bcd[3:0]$12
+     8/8: $1\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.$result[6:0]$11
+Creating decoders for process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+     1/6: $1\pulse_counter[3:0]
+     2/6: $1\pulse_counter_en[0:0]
+     3/6: $0\counter[10:0]
+     4/6: $0\state[1:0]
+     5/6: $1\count_down[0:0]
+     6/6: $1\count_up[0:0]
+Creating decoders for process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+     1/4: $0\pulse_counter[3:0]
+     2/4: $0\pulse_counter_en[0:0]
+     3/4: $0\count_down[0:0]
+     4/4: $0\count_up[0:0]
+Creating decoders for process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:32$30'.
+     1/1: $0\button_sync[0:0]
+
+20. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+21. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.\counter_val' using process `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+  created $dff cell `$procdff$223' with positive edge clock.
+Creating register for signal `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.\clk_up_i_prev' using process `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+  created $dff cell `$procdff$224' with positive edge clock.
+Creating register for signal `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.\clk_down_i_prev' using process `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+  created $dff cell `$procdff$225' with positive edge clock.
+Creating register for signal `\dual_7_seg.\seg_tens_o' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$226' with positive edge clock.
+Creating register for signal `\dual_7_seg.\seg_ones_o' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$227' with positive edge clock.
+Creating register for signal `\dual_7_seg.\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.$result' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$228' with positive edge clock.
+Creating register for signal `\dual_7_seg.\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.bcd' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$229' with positive edge clock.
+Creating register for signal `\dual_7_seg.\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.$result' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$230' with positive edge clock.
+Creating register for signal `\dual_7_seg.\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.bcd' using process `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+  created $dff cell `$procdff$231' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\count_up' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$232' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\count_down' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$233' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\state' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$234' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\counter' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$235' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\pulse_counter_en' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$236' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\pulse_counter' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+  created $dff cell `$procdff$237' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\count_up' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+  created $dff cell `$procdff$238' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\count_down' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+  created $dff cell `$procdff$239' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\pulse_counter_en' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+  created $dff cell `$procdff$240' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\pulse_counter' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+  created $dff cell `$procdff$241' with positive edge clock.
+Creating register for signal `\pushbutton_processor.\button_sync' using process `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:32$30'.
+  created $dff cell `$procdff$242' with positive edge clock.
+
+22. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+23. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 5 empty switches in `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+Removing empty process `$paramod\counter_v2\BW=s32'00000000000000000000000000000111.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/counter_v2.v:35$24'.
+Found and cleaned up 3 empty switches in `\dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+Removing empty process `dual_7_seg.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:46$5'.
+Found and cleaned up 8 empty switches in `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+Removing empty process `pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:62$34'.
+Found and cleaned up 3 empty switches in `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+Removing empty process `pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:41$31'.
+Found and cleaned up 1 empty switch in `\pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:32$30'.
+Removing empty process `pushbutton_processor.$proc$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:32$30'.
+Cleaned up 20 empty switches.
+
+24. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_Lukasseirl...
+Checking module $paramod\counter_v2\BW=s32'00000000000000000000000000000111...
+Checking module bin_to_decimal...
+Checking module dual_7_seg...
+Checking module scoreboard_top...
+Checking module pushbutton_processor...
+Warning: multiple conflicting drivers for pushbutton_processor.\count_up:
+    port Q[0] of cell $procdff$238 ($dff)
+    port Q[0] of cell $procdff$232 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\count_down:
+    port Q[0] of cell $procdff$239 ($dff)
+    port Q[0] of cell $procdff$233 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter_en:
+    port Q[0] of cell $procdff$240 ($dff)
+    port Q[0] of cell $procdff$236 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [3]:
+    port Q[3] of cell $procdff$241 ($dff)
+    port Q[3] of cell $procdff$237 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [2]:
+    port Q[2] of cell $procdff$241 ($dff)
+    port Q[2] of cell $procdff$237 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [1]:
+    port Q[1] of cell $procdff$241 ($dff)
+    port Q[1] of cell $procdff$237 ($dff)
+Warning: multiple conflicting drivers for pushbutton_processor.\pulse_counter [0]:
+    port Q[0] of cell $procdff$241 ($dff)
+    port Q[0] of cell $procdff$237 ($dff)
+Found and reported 7 problems.
+
+25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\counter_v2\BW=s32'00000000000000000000000000000111.
+<suppressed ~1 debug messages>
+Optimizing module bin_to_decimal.
+Optimizing module dual_7_seg.
+<suppressed ~1 debug messages>
+Optimizing module scoreboard_top.
+Optimizing module pushbutton_processor.
+<suppressed ~6 debug messages>
+
+26. Executing FLATTEN pass (flatten design).
+Deleting now unused module $paramod\counter_v2\BW=s32'00000000000000000000000000000111.
+Deleting now unused module bin_to_decimal.
+Deleting now unused module dual_7_seg.
+Deleting now unused module scoreboard_top.
+Deleting now unused module pushbutton_processor.
+<suppressed ~5 debug messages>
+
+27. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~22 debug messages>
+
+28. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 10 unused cells and 95 unused wires.
+<suppressed ~13 debug messages>
+
+29. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+30. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~45 debug messages>
+Removed a total of 15 cells.
+
+31. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $flatten\scoreboard_inst.\pb_proc_inst.$procmux$199: \scoreboard_inst.pb_proc_inst.pulse_counter_en -> 1'0
+      Replacing known input bits on port B of cell $flatten\scoreboard_inst.\pb_proc_inst.$procmux$197: \scoreboard_inst.pb_proc_inst.pulse_counter_en -> 1'1
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $flatten\scoreboard_inst.\display_inst.$procmux$68.
+    dead port 2/2 on $mux $flatten\scoreboard_inst.\display_inst.$procmux$72.
+Removed 2 multiplexer ports.
+<suppressed ~70 debug messages>
+
+32. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+    New ctrl vector for $pmux cell $flatten\scoreboard_inst.\pb_proc_inst.$procmux$163: { $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP $auto$opt_reduce.cc:137:opt_pmux$249 }
+    New ctrl vector for $pmux cell $flatten\scoreboard_inst.\pb_proc_inst.$procmux$177: { $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP $auto$opt_reduce.cc:137:opt_pmux$251 }
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 2 changes.
+
+33. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+34. Executing OPT_DFF pass (perform DFF optimizations).
+
+35. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 0 unused cells and 22 unused wires.
+<suppressed ~5 debug messages>
+
+36. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+37. Rerunning OPT passes. (Maybe there is more to do…)
+
+38. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~68 debug messages>
+
+39. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+40. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+41. Executing OPT_DFF pass (perform DFF optimizations).
+
+42. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+43. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+44. Executing FSM pass (extract and optimize FSM).
+
+44.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register tt_um_Lukasseirl.scoreboard_inst.pb_proc_inst.state.
+
+44.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\scoreboard_inst.pb_proc_inst.state' from module `\tt_um_Lukasseirl'.
+  found $dff cell for state register: $flatten\scoreboard_inst.\pb_proc_inst.$procdff$234
+  root of input selection tree: $flatten\scoreboard_inst.\pb_proc_inst.$0\state[1:0]
+  found reset state: 2'00 (guessed from mux tree)
+  found ctrl input: \rst_n
+  found state code: 2'00
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$119_CMP
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$133_CMP
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$135_CMP
+  found ctrl input: \scoreboard_inst.pb_proc_inst.button_sync
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:101$37_Y
+  found state code: 2'11
+  found ctrl input: $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:84$35_Y
+  found state code: 2'10
+  found state code: 2'01
+  found ctrl output: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP
+  found ctrl output: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$119_CMP
+  found ctrl output: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$133_CMP
+  found ctrl output: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$135_CMP
+  ctrl inputs: { $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:101$37_Y $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:84$35_Y \scoreboard_inst.pb_proc_inst.button_sync \rst_n }
+  ctrl outputs: { $flatten\scoreboard_inst.\pb_proc_inst.$procmux$135_CMP $flatten\scoreboard_inst.\pb_proc_inst.$procmux$133_CMP $flatten\scoreboard_inst.\pb_proc_inst.$procmux$119_CMP $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP $flatten\scoreboard_inst.\pb_proc_inst.$0\state[1:0] }
+  transition:       2'00 4'---0 ->       2'00 6'100000
+  transition:       2'00 4'--01 ->       2'00 6'100000
+  transition:       2'00 4'--11 ->       2'01 6'100001
+  transition:       2'10 4'---0 ->       2'00 6'000100
+  transition:       2'10 4'--01 ->       2'00 6'000100
+  transition:       2'10 4'0-11 ->       2'10 6'000110
+  transition:       2'10 4'1-11 ->       2'11 6'000111
+  transition:       2'01 4'---0 ->       2'00 6'010000
+  transition:       2'01 4'--01 ->       2'00 6'010000
+  transition:       2'01 4'-011 ->       2'01 6'010001
+  transition:       2'01 4'-111 ->       2'10 6'010010
+  transition:       2'11 4'---0 ->       2'00 6'001000
+  transition:       2'11 4'--01 ->       2'00 6'001000
+  transition:       2'11 4'--11 ->       2'11 6'001011
+
+44.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\scoreboard_inst.pb_proc_inst.state$252' from module `\tt_um_Lukasseirl'.
+
+44.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 13 unused cells and 13 unused wires.
+<suppressed ~14 debug messages>
+
+44.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\scoreboard_inst.pb_proc_inst.state$252' from module `\tt_um_Lukasseirl'.
+  Removing unused output signal $flatten\scoreboard_inst.\pb_proc_inst.$0\state[1:0] [0].
+  Removing unused output signal $flatten\scoreboard_inst.\pb_proc_inst.$0\state[1:0] [1].
+
+44.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\scoreboard_inst.pb_proc_inst.state$252' from module `\tt_um_Lukasseirl' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> ---1
+  10 -> --1-
+  01 -> -1--
+  11 -> 1---
+
+44.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\scoreboard_inst.pb_proc_inst.state$252' from module `tt_um_Lukasseirl':
+-------------------------------------
+
+  Information on FSM $fsm$\scoreboard_inst.pb_proc_inst.state$252 (\scoreboard_inst.pb_proc_inst.state):
+
+  Number of input signals:    4
+  Number of output signals:   4
+  Number of state bits:       4
+
+  Input signals:
+    0: \rst_n
+    1: \scoreboard_inst.pb_proc_inst.button_sync
+    2: $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:84$35_Y
+    3: $flatten\scoreboard_inst.\pb_proc_inst.$ge$/foss/designs/Tiny_Tapeout_Scoreboard/src/pushbutton_processor.v:101$37_Y
+
+  Output signals:
+    0: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$100_CMP
+    1: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$119_CMP
+    2: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$133_CMP
+    3: $flatten\scoreboard_inst.\pb_proc_inst.$procmux$135_CMP
+
+  State encoding:
+    0:     4'---1  <RESET STATE>
+    1:     4'--1-
+    2:     4'-1--
+    3:     4'1---
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 4'---0   ->     0 4'1000
+      1:     0 4'--01   ->     0 4'1000
+      2:     0 4'--11   ->     2 4'1000
+      3:     1 4'---0   ->     0 4'0001
+      4:     1 4'--01   ->     0 4'0001
+      5:     1 4'0-11   ->     1 4'0001
+      6:     1 4'1-11   ->     3 4'0001
+      7:     2 4'---0   ->     0 4'0100
+      8:     2 4'--01   ->     0 4'0100
+      9:     2 4'-111   ->     1 4'0100
+     10:     2 4'-011   ->     2 4'0100
+     11:     3 4'---0   ->     0 4'0010
+     12:     3 4'--01   ->     0 4'0010
+     13:     3 4'--11   ->     3 4'0010
+
+-------------------------------------
+
+44.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\scoreboard_inst.pb_proc_inst.state$252' from module `\tt_um_Lukasseirl'.
+
+45. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~1 debug messages>
+
+46. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+47. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~59 debug messages>
+
+48. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+49. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+50. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$242 ($dff) from module tt_um_Lukasseirl (D = \ui_in [0], Q = \scoreboard_inst.pb_proc_inst.button_sync, rval = 1'0).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$241 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$191_Y, Q = \scoreboard_inst.pb_proc_inst.pulse_counter, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:266:slice$295 ($sdff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$189_Y, Q = \scoreboard_inst.pb_proc_inst.pulse_counter).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$240 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$197_Y, Q = \scoreboard_inst.pb_proc_inst.pulse_counter_en, rval = 1'0).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$239 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$207_Y, Q = \scoreboard_inst.pb_proc_inst.count_down, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$300 ($sdff) from module tt_um_Lukasseirl (D = 1'0, Q = \scoreboard_inst.pb_proc_inst.count_down).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$238 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$215_Y, Q = \scoreboard_inst.pb_proc_inst.count_up, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$306 ($sdff) from module tt_um_Lukasseirl (D = 1'0, Q = \scoreboard_inst.pb_proc_inst.count_up).
+Adding EN signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$237 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$97_Y, Q = \scoreboard_inst.pb_proc_inst.pulse_counter).
+Adding SRST signal on $auto$ff.cc:266:slice$312 ($dffe) from module tt_um_Lukasseirl (D = 4'x, Q = \scoreboard_inst.pb_proc_inst.pulse_counter, rval = 4'0000).
+Adding EN signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$236 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$109_Y, Q = \scoreboard_inst.pb_proc_inst.pulse_counter_en).
+Adding SRST signal on $auto$ff.cc:266:slice$322 ($dffe) from module tt_um_Lukasseirl (D = 1'x, Q = \scoreboard_inst.pb_proc_inst.pulse_counter_en, rval = 1'1).
+Adding SRST signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$235 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$118_Y, Q = \scoreboard_inst.pb_proc_inst.counter, rval = 11'00000000000).
+Adding EN signal on $auto$ff.cc:266:slice$332 ($sdff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$118_Y, Q = \scoreboard_inst.pb_proc_inst.counter).
+Adding EN signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$233 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$163_Y, Q = \scoreboard_inst.pb_proc_inst.count_down).
+Adding EN signal on $flatten\scoreboard_inst.\pb_proc_inst.$procdff$232 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\pb_proc_inst.$procmux$177_Y, Q = \scoreboard_inst.pb_proc_inst.count_up).
+Adding SRST signal on $flatten\scoreboard_inst.\display_inst.$procdff$227 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\display_inst.$2\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:52$4.$result[6:0]$16, Q = \scoreboard_inst.display_inst.seg_ones_o, rval = 7'0000000).
+Adding SRST signal on $flatten\scoreboard_inst.\display_inst.$procdff$226 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\display_inst.$2\bcd_to_7seg$func$/foss/designs/Tiny_Tapeout_Scoreboard/src/dual_7_seg.v:51$3.$result[6:0]$15, Q = \scoreboard_inst.display_inst.seg_tens_o, rval = 7'0000000).
+Adding SRST signal on $flatten\scoreboard_inst.\counter_inst.$procdff$225 ($dff) from module tt_um_Lukasseirl (D = \scoreboard_inst.pb_proc_inst.count_down, Q = \scoreboard_inst.counter_inst.clk_down_i_prev, rval = 1'0).
+Adding SRST signal on $flatten\scoreboard_inst.\counter_inst.$procdff$224 ($dff) from module tt_um_Lukasseirl (D = \scoreboard_inst.pb_proc_inst.count_up, Q = \scoreboard_inst.counter_inst.clk_up_i_prev, rval = 1'0).
+Adding SRST signal on $flatten\scoreboard_inst.\counter_inst.$procdff$223 ($dff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\counter_inst.$procmux$61_Y, Q = \scoreboard_inst.counter_inst.counter_val, rval = 7'0000000).
+Adding EN signal on $auto$ff.cc:266:slice$350 ($sdff) from module tt_um_Lukasseirl (D = $flatten\scoreboard_inst.\counter_inst.$procmux$61_Y, Q = \scoreboard_inst.counter_inst.counter_val).
+Setting constant 1-bit at position 0 on $auto$ff.cc:266:slice$327 ($sdffce) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$317 ($sdffce) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 1 on $auto$ff.cc:266:slice$317 ($sdffce) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$317 ($sdffce) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$317 ($sdffce) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$307 ($sdffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$301 ($sdffe) from module tt_um_Lukasseirl.
+
+51. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Warning: Driver-driver conflict for \scoreboard_inst.pb_proc_inst.count_down between cell $auto$ff.cc:266:slice$344.Q and constant 1'0 in tt_um_Lukasseirl: Resolved using constant.
+Warning: Driver-driver conflict for \scoreboard_inst.pb_proc_inst.count_up between cell $auto$ff.cc:266:slice$345.Q and constant 1'0 in tt_um_Lukasseirl: Resolved using constant.
+Removed 88 unused cells and 89 unused wires.
+<suppressed ~92 debug messages>
+
+52. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~9 debug messages>
+
+53. Rerunning OPT passes. (Maybe there is more to do…)
+
+54. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $flatten\scoreboard_inst.\counter_inst.$procmux$54.
+    dead port 2/2 on $mux $flatten\scoreboard_inst.\counter_inst.$procmux$54.
+    dead port 1/2 on $mux $flatten\scoreboard_inst.\counter_inst.$procmux$59.
+    dead port 2/2 on $mux $flatten\scoreboard_inst.\counter_inst.$procmux$59.
+Removed 4 multiplexer ports.
+
+55. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+56. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+57. Executing OPT_DFF pass (perform DFF optimizations).
+Handling never-active EN on $auto$ff.cc:266:slice$351 ($sdffe) from module tt_um_Lukasseirl (connecting SRST instead).
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 1 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 4 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 5 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 6 on $auto$ff.cc:266:slice$351 ($dffe) from module tt_um_Lukasseirl.
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$348 ($sdff) from module tt_um_Lukasseirl.
+
+58. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 6 unused cells and 14 unused wires.
+<suppressed ~7 debug messages>
+
+59. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~3 debug messages>
+
+60. Rerunning OPT passes. (Maybe there is more to do…)
+
+61. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+62. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+63. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+64. Executing OPT_DFF pass (perform DFF optimizations).
+
+65. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+66. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+67. Rerunning OPT passes. (Maybe there is more to do…)
+
+68. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+69. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+70. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+71. Executing OPT_DFF pass (perform DFF optimizations).
+
+72. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+73. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+74. Executing WREDUCE pass (reducing word size of cells).
+Removed top 28 address bits (of 32) from memory init port tt_um_Lukasseirl.$flatten\scoreboard_inst.\display_inst.$auto$mem.cc:328:emit$43 ($flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41).
+Removed top 28 address bits (of 32) from memory init port tt_um_Lukasseirl.$flatten\scoreboard_inst.\display_inst.$auto$mem.cc:328:emit$47 ($flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$45).
+
+75. Executing PEEPOPT pass (run peephole optimizers).
+
+76. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+77. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module tt_um_Lukasseirl:
+  created 0 $alu and 0 $macc cells.
+
+78. Executing SHARE pass (SAT-based resource sharing).
+
+79. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+80. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+81. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+82. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+83. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+84. Executing OPT_DFF pass (perform DFF optimizations).
+
+85. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+86. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+87. Executing MEMORY pass.
+
+87.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+87.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+87.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+87.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+87.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41'[0] in module `\tt_um_Lukasseirl': merging output FF to cell.
+Checking read port `$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$45'[0] in module `\tt_um_Lukasseirl': merging output FF to cell.
+
+87.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 2 unused cells and 16 unused wires.
+<suppressed ~3 debug messages>
+
+87.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+87.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+87.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+87.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+88. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+89. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+90. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+91. Executing OPT_DFF pass (perform DFF optimizations).
+
+92. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+93. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory $flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41 in module \tt_um_Lukasseirl:
+  created 16 $dff cells and 0 static cells of width 7.
+Extracted data FF from read port 0 of tt_um_Lukasseirl.$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41: $$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41$rdreg[0]
+  read interface: 1 $dff and 15 $mux cells.
+  write interface: 0 write mux blocks.
+Mapping memory $flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$45 in module \tt_um_Lukasseirl:
+  created 16 $dff cells and 0 static cells of width 7.
+Extracted data FF from read port 0 of tt_um_Lukasseirl.$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$45: $$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$45$rdreg[0]
+  read interface: 1 $dff and 15 $mux cells.
+  write interface: 0 write mux blocks.
+
+94. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+<suppressed ~32 debug messages>
+
+95. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+96. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+97. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+98. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+99. Executing OPT_SHARE pass.
+
+100. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 0 on $$flatten\scoreboard_inst.\display_inst.$auto$proc_rom.cc:155:do_switch$41$rdreg[0] ($sdff) from module tt_um_Lukasseirl.
+
+101. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 1 unused cells and 63 unused wires.
+<suppressed ~2 debug messages>
+
+102. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+103. Rerunning OPT passes. (Maybe there is more to do…)
+
+104. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+105. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+106. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+107. Executing OPT_SHARE pass.
+
+108. Executing OPT_DFF pass (perform DFF optimizations).
+
+109. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+110. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+111. Executing TECHMAP pass (map to technology primitives).
+
+111.1. Executing Verilog-2005 frontend: /foss/tools/yosys/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/foss/tools/yosys/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+111.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $sdff.
+No more expansions possible.
+<suppressed ~76 debug messages>
+
+112. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+113. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+<suppressed ~15 debug messages>
+Removed a total of 5 cells.
+
+114. Executing OPT_DFF pass (perform DFF optimizations).
+
+115. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+116. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+117. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+118. Executing OPT_DFF pass (perform DFF optimizations).
+
+119. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+120. Executing ABC pass (technology mapping using ABC).
+
+120.1. Extracting gate netlist of module `\tt_um_Lukasseirl' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+121. Executing OPT pass (performing simple optimizations).
+
+121.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+121.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+121.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+121.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+121.5. Finished fast OPT passes.
+
+122. Executing HIERARCHY pass (managing design hierarchy).
+
+122.1. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+
+122.2. Analyzing design hierarchy..
+Top module:  \tt_um_Lukasseirl
+Removed 0 unused modules.
+
+123. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_Lukasseirl...
+Found and reported 0 problems.
+
+124. Printing statistics.
+
+=== tt_um_Lukasseirl ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       45 wires
+      173 wire bits
+       45 public wires
+      173 public wire bits
+        8 ports
+       43 port bits
+        6 cells
+        1   $_SDFF_PN0_
+        5   $scopeinfo
+
+125. Generating Graphviz representation of design.
+Writing dot description to `/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/primitive_techmap.dot'.
+Dumping module tt_um_Lukasseirl to page 1.
+
+126. Executing OPT pass (performing simple optimizations).
+
+126.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+126.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+126.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_Lukasseirl..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+126.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_Lukasseirl.
+Performed a total of 0 changes.
+
+126.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_Lukasseirl'.
+Removed a total of 0 cells.
+
+126.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+126.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+
+126.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_Lukasseirl.
+
+126.9. Finished OPT passes. (There is nothing left to do.)
+
+127. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 5 unused cells and 37 unused wires.
+<suppressed ~42 debug messages>
+{
+   "creator": "Yosys 0.57 (git sha1 3aca86049, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib ",
+   "modules": {
+      "\\tt_um_Lukasseirl": {
+         "num_wires":         8,
+         "num_wire_bits":     43,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_SDFF_PN0_": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         8,
+         "num_wire_bits":     43,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_SDFF_PN0_": 1
+         }
+      }
+}
+
+128. Printing statistics.
+
+=== tt_um_Lukasseirl ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        8 wires
+       43 wire bits
+        8 public wires
+       43 public wire bits
+        8 ports
+       43 port bits
+        1 cells
+        1   $_SDFF_PN0_
+
+   Area for cell type $_SDFF_PN0_ is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v'…
+
+129. Executing TECHMAP pass (map to technology primitives).
+
+129.1. Executing Verilog-2005 frontend: /foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v
+Parsing Verilog input from `/foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `\$_TBUF_'.
+Successfully finished Verilog frontend.
+
+129.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+130. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v'…
+
+131. Executing TECHMAP pass (map to technology primitives).
+
+131.1. Executing Verilog-2005 frontend: /foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v
+Parsing Verilog input from `/foss/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/latch_map.v' to AST representation.
+Generating RTLIL representation for module `\$_DLATCH_P_'.
+Generating RTLIL representation for module `\$_DLATCH_N_'.
+Successfully finished Verilog frontend.
+
+131.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~4 debug messages>
+
+132. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+133. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_2 (noninv, pins=3, area=21.27) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__dfbbn_2 (noninv, pins=6, area=35.03) is a direct match for cell type $_DFFSR_NNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_2 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_2 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    \sky130_fd_sc_hd__dfbbn_2 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+133.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\tt_um_Lukasseirl':
+  mapped 1 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_2 cells.
+{
+   "creator": "Yosys 0.57 (git sha1 3aca86049, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib ",
+   "modules": {
+      "\\tt_um_Lukasseirl": {
+         "num_wires":         9,
+         "num_wire_bits":     44,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         2,
+         "num_submodules":       0,
+         "area":              21.270400,
+         "sequential_area":    21.270400,
+         "num_cells_by_type": {
+            "$_MUX_": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         9,
+         "num_wire_bits":     44,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         2,
+         "num_submodules":       0,
+         "area":              21.270400,
+         "sequential_area":    21.270400,
+         "num_cells_by_type": {
+            "$_MUX_": 1,
+            "sky130_fd_sc_hd__dfxtp_2": 1
+         }
+      }
+}
+
+134. Printing statistics.
+
+=== tt_um_Lukasseirl ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        9        - wires
+       44        - wire bits
+        8        - public wires
+       43        - public wire bits
+        8        - ports
+       43        - port bits
+        2    21.27 cells
+        1        -   $_MUX_
+        1    21.27   sky130_fd_sc_hd__dfxtp_2
+
+   Area for cell type $_MUX_ is unknown!
+
+   Chip area for module '\tt_um_Lukasseirl': 21.270400
+     of which used for sequential elements: 21.270400 (100.00%)
+
+[INFO] Using generated ABC script '/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/AREA_0.abc'…
+
+135. Executing ABC pass (technology mapping using ABC).
+
+135.1. Extracting gate netlist of module `\tt_um_Lukasseirl' to `/tmp/yosys-abc-CsOCuK/input.blif'..
+Extracted 1 gates and 4 wires to a netlist network with 1 inputs and 1 outputs.
+
+135.1.1. Executing ABC.
+Running ABC command: "/foss/tools/yosys/bin/yosys-abc" -s -f /tmp/yosys-abc-CsOCuK/abc.script 2>&1
+ABC: ABC command line: "source /tmp/yosys-abc-CsOCuK/abc.script".
+ABC: 
+ABC: + read_blif /tmp/yosys-abc-CsOCuK/input.blif 
+ABC: + read_lib -w /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.03 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib" has 175 cells (17 skipped: 14 seq; 3 tri-state; 0 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =    9.54 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + read_constr -v /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sky130_fd_sc_hd__inv_2/Y".
+ABC: Setting output load to be 33.442001.
+ABC: + source /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (sky130_fd_sc_hd__inv_2/Y) in the library.
+ABC: WireLoad = "none"  Gates =      1 (100.0 %)   Cap = 17.8 ff ( 25.0 %)   Area =        3.75 (  0.0 %)   Delay =   306.77 ps  (100.0 %)               
+ABC: Path  0 --       1 : 0    1 pi                     A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =   2.2 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --       3 : 1    1 sky130_fd_sc_hd__buf_1 A =   3.75  Df = 306.8 -107.1 ps  S = 395.2 ps  Cin =  2.1 ff  Cout =  33.4 ff  Cmax = 130.0 ff  G = 1590  
+ABC: Start-point = pi0 (\rst_n).  End-point = po0 ($auto$rtlil.cc:3205:MuxGate$557).
+ABC: netlist                       : i/o =    1/    1  lat =    0  nd =     1  edge =      1  area = 3.75  delay = 1.00  lev = 1
+ABC: + write_blif /tmp/yosys-abc-CsOCuK/output.blif 
+
+135.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__buf_1 cells:        1
+ABC RESULTS:        internal signals:        2
+ABC RESULTS:           input signals:        1
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+136. Executing SETUNDEF pass (replace undef values with defined constants).
+
+137. Executing HILOMAP pass (mapping to constant drivers).
+
+138. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+139. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_Lukasseirl..
+Removed 0 unused cells and 14 unused wires.
+<suppressed ~1 debug messages>
+
+140. Executing INSBUF pass (insert buffer cells for connected wires).
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$584: \uio_out [6] -> \uio_out [1]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$585: \uio_out [6] -> \uio_out [2]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$586: \uio_out [6] -> \uio_out [3]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$587: \uio_out [6] -> \uio_out [4]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$588: \uio_out [6] -> \uio_out [5]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$589: \uio_out [6] -> \uo_out [1]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$590: \uio_out [6] -> \uo_out [2]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$591: \uio_out [6] -> \uo_out [3]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$592: \uio_out [6] -> \uo_out [4]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$593: \uio_out [6] -> \uo_out [5]
+Add tt_um_Lukasseirl/$auto$insbuf.cc:97:execute$594: \uio_out [6] -> \uo_out [6]
+
+141. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_Lukasseirl...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.57 (git sha1 3aca86049, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/185c1905de5b49c48da3a3932c4e0ffb.lib ",
+   "modules": {
+      "\\tt_um_Lukasseirl": {
+         "num_wires":         9,
+         "num_wire_bits":     44,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         25,
+         "num_submodules":       0,
+         "area":              125.120000,
+         "sequential_area":    21.270400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__buf_1": 1,
+            "sky130_fd_sc_hd__buf_2": 11,
+            "sky130_fd_sc_hd__conb_1": 12,
+            "sky130_fd_sc_hd__dfxtp_2": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         9,
+         "num_wire_bits":     44,
+         "num_pub_wires":     8,
+         "num_pub_wire_bits": 43,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         25,
+         "num_submodules":       0,
+         "area":              125.120000,
+         "sequential_area":    21.270400,
+         "num_cells_by_type": {
+            "sky130_fd_sc_hd__buf_1": 1,
+            "sky130_fd_sc_hd__buf_2": 11,
+            "sky130_fd_sc_hd__conb_1": 12,
+            "sky130_fd_sc_hd__dfxtp_2": 1
+         }
+      }
+}
+
+142. Printing statistics.
+
+=== tt_um_Lukasseirl ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        9        - wires
+       44        - wire bits
+        8        - public wires
+       43        - public wire bits
+        8        - ports
+       43        - port bits
+       25   125.12 cells
+        1    3.754   sky130_fd_sc_hd__buf_1
+       11   55.053   sky130_fd_sc_hd__buf_2
+       12   45.043   sky130_fd_sc_hd__conb_1
+        1    21.27   sky130_fd_sc_hd__dfxtp_2
+
+   Chip area for module '\tt_um_Lukasseirl': 125.120000
+     of which used for sequential elements: 21.270400 (17.00%)
+
+143. Executing Verilog backend.
+Dumping module `\tt_um_Lukasseirl'.
+
+144. Executing JSON backend.

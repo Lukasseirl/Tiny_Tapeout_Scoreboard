@@ -1,0 +1,22 @@
+134. Printing statistics.
+
+=== tt_um_Lukasseirl ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        9        - wires
+       44        - wire bits
+        8        - public wires
+       43        - public wire bits
+        8        - ports
+       43        - port bits
+        2    21.27 cells
+        1        -   $_MUX_
+        1    21.27   sky130_fd_sc_hd__dfxtp_2
+
+   Area for cell type $_MUX_ is unknown!
+
+   Chip area for module '\tt_um_Lukasseirl': 21.270400
+     of which used for sequential elements: 21.270400 (100.00%)
+

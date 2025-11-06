@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/e6c080227c4847bba740c89b19075718.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/foss/designs/Tiny_Tapeout_Scoreboard/librelane/runs/RUN_2025-11-06_18-02-34/tmp/e6c080227c4847bba740c89b19075718.bb.v"
