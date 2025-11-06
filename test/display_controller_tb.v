@@ -52,16 +52,5 @@ module tb_display_controller;
         $display("Simulation finished");
         $finish;
     end
-    
-    // Monitor to see what's happening
-    initial begin
-        $monitor("Time: %0tms | State: P1_BLINK=%b P1_DISP=%b P2_BLINK=%b P2_DISP=%b | Output: tens=%0d ones=%0d", 
-                 $time/1000000.0,
-                 (dut.state == dut.P1_BLINK),
-                 (dut.state == dut.P1_DISPLAY), 
-                 (dut.state == dut.P2_BLINK),
-                 (dut.state == dut.P2_DISPLAY),
-                 tens_o, ones_o);
-    end
 
 endmodule
