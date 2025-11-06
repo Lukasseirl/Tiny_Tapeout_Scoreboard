@@ -4,8 +4,8 @@
 
 module bin_to_decimal (
     input  wire [6:0]  bin_i,
-    output reg  [3:0]  tens_o,
-    output reg  [3:0]  ones_o
+    output wire  [3:0]  tens_o,
+    output wire  [3:0]  ones_o
 );
 
    
