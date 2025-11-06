@@ -10,15 +10,7 @@ module pushbutton_processor (
     output reg count_down      // Long press (>2s) -> high pulse
 );
 
-always @(posedge clk_1khz) begin // NUR FÜR TESTZWECKE UM RESTLICHEN CODE ZU ÜBERBRÜCKEN
-    if (rst_i) begin
-        count_down <= 1'b0;
-    end else begin
-        count_up <= 1'b0;
-    end
-end
 
-/*
 // Timing parameters for 1kHz clock
 parameter DEBOUNCE_TIME = 20;     // 20ms debounce time (20 ticks at 1kHz)
 parameter LONG_PRESS_TIME = 1500; // 1.5s long press detection (1500 ticks at 1kHz)
@@ -37,80 +29,55 @@ reg button_sync;             // Synchronized button signal
 reg pulse_counter_en;        // Pulse counter enable
 reg [3:0] pulse_counter;           // Pulse width counter
 
-// Button synchronization for metastability protection
-always @(posedge clk_1khz) begin
-    if (rst_i) begin
-        button_sync <= 1'b0;
-    end else begin
-        button_sync <= pushbutton_i;
-    end
-end
-
-// Pulse counter for output signals - CORRECTED
-always @(posedge clk_1khz) begin
-    if (rst_i) begin
-        pulse_counter_en <= 1'b0;
-        pulse_counter <= 0;
-        count_up <= 1'b0;
-        count_down <= 1'b0;
-    end else if (pulse_counter_en) begin
-        if (pulse_counter < PULSE_WIDTH) begin
-            pulse_counter <= pulse_counter + 1;
-        end else begin
-            // Pulse duration completed, disable outputs
-            pulse_counter_en <= 1'b0;
-            pulse_counter <= 0;
-            count_up <= 1'b0;
-            count_down <= 1'b0;
-        end
-    end
-    // NO else here - outputs remain unchanged when no pulse is active!
-end
-
-// Main state machine - CORRECTED
+// NUR EIN always-Block für die komplette Logik
 always @(posedge clk_1khz) begin
     if (rst_i) begin
         state <= IDLE;
         counter <= 0;
-        // count_up and count_down are reset in pulse counter
+        pulse_counter <= 0;
+        count_up <= 1'b0;
+        count_down <= 1'b0;
+        pulse_counter_en <= 1'b0;
     end else begin
+        // Pulse Counter Logic
+        if (pulse_counter_en) begin
+            if (pulse_counter < PULSE_WIDTH) begin
+                pulse_counter <= pulse_counter + 1;
+            end else begin
+                pulse_counter_en <= 1'b0;
+                pulse_counter <= 0;
+                count_up <= 1'b0;
+                count_down <= 1'b0;
+            end
+        end
+        
+        // State Machine
         case (state)
             IDLE: begin
                 counter <= 0;
-                count_up <= 1'b0;
-                count_down <= 1'b0;
                 if (button_sync) begin
-                    // Button pressed, start debouncing
                     state <= DEBOUNCING;
                     counter <= 0;
                 end
             end
             
             DEBOUNCING: begin
-                count_up <= 1'b0;
-                count_down <= 1'b0;
                 if (button_sync) begin
                     if (counter >= DEBOUNCE_TIME) begin
-                        // Debouncing complete, button is stable
                         state <= PRESSED;
                         counter <= 0;
                     end else begin
                         counter <= counter + 1;
                     end
                 end else begin
-                    // Button released during debouncing, return to idle
                     state <= IDLE;
                 end
             end
             
             PRESSED: begin
-                count_up <= 1'b0;
-                count_down <= 1'b0;
                 if (button_sync) begin
                     if (counter >= LONG_PRESS_TIME) begin
-                        // Long press detected (>1.5s)
                         state <= LONG_PRESS;
-                        // Generate count_down pulse
                         count_down <= 1'b1;
                         pulse_counter_en <= 1'b1;
                         pulse_counter <= 0;
@@ -118,35 +85,41 @@ always @(posedge clk_1khz) begin
                         counter <= counter + 1;
                     end
                 end else begin
-                    // Short press detected, generate count_up pulse
                     state <= IDLE;
                     count_up <= 1'b1;
                     pulse_counter_en <= 1'b1;
                     pulse_counter <= 0;
-                    counter <= 0;
                 end
             end
             
             LONG_PRESS: begin
-                count_up <= 1'b0;
-                count_down <= 1'b0;
-                // Wait for button release
                 if (!button_sync) begin
                     state <= IDLE;
-                    counter <= 0;
                 end
             end
             
-            default: begin
-                state <= IDLE;
-                counter <= 0;
-                count_up <= 1'b0;
-                count_down <= 1'b0;
-            end
+            default: state <= IDLE;
         endcase
     end
 end
-*/
+
+// Button sync bleibt separat (okay)
+always @(posedge clk_1khz) begin
+    if (rst_i) button_sync <= 1'b0;
+    else button_sync <= pushbutton_i;
+end
+
+
 
 endmodule
 `endif
+
+/*
+always @(posedge clk_1khz) begin // NUR FÜR TESTZWECKE UM RESTLICHEN CODE ZU ÜBERBRÜCKEN
+    if (rst_i) begin
+        count_down <= 1'b0;
+    end else begin
+        count_up <= 1'b0;
+    end
+end
+*/
