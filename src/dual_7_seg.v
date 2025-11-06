@@ -37,8 +37,8 @@ module dual_7_seg
                 4'd7: bcd_to_7seg = 7'b1110000; // 7
                 4'd8: bcd_to_7seg = 7'b1111111; // 8
                 4'd9: bcd_to_7seg = 7'b1111011; // 9
-                4'd10: bcd_to_7seg = 7'b0000000; // AUS (neu)
-                4'd11: bcd_to_7seg = 7'b1110011; // 'P' (neu)
+                4'd10: bcd_to_7seg = 7'b0000000; // AUS 
+                4'd11: bcd_to_7seg = 7'b1110011; // 'P' 
                 default: bcd_to_7seg = 7'b0000001; // "-" (Error)
             endcase
         end
