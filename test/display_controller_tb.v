@@ -1,4 +1,5 @@
 `timescale 1ns / 1ns
+`include "../src/display_controller.v"
 
 module tb_display_controller;
     // Clock and Reset
