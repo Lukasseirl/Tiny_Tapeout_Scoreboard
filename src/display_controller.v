@@ -1,3 +1,7 @@
+`default_nettype none
+`ifndef __DISPLAY_CONTROLLER__
+`define __DISPLAY_CONTROLLER__
+
 module display_controller (
     input wire clk_1khz,        // 1 kHz Clock
     input wire rst_i,           // Reset
