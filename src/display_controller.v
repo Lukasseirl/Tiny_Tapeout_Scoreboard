@@ -33,18 +33,18 @@ module display_controller (
     
     // Counter und Control
     reg [10:0] timer;           // 11-bit Timer (max 2048ms)
-    reg [1:0] blink_count;      // Blink-Zähler (0-2)
+    reg [2:0] blink_count;      // Blink-Zähler (0-4 für 3x Blinken)
     reg blink_state;            // Blink-Zustand (0=aus, 1=an)
 
     // Single always block für alles
     always @(posedge clk_1khz) begin
         if (rst_i) begin
             timer <= 0;
-            blink_state <= 0;
+            blink_state <= 1;   // Start mit AN
             blink_count <= 0;
             state <= P1_BLINK;
-            tens_o <= DIGIT_OFF;  // Display aus
-            ones_o <= DIGIT_OFF;  // Display aus
+            tens_o <= DIGIT_P;  // Start mit P1 angezeigt
+            ones_o <= 4'd1;
         end else begin
             // Timer
             if (timer < (state[0] ? DISPLAY_TIME : BLINK_TIME)) begin
@@ -55,7 +55,7 @@ module display_controller (
                 // State Machine
                 case (state)
                     P1_BLINK: begin
-                        if (blink_count < 2) begin
+                        if (blink_count < 4) begin  // 0,1,2,3,4 = 5 Zustände = 3x P1 sichtbar
                             blink_count <= blink_count + 1;
                         end else begin
                             blink_count <= 0;
@@ -65,10 +65,11 @@ module display_controller (
                     
                     P1_DISPLAY: begin
                         state <= P2_BLINK;
+                        blink_state <= 1; // Reset für P2 Blink (startet mit AN)
                     end
                     
                     P2_BLINK: begin
-                        if (blink_count < 2) begin
+                        if (blink_count < 4) begin  // Gleiches Pattern für P2
                             blink_count <= blink_count + 1;
                         end else begin
                             blink_count <= 0;
@@ -78,6 +79,7 @@ module display_controller (
                     
                     P2_DISPLAY: begin
                         state <= P1_BLINK;
+                        blink_state <= 1; // Reset für P1 Blink (startet mit AN)
                     end
                     
                     default: state <= P1_BLINK;
@@ -87,7 +89,8 @@ module display_controller (
             // Output Logic + Blink Control im gleichen Block
             case (state)
                 P1_BLINK: begin
-                    if (timer == 0) blink_state <= ~blink_state; // Toggle zu Beginn jedes Intervalls
+                    // Toggle zu Beginn jedes Intervalls
+                    if (timer == 0) blink_state <= ~blink_state;
                     
                     if (blink_state) begin
                         tens_o <= DIGIT_P;   // 'P'
@@ -101,10 +104,10 @@ module display_controller (
                 P1_DISPLAY: begin
                     tens_o <= p1_tens_i;     // Normale Ziffern (0-9)
                     ones_o <= p1_ones_i;     // Normale Ziffern (0-9)
-                    blink_state <= 1;        // Reset für nächsten Blink
                 end
                 
                 P2_BLINK: begin
+                    // GLEICHES BLINK-PATTERN wie P1
                     if (timer == 0) blink_state <= ~blink_state;
                     
                     if (blink_state) begin
@@ -119,7 +122,6 @@ module display_controller (
                 P2_DISPLAY: begin
                     tens_o <= p2_tens_i;     // Normale Ziffern (0-9)
                     ones_o <= p2_ones_i;     // Normale Ziffern (0-9)
-                    blink_state <= 1;        // Reset für nächsten Blink
                 end
                 
                 default: begin
