@@ -7,10 +7,12 @@ module bin_to_decimal (
     output wire  [3:0]  tens_o,
     output wire  [3:0]  ones_o
 );
-
-
-    assign tens_o = (bin_i / 7'd10) % 7'd10;
-    assign ones_o = bin_i % 7'd10;
+    
+    wire [6:0] tens_full = (bin_i / 7'd10) % 7'd10;
+    wire [6:0] ones_full = bin_i % 7'd10;
+    
+    assign tens_o = tens_full[3:0];
+    assign ones_o = ones_full[3:0];
 
 endmodule
 `endif
