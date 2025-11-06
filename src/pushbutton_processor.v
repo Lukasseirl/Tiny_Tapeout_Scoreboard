@@ -10,6 +10,15 @@ module pushbutton_processor (
     output reg count_down      // Long press (>2s) -> high pulse
 );
 
+always @(posedge clk_1khz) begin // NUR FÜR TESTZWECKE UM RESTLICHEN CODE ZU ÜBERBRÜCKEN
+    if (rst_i) begin
+        count_down <= 1'b0;
+    end else begin
+        count_up <= 1'b0;
+    end
+end
+
+/*
 // Timing parameters for 1kHz clock
 parameter DEBOUNCE_TIME = 20;     // 20ms debounce time (20 ticks at 1kHz)
 parameter LONG_PRESS_TIME = 1500; // 1.5s long press detection (1500 ticks at 1kHz)
@@ -137,6 +146,7 @@ always @(posedge clk_1khz) begin
         endcase
     end
 end
+*/
 
 endmodule
 `endif
