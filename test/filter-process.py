@@ -14,6 +14,8 @@ def transform(value):
         0x70: "7",
         0x7F: "8",
         0x7B: "9",
+        0x73: "P",  # 'P'
+        0x00: "aus",  #
         0x77: "A",
         0x1F: "B",
         0x4E: "C",
