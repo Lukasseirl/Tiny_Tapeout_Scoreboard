@@ -59,8 +59,6 @@ module scoreboard_top
     // Binary to Decimal Converter
     //--------------------------------------------------------------------------
     bin_to_decimal bin2dec_inst (
-        .clk_i  (clk_1khz_i),
-        .rst_i  (rst_i),
         .bin_i  (counter_val_w),
         .tens_o (tens_w),
         .ones_o (ones_w)
