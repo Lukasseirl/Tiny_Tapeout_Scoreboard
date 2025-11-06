@@ -23,13 +23,14 @@ project:
     - "dual_7_seg.v"
     - "pushbutton_processor.v"
     - "scoreboard_top.v"
+    - "display_controller.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
   ui[0]: "P1"  # push button for player 1
-  ui[1]: ""  # push button for player 2
+  ui[1]: "P2"  # push button for player 2
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
