@@ -1,7 +1,7 @@
 {
 	"DESIGN_NAME": "tt_um_Lukasseirl",
 	"VERILOG_FILES": [
-	"dir::../src/tt_um_Lukasseirl.v", 
+	"dir::../src/project.v", 
 	"dir::../src/scoreboard_top.v", 
 	"dir::../src/bin_to_decimal.v", 
 	"dir::../src/counter_v2.v", 
