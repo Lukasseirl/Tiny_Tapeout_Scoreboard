@@ -17,7 +17,7 @@ async def test_project(dut):
     # Reset
     dut._log.info("Reset")
     dut.ena.value = 1
-    dut.ui_in.value = 0
+    dut.ui_in.value = 1
     dut.uio_in.value = 0
     dut.rst_n.value = 0
     await ClockCycles(dut.clk, 10)
@@ -26,9 +26,9 @@ async def test_project(dut):
     dut._log.info("Test project behavior")
 
     # Set the input values you want to test
-    dut.ui_in.value = 0b00000001    # set ui_in[0] = 1 to simulate a pushbutton-press
+    dut.ui_in.value = 0b11111110    # set ui_in[0] = 1 to simulate a pushbutton-press
     await ClockCycles(dut.clk, 50)  # hold press for 50 ms so that it gets through the debounce
-    dut.ui_in.value = 0b00000000    
+    dut.ui_in.value = 0b11111111    
     
     # Wait for one clock cycle to see the output values
     await ClockCycles(dut.clk, 3000)   # after about 3 seconds the display should show the the score of player 1 which should be 01 after the first button press
