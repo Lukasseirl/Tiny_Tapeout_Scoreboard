@@ -31,8 +31,8 @@ module tt_um_Lukasseirl (
   );
 
   // Assign outputs - ones digit to uo_out, tens digit to uio_out
-    assign uo_out = {1'b0, seg_ones};  // Pad with 0 to make 8 bits
-    assign uio_out = {1'b0, seg_tens}; // Pad with 0 to make 8 bits
+    assign uo_out = {1'b0, seg_tens};  // Pad with 0 to make 8 bits
+    assign uio_out = {1'b0, seg_ones}; // Pad with 0 to make 8 bits
   
   // Set I/O enable: all uio pins as outputs
   assign uio_oe = 8'b11111111;
