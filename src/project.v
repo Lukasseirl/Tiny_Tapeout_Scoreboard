@@ -25,8 +25,8 @@ module tt_um_Lukasseirl (
   scoreboard_top scoreboard_inst (
     .clk_1khz_i     (clk),           // Using main clock as 1kHz clock
     .rst_i          (~rst_n),        // Convert active-low reset to active-high
-    .pushbutton_p1_i(ui_in[0]),      // Spieler 1 Pushbutton
-    .pushbutton_p2_i(ui_in[1]),      // Spieler 2 Pushbutton (neuer Input)
+    .pushbutton_p1_i(~ui_in[0]),      // Spieler 1 Pushbutton
+    .pushbutton_p2_i(~ui_in[1]),      // Spieler 2 Pushbutton (neuer Input)
     .seg_tens_o     (seg_tens),      // Tens digit
     .seg_ones_o     (seg_ones)       // Ones digit
   );
