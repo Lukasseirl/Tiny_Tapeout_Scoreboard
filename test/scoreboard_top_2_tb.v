@@ -10,6 +10,7 @@
 `include "../src/counter_v2.v"
 `include "../src/bin_to_decimal.v"
 `include "../src/dual_7_seg.v"
+`include "../src/display_controller.v"
 
 module top_level_tb;
 
