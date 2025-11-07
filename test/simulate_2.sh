@@ -16,13 +16,13 @@ verilator --lint-only --timing -I"$RTL" "$TEST_FOLDER/${name}.v"
 
 echo -e "${GREEN}IVerilog:------------------------------------------- ${NC}"
 # Nur die Testbench kompilieren - sie bindet alle anderen Module automatisch ein
-iverilog -g2005 -I"$RTL" "$TEST_FOLDER/${name}_tb.v"
+iverilog -g2005 -I"$RTL" "$TEST_FOLDER/${name}.v"
 
 echo -e "${GREEN}Simulation:----------------------------------------- ${NC}"
 ./a.out
 
 echo -e "${GREEN}GTKWave:-------------------------------------------- ${NC}"
-gtkwave "$TEST_FOLDER/${name}_tb.vcd"
+gtkwave "$TEST_FOLDER/${name}.vcd"
 
 rm -f a.out
 echo -e "${GREEN}Fertig!--------------------------------------------- ${NC}"
