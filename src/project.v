@@ -6,6 +6,11 @@
 `default_nettype none
 `timescale 1ns/1ps
 `include "scoreboard_top.v"
+`include "pushbutton_processor.v"
+`include "counter_v2.v"
+`include "bin_to_decimal.v"
+`include "display_controller.v"
+`include "dual_7_seg.v"
 
 module tt_um_Lukasseirl (
     input  wire [7:0] ui_in,    // Dedicated inputs
