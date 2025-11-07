@@ -3,7 +3,12 @@
     Depending on two input signals the counter can count up or down.
     The counter value is hold inbetween 0-99 because thats the displayable area.
 */
+`default_nettype none
 `timescale 1ns/1ps
+`ifndef __COUNTER_V2__
+`define __COUNTER_V2__
+
+
 
 module counter_v2
 #(
