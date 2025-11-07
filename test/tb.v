@@ -1,6 +1,12 @@
 `default_nettype none
 `timescale 1ns / 1ps
 `include "../src/project.v"
+`include "../src/scoreboard_top.v"
+`include "../src/bin_to_decimal.v"
+`include "../src/counter_v2.v"
+`include "../src/display_controller.v"
+`include "../src/dual_7_seg.v"
+`include "../src/pushbutton_processor.v"
 
 /* This testbench just instantiates the module and makes some convenient wires
    that can be driven / tested by the cocotb test.py.
