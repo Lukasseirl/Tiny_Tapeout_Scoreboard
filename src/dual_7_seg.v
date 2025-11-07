@@ -28,6 +28,21 @@ module dual_7_seg
         input [3:0] bcd;
         begin
             case (bcd)
+                4'd0: bcd_to_7seg = 7'b1000000; // 0 - ABCDEF (war 0111111)
+                4'd1: bcd_to_7seg = 7'b1111001; // 1 - BC (war 0000110)
+                4'd2: bcd_to_7seg = 7'b0100100; // 2 - ABDEG (war 1011011)
+                4'd3: bcd_to_7seg = 7'b0110000; // 3 - ABCDEG (war 1001111)
+                4'd4: bcd_to_7seg = 7'b0011001; // 4 - BCFG (war 1100110)
+                4'd5: bcd_to_7seg = 7'b0010010; // 5 - ACDFG (war 1101101)
+                4'd6: bcd_to_7seg = 7'b0000010; // 6 - ACDEFG (war 1111101)
+                4'd7: bcd_to_7seg = 7'b1111000; // 7 - ABC (war 0000111)
+                4'd8: bcd_to_7seg = 7'b0000000; // 8 - ABCDEFG (war 1111111)
+                4'd9: bcd_to_7seg = 7'b0010000; // 9 - ABCDFG (war 1101111)
+                4'd10: bcd_to_7seg = 7'b1111111; // AUS - alle Segmente aus (war 0000000)
+                4'd11: bcd_to_7seg = 7'b0001100; // 'P' - ABEFG (war 1110011)
+                default: bcd_to_7seg = 7'b0111111; // "-" (Error) - Segment G (war 1000000)
+                
+                /*
                 4'd0: bcd_to_7seg = 7'b0111111; // 0 - ABCDEF
                 4'd1: bcd_to_7seg = 7'b0000110; // 1 - BC
                 4'd2: bcd_to_7seg = 7'b1011011; // 2 - ABDEG
@@ -41,6 +56,7 @@ module dual_7_seg
                 4'd10: bcd_to_7seg = 7'b0000000; // AUS - alle Segmente aus
                 4'd11: bcd_to_7seg = 7'b1110011; // 'P' - ABEFG
                 default: bcd_to_7seg = 7'b1000000; // "-" (Error) - Segment G
+                */
 
                 /* Alte Version - Gespiegeltes Format
                 4'd0: bcd_to_7seg = 7'b1111110; // 0
