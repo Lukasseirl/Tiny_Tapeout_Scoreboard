@@ -7,7 +7,7 @@ TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
 # PROJECT_SOURCES = project.v
 PROJECT_SOURCES = \
-    tt_um_Lukasseirl.v \
+    project.v \
     bin_to_decimal.v \
     counter_v2.v \
     dual_7_seg.v \
