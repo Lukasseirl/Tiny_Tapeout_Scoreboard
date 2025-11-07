@@ -1,4 +1,5 @@
 `default_nettype none
+`timescale 1ns/1ps
 `ifndef __BIN_TO_DECIMAL__
 `define __BIN_TO_DECIMAL__
 
