@@ -27,9 +27,21 @@ jobs:
         run: |
           cd test
           make clean
+          export COCOTB_RESULTS_FILE=results.xml
           make
-          # make will return success even if the test fails, so check for failure in the results.xml
+          echo "=== Files after make ==="
+          ls -l
+          echo "=== Content of results.xml (if exists) ==="
+          cat results.xml || echo "No results.xml generated!"
           ! grep failure results.xml
+
+     # - name: Run tests
+     #   run: |
+     #     cd test
+     #     make clean
+     #     make
+     #     # make will return success even if the test fails, so check for failure in the results.xml
+     #     ! grep failure results.xml
 
       - name: Test Summary
         uses: test-summary/action@v2.3
