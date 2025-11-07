@@ -5,6 +5,7 @@
 
 `default_nettype none
 `timescale 1ns/1ps
+`include "scoreboard_top.v"
 
 module tt_um_Lukasseirl (
     input  wire [7:0] ui_in,    // Dedicated inputs
