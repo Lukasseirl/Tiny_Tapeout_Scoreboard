@@ -27,6 +27,21 @@ module dual_7_seg
         input [3:0] bcd;
         begin
             case (bcd)
+                4'd0: bcd_to_7seg = 7'b0111111; // 0 - ABCDEF
+                4'd1: bcd_to_7seg = 7'b0000110; // 1 - BC
+                4'd2: bcd_to_7seg = 7'b1011011; // 2 - ABDEG
+                4'd3: bcd_to_7seg = 7'b1001111; // 3 - ABCDEG
+                4'd4: bcd_to_7seg = 7'b1100110; // 4 - BCFG
+                4'd5: bcd_to_7seg = 7'b1101101; // 5 - ACDFG
+                4'd6: bcd_to_7seg = 7'b1111101; // 6 - ACDEFG
+                4'd7: bcd_to_7seg = 7'b0000111; // 7 - ABC
+                4'd8: bcd_to_7seg = 7'b1111111; // 8 - ABCDEFG
+                4'd9: bcd_to_7seg = 7'b1101111; // 9 - ABCDFG
+                4'd10: bcd_to_7seg = 7'b0000000; // AUS - alle Segmente aus
+                4'd11: bcd_to_7seg = 7'b1110011; // 'P' - ABEFG
+                default: bcd_to_7seg = 7'b1000000; // "-" (Error) - Segment G
+
+                /* Alte Version - Gespiegeltes Format
                 4'd0: bcd_to_7seg = 7'b1111110; // 0
                 4'd1: bcd_to_7seg = 7'b0110000; // 1
                 4'd2: bcd_to_7seg = 7'b1101101; // 2
@@ -40,6 +55,7 @@ module dual_7_seg
                 4'd10: bcd_to_7seg = 7'b0000000; // AUS 
                 4'd11: bcd_to_7seg = 7'b1110011; // 'P' 
                 default: bcd_to_7seg = 7'b0000001; // "-" (Error)
+                */
             endcase
         end
     endfunction
