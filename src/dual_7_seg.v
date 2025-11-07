@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 `default_nettype none
+`timescale 1ns/1ps
 `ifndef __DUAL_7_SEG__
 `define __DUAL_7_SEG__
 
