@@ -68,3 +68,5 @@ module counter_v2
     // assign counter value
     assign counter_val_o = counter_val;
 endmodule
+`endif
+`default_nettype wire
