@@ -1,4 +1,5 @@
 `default_nettype none
+`timescale 1ns/1ps
 `ifndef __PUSHBUTTON_PROCESSOR__
 `define __PUSHBUTTON_PROCESSOR__
 
