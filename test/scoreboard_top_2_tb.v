@@ -16,7 +16,7 @@ module top_level_tb;
       // inputs
       reg clk_1khz_i   = 1'b0;
       reg rst_i        = 1'b1;
-      reg pushbutton_p1_i_i = 1'b0;
+      reg pushbutton_p1_i = 1'b0;
       reg pushbutton_p2_i = 1'b0;
 
       // outputs
@@ -28,7 +28,7 @@ module top_level_tb;
             .clk_1khz_i   (clk_1khz_i),   // simulated 1 MHz clock (scaled)
             .rst_i        (rst_i),
             .pushbutton_p1_i (pushbutton_p1_i),
-            .pushbutton_p2 (pushbutton_p2),
+            .pushbutton_p2_i (pushbutton_p2_i),
             .seg_tens_o   (seg_tens_o),
             .seg_ones_o   (seg_ones_o)
       );
