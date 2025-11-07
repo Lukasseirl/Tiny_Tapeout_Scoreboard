@@ -16,7 +16,8 @@ module top_level_tb;
       // inputs
       reg clk_1khz_i   = 1'b0;
       reg rst_i        = 1'b1;
-      reg pushbutton_i = 1'b0;
+      reg pushbutton_p1 = 1'b0;
+      reg pushbutton_p2 = 1'b0;
 
       // outputs
       wire [6:0] seg_tens_o;
@@ -26,7 +27,8 @@ module top_level_tb;
       scoreboard_top top_dut (
             .clk_1khz_i   (clk_1khz_i),   // simulated 1 MHz clock (scaled)
             .rst_i        (rst_i),
-            .pushbutton_i (pushbutton_i),
+            .pushbutton_p1 (pushbutton_p1),
+            .pushbutton_p2 (pushbutton_p2),
             .seg_tens_o   (seg_tens_o),
             .seg_ones_o   (seg_ones_o)
       );
@@ -69,16 +71,16 @@ module top_level_tb;
       // short press with bouncing
       task pushbutton_press_short;
             begin
-                  pushbutton_i = 1'b1;
-                  #1 pushbutton_i = 1'b0;  //on bouncing 
-                  #2 pushbutton_i = 1'b1;
-                  #1 pushbutton_i = 1'b0;
-                  #1 pushbutton_i = 1'b1;  
-                  #25 pushbutton_i = 1'b0;
-                  #2 pushbutton_i = 1'b1;  // off bouncing
-                  #1 pushbutton_i = 1'b0;
-                  #1 pushbutton_i = 1'b1;
-                  #1 pushbutton_i = 1'b0;
+                  pushbutton_p1 = 1'b1;
+                  #1 pushbutton_p1 = 1'b0;  //on bouncing 
+                  #2 pushbutton_p1 = 1'b1;
+                  #1 pushbutton_p1 = 1'b0;
+                  #1 pushbutton_p1 = 1'b1;  
+                  #25 pushbutton_p1 = 1'b0;
+                  #2 pushbutton_p1 = 1'b1;  // off bouncing
+                  #1 pushbutton_p1 = 1'b0;
+                  #1 pushbutton_p1 = 1'b1;
+                  #1 pushbutton_p1 = 1'b0;
             end
       endtask
 
@@ -86,9 +88,9 @@ module top_level_tb;
       task pushbutton_press_long;
             begin
                   $display("Long press at time %t", $time);
-                  pushbutton_i = 1'b1;
+                  pushbutton_p1 = 1'b1;
                   #1600;       //
-                  pushbutton_i = 1'b0;
+                  pushbutton_p1 = 1'b0;
             end
       endtask
 
