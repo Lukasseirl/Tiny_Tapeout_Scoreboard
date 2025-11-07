@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 `default_nettype none
+`timescale 1ns/1ps
 `ifndef __SCOREBOARD_TOP__
 `define __SCOREBOARD_TOP__
 
