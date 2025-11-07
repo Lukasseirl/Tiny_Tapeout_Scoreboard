@@ -1,4 +1,5 @@
 `default_nettype none
+`timescale 1ns/1ps
 `ifndef __DISPLAY_CONTROLLER__
 `define __DISPLAY_CONTROLLER__
 
