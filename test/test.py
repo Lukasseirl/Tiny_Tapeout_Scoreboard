@@ -31,7 +31,7 @@ async def test_project(dut):
     dut.ui_in.value = 8'b00000000    
     
     # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 1)   // after about 3 seconds the display should show the the score of player 1 which should be 01 after the first button press
+    await ClockCycles(dut.clk, 3000)   // after about 3 seconds the display should show the the score of player 1 which should be 01 after the first button press
 
     # The following assersion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
