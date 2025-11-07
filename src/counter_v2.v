@@ -3,6 +3,7 @@
     Depending on two input signals the counter can count up or down.
     The counter value is hold inbetween 0-99 because thats the displayable area.
 */
+`timescale 1ns/1ps
 
 module counter_v2
 #(
