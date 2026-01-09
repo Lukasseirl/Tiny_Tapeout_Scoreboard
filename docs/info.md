@@ -421,6 +421,20 @@ always @(posedge clk_1khz) begin
     end
 end
 ```
+2x
+<img width="1096" height="649" alt="grafik" src="https://github.com/user-attachments/assets/c4622d3a-966f-489f-b31c-e7184c5ec28b" />
+<img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
+
+2000 ms
+<img width="1115" height="670" alt="grafik" src="https://github.com/user-attachments/assets/19e83192-0d5b-4a49-96c5-4a38f34a3d1d" />
+
+
+<img width="1184" height="724" alt="grafik" src="https://github.com/user-attachments/assets/527ddc16-ade0-4f12-baef-45ed958e2175" />
+<img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
+
+2000 ms
+<img width="1160" height="660" alt="grafik" src="https://github.com/user-attachments/assets/b8caf518-aa1a-4eeb-b417-f726a89b2536" />
+
 
 ### Testing of the Display Controller
 
