@@ -287,6 +287,7 @@ For testing I implement a testbenchfile *bin_to_decimal_tb.v* that gives the mod
     bin_i = 7'd73;  #1500; // Sollte 7 und 3 ausgeben
     bin_i = 7'd99;  #1500; // Sollte 9 und 9 ausgeben
 ```
+<img width="1826" height="198" alt="grafik" src="https://github.com/user-attachments/assets/cd500ec9-e139-4918-b927-0be755e90751" />
 
 
 ## Display Controller
