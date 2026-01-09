@@ -66,7 +66,7 @@ To do so we implemented a state machine that has four states that track the life
 // Timing parameters for 1kHz clock
 parameter DEBOUNCE_TIME = 20;     // 20ms debounce time (20 ticks at 1kHz)
 parameter LONG_PRESS_TIME = 1500; // 1.5s long press detection (1500 ticks at 1kHz)
-parameter PULSE_WIDTH = 10;        // 1ms output pulse width (1 tick at 1kHz)
+parameter PULSE_WIDTH = 10;        // 10ms output pulse width (10 ticks at 1kHz)
 
 // State machine definitions
 reg [1:0] state;
@@ -158,3 +158,21 @@ end
 ```
 
 ### Testing of the pushbutton processor
+
+To test the pushbutton processor I wrote a testbench file *pushbutton_processor_tb.v* that simulates different pushbutton presses with bouncing.
+
+With the command 
+```
+./simulate.sh pushbuton_processor
+```
+
+I start the testbenchfile with a shell-script that starts up gtkwave for the simulation where we can analyze the results.
+
+When analyzing the simulation results, it should be noted that we have selected a higher clock frequency in the testbench file. We therefore only need to look at the ticks. For the entire project, the clock frequency is set to 1 kHz, which means that 1 tick = 1 ms. Even though nanoseconds are now visible in gtkwave, this corresponds to milliseconds later on with the correct clock.
+
+If we look at the screenshot below we can see the behaviour of the module. At about t=15 ms the pushbutton signal gets HIGH, bounces a few times and gets low at about t=54 ms. We can see that this triggers the count_up to go high for 10 ms. This shows that the debouncing and the short press works like its supposed to be.  
+
+<img width="1845" height="328" alt="grafik" src="https://github.com/user-attachments/assets/ed472d7d-585b-4a8a-955d-8915012eb2f0" />
+
+The next screenshot shows a more zoomed out image of the same simulation. After the short press a long press is made that is about 2s long. After 1.5s the count down is triggerd and the output for the count_down gets high for 10ms. When the pushbutton is finally released, no additional count up or down is triggered. This shows that the module works extactly as intended. 
+<img width="2362" height="274" alt="grafik" src="https://github.com/user-attachments/assets/f453d49f-5f32-400f-90e8-7a8f7db9820c" />
