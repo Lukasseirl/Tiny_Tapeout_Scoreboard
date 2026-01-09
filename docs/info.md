@@ -591,8 +591,34 @@ At the screenshot below you can see new representation of the output. Now it is 
 <img width="2426" height="227" alt="grafik" src="https://github.com/user-attachments/assets/43d21d64-5781-4974-a63c-4604fb7dfd8e" />
 
 ## Top Module
-### Purpose
+The top module *scoreboard_top.v* combines all modules like in the structure of section [Structure of the Modules](#structure-of-the-modules). For each player we need a pushbutton processor, a counter and binary to decimal converter. Then we need one display controller and the display driver. 
+
+As inputs of the top module we have the two pushbutton signals and our outputs are the 2x 7 bits for the seven segment displays.
+
+```
+module scoreboard_top
+(
+    // define I/O's of the top module
+    input  wire        clk_1khz_i,     // 1 kHz clock
+    input  wire        rst_i,          // Reset (active high)
+    input  wire        pushbutton_p1_i,// Raw pushbutton signal Spieler 1
+    input  wire        pushbutton_p2_i,// Raw pushbutton signal Spieler 2
+    output wire [6:0]  seg_tens_o,     // Tens 7-segment output
+    output wire [6:0]  seg_ones_o      // Ones 7-segment output
+);
+```
+
 ### Testing of the Top Module
+
+To test the top module we make a testbench *scoreboard_top-2_tb.v* which is similar to the testbench of the pushbutton processor. We simulate different pushbutton presses and check if the displays show the expected results. Therefore we use our filter-process python script again.
+
+The screenshot below shows the simulation result in gtkwave. The first two signals show the displayed values of the 7 segment displays and the last two signals are the signals of the pushbuttons of player 1 and 2. We can see the blinking animation. We can also see that the score of player 1 increases with the button presses of pushbutton 1. 
+
+<img width="2013" height="249" alt="grafik" src="https://github.com/user-attachments/assets/33da6fae-d73e-4111-8edf-34f96d10da0d" />
+
+If we zoom furthre in we can see the pushbutton signal also simulates the bouncing. The testbench shows that the file works as intended.
+
+<img width="1825" height="287" alt="grafik" src="https://github.com/user-attachments/assets/7cbbfe21-3ad1-46af-9c6a-67e2200e0d00" />
 
 ## Testing Design with Wokwi
 
