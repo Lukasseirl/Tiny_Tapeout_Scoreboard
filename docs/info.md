@@ -47,7 +47,7 @@ The module _pushbutton_processor.v_ processes a signal of a pushbutton and has t
 
 Usually pushbuttons bounce when they get pressed as shown in the screenshot below. This would cause the counter to in-/decrease the score multiple points for a single button press.
 
-<img width="947" height="575" alt="grafik" src="https://github.com/user-attachments/assets/dfa2d1b2-7068-4049-a66b-ca0baf7ff955" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/dfa2d1b2-7068-4049-a66b-ca0baf7ff955" />
 
 To solve this problem the pushbutton processor has a debouncing-logic implemented which checks the time duration between two or more rising flanks. Usually the bouncing of a button takes about 100 us to 10 ms. When the first rising flank appears we wait 20 ms before we are able to recognise the next one. This ensures that the bouncing is over and we do not make false counts. 
 
@@ -428,21 +428,21 @@ Following screenshots show the different states of the animation for a score of 
 
 **2x 500ms on/off**
 
-<img width="1096" height="649" alt="grafik" src="https://github.com/user-attachments/assets/c4622d3a-966f-489f-b31c-e7184c5ec28b" />
-<img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/c4622d3a-966f-489f-b31c-e7184c5ec28b" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
 
 **Score for 2000 ms**
 
-<img width="1115" height="670" alt="grafik" src="https://github.com/user-attachments/assets/19e83192-0d5b-4a49-96c5-4a38f34a3d1d" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/19e83192-0d5b-4a49-96c5-4a38f34a3d1d" />
 
 **2x 500ms on/off**
 
-<img width="1184" height="724" alt="grafik" src="https://github.com/user-attachments/assets/527ddc16-ade0-4f12-baef-45ed958e2175" />
-<img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/527ddc16-ade0-4f12-baef-45ed958e2175" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
 
 **2000 ms**
 
-<img width="1160" height="660" alt="grafik" src="https://github.com/user-attachments/assets/b8caf518-aa1a-4eeb-b417-f726a89b2536" />
+<img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/b8caf518-aa1a-4eeb-b417-f726a89b2536" />
 
 ### Testing of the Display Controller
 To test the animation I wrote a simple testbenchfile *display_controller_tb.v* that sets the score of the players to P1=12 and P2=7 and simulates the animation. 
@@ -474,7 +474,7 @@ The purpose of the dual 7 segment driver is to display the given decimal numbers
 
 The following screenshot shows the order in which the segments are used, numbered from **a** to **g**.  As a example, to represent a '0' all segments need to be HIGH except **g**.
 
-<img width="310" height="559" alt="grafik" src="https://github.com/user-attachments/assets/dbbda87a-ed57-486e-a2fc-a877aca078c3" />
+<img width="150" height="300" alt="grafik" src="https://github.com/user-attachments/assets/dbbda87a-ed57-486e-a2fc-a877aca078c3" />
 
 Here you can see the mapping for all possible inputs from 0-11:
 
@@ -583,8 +583,8 @@ def transform(value):
 
 To use the filter script for a signal you need to select the signal, make a right click and then go to **Data Format** => **Translate Filter Process** => **Enable and Select**. Then you choose the filter file *filter-process.py* and click **Ok**. 
 
-<img width="1854" height="1230" alt="grafik" src="https://github.com/user-attachments/assets/f1f27867-e8d2-48f1-a198-393b0e65fe11" />
-<img width="995" height="795" alt="grafik" src="https://github.com/user-attachments/assets/f6c6ac4f-6a62-4eb2-8c73-1a2e4ea799d1" />
+<img width="1000" height="600" alt="grafik" src="https://github.com/user-attachments/assets/f1f27867-e8d2-48f1-a198-393b0e65fe11" />
+<img width="500" height="350" alt="grafik" src="https://github.com/user-attachments/assets/f6c6ac4f-6a62-4eb2-8c73-1a2e4ea799d1" />
 
 At the screenshot below you can see new representation of the output. Now it is very easy to compare it to the input. The simulation shows that the 7 segment displays show the expected numbers and also the letter 'P'. If any other numbers than 0-11 are given in the input, the 7 segment display shows '-' which represents an error. The simulation shows, that the module works like intended.
 
