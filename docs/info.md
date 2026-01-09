@@ -449,12 +449,146 @@ To test the animation I wrote a simple testbenchfile *display_controller_tb.v* t
 
 
 The screenshot below shows the results of the gtkwave simulation. At first we can see the blinking 'P1' text where both segments are alternating set to **off** and **P1** so that 'P1' appers blinking two times. Just to remember, 10 = segments off, 11 = 'P'. After the blinking we can see that the score '12' of player 1 is shown. After that the same process begins for player 2.
-  
+
 <img width="2366" height="316" alt="grafik" src="https://github.com/user-attachments/assets/4555641e-f493-466a-b531-0064ecf0d58f" />
 
+
 ## Dual 7 Segment Driver
+The dual 7 segment display driver *dual_7_seg.v* has an input for the ones and the tens. Furthermore it has 2x 7 bit outputs to control the individual segments of the displays.
+
+```
+module dual_7_seg
+(
+    // define I/O's of the module
+    input  wire        clk_i,       // clock
+    input  wire        rst_i,       // reset (active high)
+    input  wire [3:0]  tens_i,      // BCD tens digit
+    input  wire [3:0]  ones_i,      // BCD ones digit
+    output reg  [6:0]  seg_tens_o,  // 7-segment output for tens
+    output reg  [6:0]  seg_ones_o   // 7-segment output for ones
+);
+```
+
 ### Purpose
+The purpose of the dual 7 segment driver is to display the given decimal numbers correctly with the 7 segment displays. Therfore a simple maping with bit masks is made. As the display is connected to a common anode we need to invert the bitmask - so 0 means HIGH and 1 menas LOW.
+
+The following screenshot shows the order in which the segments are used, numbered from **a** to **g**.  As a example, to represent a '0' all segments need to be HIGH except **g**.
+
+<img width="310" height="559" alt="grafik" src="https://github.com/user-attachments/assets/dbbda87a-ed57-486e-a2fc-a877aca078c3" />
+
+Here you can see the mapping for all possible inputs from 0-11:
+
+```
+case (bcd)
+    4'd0: bcd_to_7seg = 7'b1000000; // 0 - ABCDEF
+    4'd1: bcd_to_7seg = 7'b1111001; // 1 - BC
+    4'd2: bcd_to_7seg = 7'b0100100; // 2 - ABDEG
+    4'd3: bcd_to_7seg = 7'b0110000; // 3 - ABCDEG
+    4'd4: bcd_to_7seg = 7'b0011001; // 4 - BCFG
+    4'd5: bcd_to_7seg = 7'b0010010; // 5 - ACDFG
+    4'd6: bcd_to_7seg = 7'b0000010; // 6 - ACDEFG
+    4'd7: bcd_to_7seg = 7'b1111000; // 7 - ABC
+    4'd8: bcd_to_7seg = 7'b0000000; // 8 - ABCDEFG
+    4'd9: bcd_to_7seg = 7'b0010000; // 9 - ABCDFG
+    4'd10: bcd_to_7seg = 7'b1111111; // OFF - all Segments off
+    4'd11: bcd_to_7seg = 7'b0001100; // 'P' - ABEFG
+    default: bcd_to_7seg = 7'b0111111; // "-" (Error) - G
+endcase
+```
+
 ### Testing of the Dual 7 Segment Driver
+
+To test the module I made another testbenchfile *dual_7_seg_tb.v* which sets the ones and tens to different numbers so we can check if the module gives us the correct bits for the display. 
+
+Here you can see the selected numbers for the test:
+```
+// Test various digit combinations
+// Test 00-09
+tens_i = 4'd0;
+ones_i = 4'd0; #20;
+ones_i = 4'd1; #20;
+ones_i = 4'd2; #20;
+ones_i = 4'd3; #20;
+ones_i = 4'd4; #20;
+ones_i = 4'd5; #20;
+ones_i = 4'd6; #20;
+ones_i = 4'd7; #20;
+ones_i = 4'd8; #20;
+ones_i = 4'd9; #20;
+
+// Test 10-19
+tens_i = 4'd1;
+ones_i = 4'd0; #20;
+ones_i = 4'd1; #20;
+ones_i = 4'd2; #20;
+ones_i = 4'd3; #20;
+ones_i = 4'd4; #20;
+ones_i = 4'd5; #20;
+ones_i = 4'd6; #20;
+ones_i = 4'd7; #20;
+ones_i = 4'd8; #20;
+ones_i = 4'd9; #20;
+
+// Test some specific numbers
+tens_i = 4'd4; ones_i = 4'd2; #20; // 42
+tens_i = 4'd7; ones_i = 4'd7; #20; // 77
+tens_i = 4'd9; ones_i = 4'd9; #20; // 99
+
+// Test invalid BCD values
+tens_i = 4'd10; ones_i = 4'd11; #20;
+tens_i = 4'd15; ones_i = 4'd12; #20;
+
+// Test reset
+rst_i = 1'b1; #20;
+rst_i = 1'b0; #20;
+
+// Final test
+tens_i = 4'd8; ones_i = 4'd1; #20; // 81
+```
+
+The screenshots below shows the result of the simulation. The first two lines show the input signals and the last two lines the output signals. In gtkwave we can switch the data format of the signals. The first screenshot shows the output in decimal and the second screenshots shows the output with binary numbers. Unfortunately both representations are not very practical to check if the representation is correct.
+
+<img width="2025" height="228" alt="grafik" src="https://github.com/user-attachments/assets/bd1e50ca-3129-438a-baa0-8265a83cc584" />
+<img width="2540" height="242" alt="grafik" src="https://github.com/user-attachments/assets/00b68255-cf28-4897-9a4f-ba894ef4e3d0" />
+
+However, gtkwave offers the option of using a filter script that converts the numbers into a different format. So I wrote and applied my own script, which interprets the binary numbers as decimal numbers/letters, just as they are displayed with the 7 segment displays.
+
+The filter script is a python file *filter-process.py* with the following code for the conversion:
+
+```
+def transform(value):
+    seg7_map = {
+        0b1000000: "0",
+        0b1111001: "1",
+        0b0100100: "2",
+        0b0110000: "3",
+        0b0011001: "4",
+        0b0010010: "5",
+        0b0000010: "6",
+        0b1111000: "7",
+        0b0000000: "8",
+        0b0010000: "9",
+        0b1111111: " ",
+        0b0001100: "P",
+        0b0111111: "-"
+    }
+
+    try:
+        int_val = int(value, 2) if value.startswith("0b") else int(value, 16)
+        int_val &= 0x7F  # 7-bit Common Anode
+        return seg7_map.get(int_val, "?")
+    except:
+        return "?"
+```
+
+To use the filter script for a signal you need to select the signal, make a right click and then go to **Data Format** => **Translate Filter Process** => **Enable and Select**. Then you choose the filter file *filter-process.py* and click **Ok**. 
+
+<img width="1854" height="1230" alt="grafik" src="https://github.com/user-attachments/assets/f1f27867-e8d2-48f1-a198-393b0e65fe11" />
+<img width="995" height="795" alt="grafik" src="https://github.com/user-attachments/assets/f6c6ac4f-6a62-4eb2-8c73-1a2e4ea799d1" />
+
+At the screenshot below you can see new representation of the output. Now it is very easy to compare it to the input. The simulation shows that the 7 segment displays show the expected numbers and also the letter 'P'. If any other numbers than 0-11 are given in the input, the 7 segment display shows '-' which represents an error. The simulation shows, that the module works like intended.
+
+<img width="2426" height="227" alt="grafik" src="https://github.com/user-attachments/assets/43d21d64-5781-4974-a63c-4604fb7dfd8e" />
 
 ## Top Module
 ### Purpose
@@ -465,11 +599,3 @@ The screenshot below shows the results of the gtkwave simulation. At first we ca
 ## Sonstiges 
 ## filter
 ### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
-
-<img width="2025" height="228" alt="grafik" src="https://github.com/user-attachments/assets/bd1e50ca-3129-438a-baa0-8265a83cc584" />
-
-<img width="2540" height="242" alt="grafik" src="https://github.com/user-attachments/assets/00b68255-cf28-4897-9a4f-ba894ef4e3d0" />
-
-<img width="2426" height="227" alt="grafik" src="https://github.com/user-attachments/assets/43d21d64-5781-4974-a63c-4604fb7dfd8e" />
-
-
