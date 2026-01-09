@@ -625,3 +625,6 @@ If we zoom furthre in we can see the pushbutton signal also simulates the bounci
 ## Sonstiges 
 ## filter
 ### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
+
+<img width="873" height="440" alt="grafik" src="https://github.com/user-attachments/assets/424c35ab-eed9-4083-ba5a-50dcb13a1c04" />
+
