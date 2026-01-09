@@ -287,11 +287,141 @@ For testing I implement a testbenchfile *bin_to_decimal_tb.v* that gives the mod
     bin_i = 7'd73;  #1500; // Sollte 7 und 3 ausgeben
     bin_i = 7'd99;  #1500; // Sollte 9 und 9 ausgeben
 ```
+
+The screenshot below shows the results of the simulation. The first binary number is 0 and the ones and tens are also 0. For all different binary numbers of the input, the ones and tens are correctly calculated which shows that the module works as intended.
+
 <img width="1826" height="198" alt="grafik" src="https://github.com/user-attachments/assets/cd500ec9-e139-4918-b927-0be755e90751" />
 
-
 ## Display Controller
+
+The display controller gets the score as ones and tens of the two players as input. The module has two outputs - one for each 7-segment display where one display is for the ones and one is for the tens of the decimal number.
+
+```
+module display_controller (
+    input wire clk_1khz,        // 1 kHz Clock
+    input wire rst_i,           // Reset
+    // Spieler 1 Score
+    input wire [3:0] p1_tens_i,
+    input wire [3:0] p1_ones_i,
+    // Spieler 2 Score  
+    input wire [3:0] p2_tens_i,
+    input wire [3:0] p2_ones_i,
+    // Output zum Display
+    output reg [3:0] tens_o,
+    output reg [3:0] ones_o
+);
+```
+
 ### Purpose
+The problem that this module solves is that we need to display a two-digit score for two players, but only have two 7-segment displays available. The solution to this problem is to animate the score so that the score of player 1 and player 2 are displayed alternately. 
+
+The animation is structured as follows. To distinguish which score belongs to which player, the respective player is always displayed before the score with the text ‘P1’ or ‘P2’. The corresponding two-digit score is then displayed.
+
+To better distinguish between the score and the ‘player text’, the player text blinks and the score remains permanently visible. The player text blinks twice for half a second before the score is then displayed for 2 seconds. The entire sequence alternates between player 1 and player 2.
+
+
+The entire animation is implemented again using a state machine which has the following states:
+1. **P1_BLINK:** The display blinks “P1” to indicate that player 1 is active. The digits are periodically turned on and off using BLINK_TIME (500 ms). After a fixed number of blink cycles, the machine moves to the next state.
+2. **P1_DISPLAY:** The actual score of player 1 (tens and ones) is shown steadily for DISPLAY_TIME (2000 ms) without blinking. After this time expires, the machine switches to player 2.
+3. **P2_BLINK:** The display blinks “P2” in the same way as for player 1, again to indicate the active player. After the defined number of blink cycles, the machine advances to the display state.
+4. **P2_DISPLAY:** The actual score of player 2 is shown steadily for DISPLAY_TIME. Once this time is over, the machine returns to P1_BLINK, and the cycle repeats. 
+```
+always @(posedge clk_1khz) begin
+    if (rst_i) begin
+        timer <= 0;
+        blink_state <= 1;   // Start mit AN
+        blink_count <= 0;
+        state <= P1_BLINK;
+        tens_o <= DIGIT_P;  // Start mit P1 angezeigt
+        ones_o <= 4'd1;
+    end else begin
+        // Timer
+        if (timer < (state[0] ? DISPLAY_TIME : BLINK_TIME)) begin
+            timer <= timer + 1;
+        end else begin
+            timer <= 0;
+            
+            // State Machine
+            case (state)
+                P1_BLINK: begin
+                    if (blink_count < 4) begin  // 0,1,2,3,4 = 5 Zustände = 3x P1 sichtbar
+                        blink_count <= blink_count + 1;
+                    end else begin
+                        blink_count <= 0;
+                        state <= P1_DISPLAY;
+                    end
+                end
+                
+                P1_DISPLAY: begin
+                    state <= P2_BLINK;
+                    blink_state <= 1; // Reset für P2 Blink (startet mit AN)
+                end
+                
+                P2_BLINK: begin
+                    if (blink_count < 4) begin  // Gleiches Pattern für P2
+                        blink_count <= blink_count + 1;
+                    end else begin
+                        blink_count <= 0;
+                        state <= P2_DISPLAY;
+                    end
+                end
+                
+                P2_DISPLAY: begin
+                    state <= P1_BLINK;
+                    blink_state <= 1; // Reset für P1 Blink (startet mit AN)
+                end
+                
+                default: state <= P1_BLINK;
+            endcase
+        end
+        
+        // Output Logic + Blink Control im gleichen Block
+        case (state)
+            P1_BLINK: begin
+                // Toggle zu Beginn jedes Intervalls
+                if (timer == 0) blink_state <= ~blink_state;
+                
+                if (blink_state) begin
+                    tens_o <= DIGIT_P;   // 'P'
+                    ones_o <= 4'd1;      // '1'
+                end else begin
+                    tens_o <= DIGIT_OFF; // Aus
+                    ones_o <= DIGIT_OFF; // Aus
+                end
+            end
+            
+            P1_DISPLAY: begin
+                tens_o <= p1_tens_i;     // Normale Ziffern (0-9)
+                ones_o <= p1_ones_i;     // Normale Ziffern (0-9)
+            end
+            
+            P2_BLINK: begin
+                // GLEICHES BLINK-PATTERN wie P1
+                if (timer == 0) blink_state <= ~blink_state;
+                
+                if (blink_state) begin
+                    tens_o <= DIGIT_P;   // 'P'
+                    ones_o <= 4'd2;      // '2'
+                end else begin
+                    tens_o <= DIGIT_OFF; // Aus
+                    ones_o <= DIGIT_OFF; // Aus
+                end
+            end
+            
+            P2_DISPLAY: begin
+                tens_o <= p2_tens_i;     // Normale Ziffern (0-9)
+                ones_o <= p2_ones_i;     // Normale Ziffern (0-9)
+            end
+            
+            default: begin
+                tens_o <= DIGIT_OFF;
+                ones_o <= DIGIT_OFF;
+            end
+        endcase
+    end
+end
+```
+
 ### Testing of the Display Controller
 
 ## Dual 7 Segment Driver
@@ -303,3 +433,7 @@ For testing I implement a testbenchfile *bin_to_decimal_tb.v* that gives the mod
 ### Testing of the Top Module
 
 ## Testing Design with Wokwi
+
+## Sonstiges 
+## filter
+### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
