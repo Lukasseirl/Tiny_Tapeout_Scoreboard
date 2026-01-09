@@ -2,43 +2,27 @@
 import sys
 
 def transform(value):
-    # Common Anode 7-Segment Mapping
     seg7_map = {
-        0x81: "0",
-        0xCF: "1",
-        0x92: "2",
-        0x86: "3",
-        0xCC: "4",
-        0xA4: "5",
-        0xA0: "6",
-        0x8F: "7",
-        0x80: "8",
-        0x84: "9",
-        0x8C: "P",   # 'P'
-        0xFF: "aus",
-        0x88: "A",
-        0xE0: "B",
-        0xB1: "C",
-        0xC2: "D",
-        0xB0: "E",
-        0xB8: "F",
-        0xFF: " ",
-        0xFD: "-",
-        0x7F: "."
+        0b1000000: "0",
+        0b1111001: "1",
+        0b0100100: "2",
+        0b0110000: "3",
+        0b0011001: "4",
+        0b0010010: "5",
+        0b0000010: "6",
+        0b1111000: "7",
+        0b0000000: "8",
+        0b0010000: "9",
+        0b1111111: " ",
+        0b0001100: "P",
+        0b0111111: "-"
     }
-    
+
     try:
-        # Hex-String zu Integer konvertieren
-        if value.startswith('0x'):
-            int_val = int(value, 16)
-        else:
-            # Falls ohne 0x-Präfix
-            int_val = int(value, 16) if all(c in '0123456789ABCDEFabcdef' for c in value) else int(value)
-        
-        # Übersetzung
+        int_val = int(value, 2) if value.startswith("0b") else int(value, 16)
+        int_val &= 0x7F  # 7-bit Common Anode
         return seg7_map.get(int_val, "?")
-        
-    except (ValueError, TypeError):
+    except:
         return "?"
 
 def main():
