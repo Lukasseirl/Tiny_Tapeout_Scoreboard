@@ -1,4 +1,4 @@
-<!---
+<img width="2468" height="1024" alt="grafik" src="https://github.com/user-attachments/assets/98786c53-ccce-4e93-98a3-1e4167993405" /><!---
 
 This file is used to generate your project datasheet. Please fill in the information below and delete any unused
 sections.
@@ -14,6 +14,8 @@ With the two pushbuttons you are able to set the points - button 1 is for player
 The two digit score of each player is then presented via two 7-segment displays wich alternate between the score of player 1 and player 2. Therefore the scoreboard blinks 2 times with the text 'P1' or 'P2' and after the blinking the respective score of each player is shown for 2 seconds.
 
 Furthermore, there is a pushbutton-processor that, not only recognises a long press of a push buthon, but has an debounce logic so that a single pushbutton press increases the score just by one - even if the button is bouncing. Also the score is limited to 00-99 - so if your score is 99 and you push the button, nothing will happen and the score stays at 99.
+
+<img width="2468" height="1024" alt="grafik" src="https://github.com/user-attachments/assets/de90f0a7-b101-463d-99c0-f71c6f8a50be" />
 
 ## How to test
 
