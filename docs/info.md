@@ -235,7 +235,7 @@ We can also see that the counter reaches a limit of 63 (bin) which is equal to 9
 
 <img width="2228" height="227" alt="grafik" src="https://github.com/user-attachments/assets/d2add1bc-4289-4e81-bc23-fc9151af7f83" />
 
-When the up and down signal are alternating triggered, we can see the counter counting up and down.
+When the up and down signals are alternatingly triggered, we can see the counter counting up and down.
 
 <img width="1888" height="221" alt="grafik" src="https://github.com/user-attachments/assets/d800f7e6-527b-4013-8ee4-8b3e377d5a46" />
 
@@ -243,9 +243,51 @@ If only the count down signal toggles, then we see the counter counting down aga
 
 <img width="2524" height="225" alt="grafik" src="https://github.com/user-attachments/assets/23cc4b4d-fcc3-4d30-a9f8-cd3fed1f4a59" />
 
+
+
+
 ## Bin to Dec
+The module *bin_to_decimal.v* gets a binary number as an input and gives back the ones and tens of a decimal number.
+
+```
+module bin_to_decimal (
+    input  wire [6:0]  bin_i,
+    output wire  [3:0]  tens_o,
+    output wire  [3:0]  ones_o
+);
+```
+
+
 ### Purpose
+As we want to display our score as a 2 digit decimal number, this module converts the binary count of the previous module and converts it into a decimal number which is split up into ones and tens.  
+
+The conversion is done with the following code. The expression bin_i / 10 computes how many tens are contained in the binary input, and the modulo operation % 10 limits this result to a single decimal digit.
+The expression bin_i % 10 computes the remainder of the division by 10, which directly corresponds to the ones digit.
+Together, these lines split the binary input value into its decimal tens and ones components. Furthermore, we receive the result as a decimal number because, with 7'd10, we explicitly specify it is a decimal number. 
+
+As single digits only goes from 0-9 we reduce the number of bits for the output with [3:0] to 4 bits.
+
+```
+    wire [6:0] tens_full = (bin_i / 7'd10) % 7'd10;
+    wire [6:0] ones_full = bin_i % 7'd10;
+    
+    assign tens_o = tens_full[3:0];
+    assign ones_o = ones_full[3:0];
+```
+
 ### Testing of Bin to Dec
+For testing I implement a testbenchfile *bin_to_decimal_tb.v* that gives the module different binary numbers that should be converted into decimal ones and tens. The different test cases can be seen below:
+
+```
+    // Test cases
+    bin_i = 7'd0;   #1500; // Sollte 0 und 0 ausgeben
+    bin_i = 7'd5;   #1500; // Sollte 0 und 5 ausgeben
+    bin_i = 7'd15;  #1500; // Sollte 1 und 5 ausgeben
+    bin_i = 7'd42;  #1500; // Sollte 4 und 2 ausgeben
+    bin_i = 7'd73;  #1500; // Sollte 7 und 3 ausgeben
+    bin_i = 7'd99;  #1500; // Sollte 9 und 9 ausgeben
+```
+
 
 ## Display Controller
 ### Purpose
