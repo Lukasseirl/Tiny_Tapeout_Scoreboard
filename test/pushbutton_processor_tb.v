@@ -5,8 +5,8 @@ module tb_pushbutton_processor;
     reg clk_1khz;
     reg rst_i = 1'b1;
     reg pushbutton_i;
-    wire count_up = 1'b0;
-    wire count_down = 1'b0;
+    wire count_up;
+    wire count_down;
     
     // Instantiate unit under test
     pushbutton_processor uut (
