@@ -620,12 +620,140 @@ If we zoom furthre in we can see the pushbutton signal also simulates the bounci
 
 <img width="1825" height="287" alt="grafik" src="https://github.com/user-attachments/assets/7cbbfe21-3ad1-46af-9c6a-67e2200e0d00" />
 
+## Tiny Tapeout Module
+In the last step we need to implement our top module *scoreboard_top.v* in the given tiny tapout module *project.v* to set the connections between our module and the board correctly. 
+
+```
+module tt_um_Lukasseirl (
+    input  wire [7:0] ui_in,    // Dedicated inputs
+    output wire [7:0] uo_out,   // Dedicated outputs
+    input  wire [7:0] uio_in,   // IOs: Input path
+    output wire [7:0] uio_out,  // IOs: Output path
+    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
+    input  wire       ena,      // always 1 when the design is powered, so you can ignore it
+    input  wire       clk,      // clock
+    input  wire       rst_n     // reset_n - low to reset
+);
+
+  // Wire definitions
+  wire [6:0] seg_tens;
+  wire [6:0] seg_ones;
+  
+  // Instantiate the scoreboard module
+  scoreboard_top scoreboard_inst (
+    .clk_1khz_i     (clk),           // Using main clock as 1kHz clock
+    .rst_i          (~rst_n),        // Convert active-low reset to active-high
+    .pushbutton_p1_i(~ui_in[0]),      // Spieler 1 Pushbutton
+    .pushbutton_p2_i(~ui_in[1]),      // Spieler 2 Pushbutton (neuer Input)
+    .seg_tens_o     (seg_tens),      // Tens digit
+    .seg_ones_o     (seg_ones)       // Ones digit
+  );
+
+  // Assign outputs - ones digit to uo_out, tens digit to uio_out
+    assign uo_out = {1'b1, seg_ones};  // Pad with 0 to make 8 bits
+    assign uio_out = {1'b1, seg_tens}; // Pad with 0 to make 8 bits
+  
+  // Set I/O enable: all uio pins as outputs
+  assign uio_oe = 8'b11111111;
+
+  // List all unused inputs to prevent warnings
+  wire _unused = &{ena, ui_in[7:2], uio_in, 1'b0};
+
+endmodule
+```
+
+# Settings for Tiny Tapeout
+For the github-actions to run through we need to make all settings correct. So we need to update the *config.json*, *info.yamal* and the *docs.md*. Also the our modules must be flawless otherwise librelane will fail building the chip design.
+
+## info.json
+In the *info.json* file the only thing we have to change is the CLOCK_PERIOD which we set to 1.000.000 ns which gives us the clock frequency of 1 kHz.
+
+## info.yamal
+In the info.yamal file we include all our needed modules and describe wich pins are used for what. We also set the clock speed correctly to 1000 Hz and give the project and our top module a unique title.
+
+```
+# Tiny Tapeout project information
+project:
+  title:        "Tiny_Tapeout_Scoreboard"      # Project title
+  author:       "Lukasseirl"      # Your name
+  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Scoreboard for two players that can be controlled with two pushbuttons."      # One line description of what your project does
+  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
+  clock_hz:     1000       # Clock frequency in Hz (or 0 if not applicable)
+
+  # How many tiles your design occupies? A single tile is about 167x108 uM.
+  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+
+  # Your top module name must start with "tt_um_". Make it unique by including your github username:
+  top_module:  "tt_um_Lukasseirl"
+
+  # List your project's source files here.
+  # Source files must be in ./src and you must list each source file separately, one per line.
+  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  source_files:
+    - "project.v"
+    - "bin_to_decimal.v"
+    - "counter_v2.v"
+    - "dual_7_seg.v"
+    - "pushbutton_processor.v"
+    - "scoreboard_top.v"
+    - "display_controller.v"
+
+# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
+# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+pinout:
+  # Inputs
+  ui[0]: "P1"  # push button for player 1
+  ui[1]: "P2"  # push button for player 2
+  ui[2]: ""
+  ui[3]: ""
+  ui[4]: ""
+  ui[5]: ""
+  ui[6]: ""
+  ui[7]: ""
+
+  # Outputs
+  uo[0]: "Seg_A1"    # output pins for seven segment display of the ONES 
+  uo[1]: "Seg_B1"
+  uo[2]: "Seg_C1"
+  uo[3]: "Seg_D1"
+  uo[4]: "Seg_E1"
+  uo[5]: "Seg_F1"
+  uo[6]: "Seg_G1"
+  uo[7]: "Seg_H1"
+
+  # Bidirectional pins
+  uio[0]: "Seg_A2"    # output pins for seven segment display of the TENS
+  uio[1]: "Seg_B2"
+  uio[2]: "Seg_C2"
+  uio[3]: "Seg_D2"
+  uio[4]: "Seg_E2"
+  uio[5]: "Seg_F2"
+  uio[6]: "Seg_G2"
+  uio[7]: "Seg_H2"
+
+# Do not change!
+yaml_version: 6
+```
+
+## docs.md
+In the *docs.md* is my documentation which is this file you are reading right now. To save some time I did not make an extra protrocoll and wrote my documentation in heren.
+
+## Github Actions
+
+Here it an be seen that all github actions are green:
+<img width="400" height="220" alt="grafik" src="https://github.com/user-attachments/assets/424c35ab-eed9-4083-ba5a-50dcb13a1c04" />
+
+<img width="400" height="220" alt="grafik" src="https://github.com/user-attachments/assets/d1eacdb9-865c-4b77-934b-e01fda36037f" />
+
+The design uses 34.97 % of the tile area. When the gds action runs through we can also view our design in the 2D and 3D viewer which gives an interesting look at our own chip:
+
+<img width="2921" height="1737" alt="grafik" src="https://github.com/user-attachments/assets/dc6d42ad-a32c-4a4c-b210-d951b427c8be" />
+
+<img width="1829" height="1729" alt="grafik" src="https://github.com/user-attachments/assets/268db7fe-1c17-431a-bc8f-98687592f143" />
+
 ## Testing Design with Wokwi
 
 ## Sonstiges 
 ## filter
 ### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
-
-<img width="873" height="440" alt="grafik" src="https://github.com/user-attachments/assets/424c35ab-eed9-4083-ba5a-50dcb13a1c04" />
-<img width="2011" height="988" alt="grafik" src="https://github.com/user-attachments/assets/d1eacdb9-865c-4b77-934b-e01fda36037f" />
-
