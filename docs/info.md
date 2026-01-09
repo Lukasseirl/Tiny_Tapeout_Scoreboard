@@ -465,3 +465,9 @@ The screenshot below shows the results of the gtkwave simulation. At first we ca
 ## Sonstiges 
 ## filter
 ### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
+
+<img width="2025" height="228" alt="grafik" src="https://github.com/user-attachments/assets/bd1e50ca-3129-438a-baa0-8265a83cc584" />
+
+<img width="2540" height="242" alt="grafik" src="https://github.com/user-attachments/assets/00b68255-cf28-4897-9a4f-ba894ef4e3d0" />
+
+
