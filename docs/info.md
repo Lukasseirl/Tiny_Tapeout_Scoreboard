@@ -448,7 +448,9 @@ Following screenshots show the different states of the animation for a score of 
 To test the animation I wrote a simple testbenchfile *display_controller_tb.v* that sets the score of the players to P1=12 and P2=7 and simulates the animation. 
 
 
-
+The screenshot below shows the results of the gtkwave simulation. At first we can see the blinking 'P1' text where both segments are alternating set to **off** and **P1** so that 'P1' appers blinking two times. Just to remember, 10 = segments off, 11 = 'P'. After the blinking we can see that the score '12' of player 1 is shown. After that the same process begins for player 2.
+  
+<img width="2366" height="316" alt="grafik" src="https://github.com/user-attachments/assets/4555641e-f493-466a-b531-0064ecf0d58f" />
 
 ## Dual 7 Segment Driver
 ### Purpose
