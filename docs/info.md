@@ -157,6 +157,8 @@ end
 
 ```
 
+For the time measurements we need flip-flops to count the clock ticks. As higher frequencies would need more flip-flops to measure the same amout of time, I choose a very low clock speed of 1kHz for this project. This is still fast enough to process pushbutton signals and is also well suited for the display later on.
+
 ### Testing of the pushbutton processor
 
 To test the pushbutton processor I wrote a testbench file *pushbutton_processor_tb.v* that simulates different pushbutton presses with bouncing.
@@ -176,3 +178,85 @@ If we look at the screenshot below we can see the behaviour of the module. At ab
 
 The next screenshot shows a more zoomed out image of the same simulation. After the short press a long press is made that is about 2s long. After 1.5s the count down is triggerd and the output for the count_down gets high for 10ms. When the pushbutton is finally released, no additional count up or down is triggered. This shows that the module works extactly as intended. 
 <img width="2362" height="274" alt="grafik" src="https://github.com/user-attachments/assets/f453d49f-5f32-400f-90e8-7a8f7db9820c" />
+
+
+## Counter
+The counter module *counter_v2.v* two inputs - one for the *count_up* and one for the *count_down* signal of the previous module. Output of the module is a 7 bit counter value *counter_val_o*. As we want to display a 2-digit number which can be maximum 99, 7-Bits are enough as we can store 0-127 with it. 
+
+```
+module counter_v2
+#(
+    parameter BW = 7 // 7 Bit = 0-127 | optional parameter
+) (
+    // define inputs and outputs of module
+    input    clk_i,         // general clock signal
+    input    clk_up_i,      // signal for counting up
+    input    clk_down_i,    // signal for counting down
+    input    rst_i, 
+    output wire [BW-1:0] counter_val_o
+);
+``` 
+
+### Purpose
+The purpose of this module is to count and safe the score of one player. If a *count_up* signal appears, the counter counts up by 1. If a *count_down* signal appears, the counter counts down by 1. In addition, the score is limited to the range 00-99 (decimal). So if the score reaches 99 and a *count_up* signal appears, the counter remains at 99 and does not go on to 100, as this could no longer be displayed on the screen.
+
+The following code snippet shows the implementaion of this logic in the module:
+
+```
+// count up on rising edge of clk_up_i
+if (clk_up_edge) begin
+    if (counter_val < 99) begin
+        counter_val <= counter_val + 1; // increment
+    end
+    // otherwise stay at 99
+end 
+// count down on rising edge of clk_down_i  
+else if (clk_down_edge) begin
+    if (counter_val > 0) begin
+        counter_val <= counter_val - 1; // decrement
+    end
+    // otherwise stay at 0
+end
+```
+
+### Testing of the Counter
+To test the module a testbenchfile *counter_v2_tb.v* is made that counts up and down from 0 to 99 and above to test the counting and the intended boundarys. As shown before we use gtkwave for the simulation.  
+
+The screenshot below shows the results of the simulation. The simulation can be split into 3 time frames. In the first 
+we have a toggling signal for the up counter while the down counting signal is constant low. In the end we have the opposite were the count down signal is toggling while count up is constant ag low. Inbetween we have a short time frame were both are toggling. 
+
+<img width="2307" height="180" alt="grafik" src="https://github.com/user-attachments/assets/1127c933-77d3-40d0-8de6-3c9a3928811c" />
+
+If we zoom into the first region we can see that the counter *cnt_val* counts up for every rising edge of the *clk_up* signal. 
+
+<img width="1726" height="196" alt="grafik" src="https://github.com/user-attachments/assets/d8eb22f5-a21a-4cd0-9967-049f66970769" />
+
+We can also see that the counter reaches a limit of 63 (bin) which is equal to 99 (dec).
+
+<img width="2228" height="227" alt="grafik" src="https://github.com/user-attachments/assets/d2add1bc-4289-4e81-bc23-fc9151af7f83" />
+
+When the up and down signal are alternating triggered, we can see the counter counting up and down.
+
+<img width="1888" height="221" alt="grafik" src="https://github.com/user-attachments/assets/d800f7e6-527b-4013-8ee4-8b3e377d5a46" />
+
+If only the count down signal toggles, then we see the counter counting down again until it finally reaches 0.
+
+<img width="2524" height="225" alt="grafik" src="https://github.com/user-attachments/assets/23cc4b4d-fcc3-4d30-a9f8-cd3fed1f4a59" />
+
+## Bin to Dec
+### Purpose
+### Testing of Bin to Dec
+
+## Display Controller
+### Purpose
+### Testing of the Display Controller
+
+## Dual 7 Segment Driver
+### Purpose
+### Testing of the Dual 7 Segment Driver
+
+## Top Module
+### Purpose
+### Testing of the Top Module
+
+## Testing Design with Wokwi
