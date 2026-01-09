@@ -470,4 +470,6 @@ The screenshot below shows the results of the gtkwave simulation. At first we ca
 
 <img width="2540" height="242" alt="grafik" src="https://github.com/user-attachments/assets/00b68255-cf28-4897-9a4f-ba894ef4e3d0" />
 
+<img width="2426" height="227" alt="grafik" src="https://github.com/user-attachments/assets/43d21d64-5781-4974-a63c-4604fb7dfd8e" />
+
 
