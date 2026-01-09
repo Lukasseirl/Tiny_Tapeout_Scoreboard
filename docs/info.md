@@ -319,7 +319,6 @@ The animation is structured as follows. To distinguish which score belongs to wh
 
 To better distinguish between the score and the ‘player text’, the player text blinks and the score remains permanently visible. The player text blinks twice for half a second before the score is then displayed for 2 seconds. The entire sequence alternates between player 1 and player 2.
 
-
 The entire animation is implemented again using a state machine which has the following states:
 1. **P1_BLINK:** The display blinks “P1” to indicate that player 1 is active. The digits are periodically turned on and off using BLINK_TIME (500 ms). After a fixed number of blink cycles, the machine moves to the next state.
 2. **P1_DISPLAY:** The actual score of player 1 (tens and ones) is shown steadily for DISPLAY_TIME (2000 ms) without blinking. After this time expires, the machine switches to player 2.
@@ -411,6 +410,7 @@ always @(posedge clk_1khz) begin
             P2_DISPLAY: begin
                 tens_o <= p2_tens_i;     // Normale Ziffern (0-9)
                 ones_o <= p2_ones_i;     // Normale Ziffern (0-9)
+$0
             end
             
             default: begin
@@ -421,22 +421,34 @@ always @(posedge clk_1khz) begin
     end
 end
 ```
-2x
+
+The display controller module tells the subsequent display driver module what should be displayed on the screen and simply sends it the digits 0-9. However, there are two special cases—namely, when the display should be turned off completely, or when a ‘P’ should be displayed for the text ‘P1’ and ‘P2’. In these cases, the module sends the numbers ‘10’ for ‘off’ and ‘11’ for ‘P’ to its outputs. 
+
+Following screenshots show the different states of the animation for a score of P1=03 and P2=15.
+
+**2x 500ms on/off**
+
 <img width="1096" height="649" alt="grafik" src="https://github.com/user-attachments/assets/c4622d3a-966f-489f-b31c-e7184c5ec28b" />
 <img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
 
-2000 ms
+**Score for 2000 ms**
+
 <img width="1115" height="670" alt="grafik" src="https://github.com/user-attachments/assets/19e83192-0d5b-4a49-96c5-4a38f34a3d1d" />
 
+**2x 500ms on/off**
 
 <img width="1184" height="724" alt="grafik" src="https://github.com/user-attachments/assets/527ddc16-ade0-4f12-baef-45ed958e2175" />
 <img width="1174" height="714" alt="grafik" src="https://github.com/user-attachments/assets/e9103223-9031-4e96-a56e-2976796638d3" />
 
-2000 ms
+**2000 ms**
+
 <img width="1160" height="660" alt="grafik" src="https://github.com/user-attachments/assets/b8caf518-aa1a-4eeb-b417-f726a89b2536" />
 
-
 ### Testing of the Display Controller
+To test the animation I wrote a simple testbenchfile *display_controller_tb.v* that sets the score of the players to P1=12 and P2=7 and simulates the animation. 
+
+
+
 
 ## Dual 7 Segment Driver
 ### Purpose
