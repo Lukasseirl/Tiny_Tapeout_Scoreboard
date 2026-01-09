@@ -32,7 +32,7 @@ module tb_pushbutton_processor;
         // initial reset
         #5 rst_i = 1'b0;
         #5 rst_i = 1'b1;
-        //#5 rst_i = 1'b0;
+        #5 rst_i = 1'b0;
 
         /* verilator lint_off STMTDLY */
         // Test 1: Short press
