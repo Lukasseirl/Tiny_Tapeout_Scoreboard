@@ -2,29 +2,29 @@
 import sys
 
 def transform(value):
-    # Common Cathode 7-Segment Mapping
+    # Common Anode 7-Segment Mapping
     seg7_map = {
-        0x7E: "0",
-        0x30: "1", 
-        0x6D: "2",
-        0x79: "3",
-        0x33: "4",
-        0x5B: "5",
-        0x5F: "6",
-        0x70: "7",
-        0x7F: "8",
-        0x7B: "9",
-        0x73: "P",  # 'P'
-        0x00: "aus",  #
-        0x77: "A",
-        0x1F: "B",
-        0x4E: "C",
-        0x3D: "D",
-        0x4F: "E",
-        0x47: "F",
-        0x00: " ",
-        0x02: "-",
-        0x80: "."
+        0x81: "0",
+        0xCF: "1",
+        0x92: "2",
+        0x86: "3",
+        0xCC: "4",
+        0xA4: "5",
+        0xA0: "6",
+        0x8F: "7",
+        0x80: "8",
+        0x84: "9",
+        0x8C: "P",   # 'P'
+        0xFF: "aus",
+        0x88: "A",
+        0xE0: "B",
+        0xB1: "C",
+        0xC2: "D",
+        0xB0: "E",
+        0xB8: "F",
+        0xFF: " ",
+        0xFD: "-",
+        0x7F: "."
     }
     
     try:
