@@ -742,11 +742,14 @@ In the *docs.md* is my documentation which is this file you are reading right no
 ## Github Actions
 
 Here it an be seen that all github actions are green:
+
 <img width="400" height="220" alt="grafik" src="https://github.com/user-attachments/assets/424c35ab-eed9-4083-ba5a-50dcb13a1c04" />
 
 <img width="400" height="220" alt="grafik" src="https://github.com/user-attachments/assets/d1eacdb9-865c-4b77-934b-e01fda36037f" />
 
 The design uses 34.97 % of the tile area. When the gds action runs through we can also view our design in the 2D and 3D viewer which gives an interesting look at our own chip:
+
+<img width="2274" height="1581" alt="grafik" src="https://github.com/user-attachments/assets/4b39d27b-0bdd-4f82-984f-f1518ff80784" />
 
 <img width="2921" height="1737" alt="grafik" src="https://github.com/user-attachments/assets/dc6d42ad-a32c-4a4c-b210-d951b427c8be" />
 
