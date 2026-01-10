@@ -22,7 +22,8 @@ The screenshot below shows the required hardware for the project. For the user i
 
 Our tiny tapeout chip is the heart of the hardware and processes the button presses and controlls the 7-segment displays.
 
-<img width="2468" height="1024" alt="grafik" src="https://github.com/user-attachments/assets/496a0537-259a-49d0-8b90-d642fc3afa7f" />
+<img width="2208" height="880" alt="grafik" src="https://github.com/user-attachments/assets/67f0d031-a08d-4f3c-935d-ed9f1df227ab" />
+
 
 ### Structure of the Top Module
 
@@ -876,4 +877,14 @@ assign uio_out_6 = uio_out[6];
 endmodule
 ```
 
+For the pushbuttons there is an option **Bounce** in the settings that can be checked. So our buttons act like real buttons with bouncing. 
+Feel free to test and try my chip design with wokwi here: https://wokwi.com/projects/446954697164307457
+
+
+
 ## Learnings
+Through this project, I learned many new things. Before starting this project, I had never worked with a hardware description language, but now I have basic knowledge of Verilog. It was very interesting to see the whole process of how a chip is designed and created, as this process is much more complex than it might seem at first.
+
+Because of the many tools that support the design process today, it is now possible for almost anyone to create their own chip. The Tiny Tapeout project shows that chip design is no longer limited to large companies and can also be done by students.
+
+By designing my own chip, I gained a much better understanding of how microprocessors work. I had heard before that everything is based on transistors and logic gates, but working on a real logic design helped me understand this much better. Creating my own design made it clearer how chips, computers, and digital systems work at a basic level.
