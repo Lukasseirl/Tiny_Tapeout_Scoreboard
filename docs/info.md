@@ -24,7 +24,7 @@ Our tiny tapeout chip is the heart of the hardware and processes the button pres
 
 <img width="2468" height="1024" alt="grafik" src="https://github.com/user-attachments/assets/496a0537-259a-49d0-8b90-d642fc3afa7f" />
 
-### Structure of the Modules
+### Structure of the Top Module
 
 The project consists of several modules. The general structure of the modules can be seen in the screenshot below.
 
@@ -37,7 +37,7 @@ In the following all modules are explained in more detail.
 
 
 ## Pushbutton Processor
-In addition to the clock and reset signals that all modules have, this module has the pushbutton signal as input and two outputs. 
+In addition to the inputs **clock** and **reset** signals that all modules have, this module has a pushbutton signal as an input. Furthermore there are two outputs - one that gives a pulse for counting up and one for counting down. 
 
 ```
 module pushbutton_processor (
@@ -54,22 +54,24 @@ The module _pushbutton_processor.v_ processes a signal of a pushbutton and has t
 * debouncing the pushbutton signal
 * decide between short (count up) and long button press (count down)
 
-Usually pushbuttons bounce when they get pressed as shown in the screenshot below. This would cause the counter to in-/decrease the score multiple points for a single button press.
+Usually pushbuttons bounce when they get pressed as shown in the screenshot below. This would cause the counter to in-/decrease the score multiple points for a single button press - what is unwanted.
 
 <img width="500" height="300" alt="grafik" src="https://github.com/user-attachments/assets/dfa2d1b2-7068-4049-a66b-ca0baf7ff955" />
 
-To solve this problem the pushbutton processor has a debouncing-logic implemented which checks the time duration between two or more rising flanks. Usually the bouncing of a button takes about 100 us to 10 ms. When the first rising flank appears we wait 20 ms before we are able to recognise the next one. This ensures that the bouncing is over and we do not make false counts. 
+To solve this problem the pushbutton processor has a debouncing-logic implemented which checks the time duration between two or more rising flanks. Usually the bouncing of a button takes about 100 us to 10 ms. When the first rising flank appears the module waits 20 ms before it is able recognise the next rising flank. After that waiting time the bouncing process should be over and we do not make any false counts. 
 
-We also check if the button push is hold for over 1.5 seceonds or gest released before. If the button is released before the 1.5 s we send a 10 ms pulse at the _count_up_ output. If its hold longer we send a puls at the _count_down_ output.
+We also check if the button push is hold for over 1.5s or gest released before. If the button is released before the 1.5 s we send a 10 ms pulse at the _count_up_ output. If its hold at least for 1.5s we send a pulse at the _count_down_ output.
 
-To do so we implemented a state machine that has four states that track the life cycle of the button press:
+To do so I implemented a state machine that has four states that track the life cycle of the button press:
 
-1. **IDLE:** This is the resting state. The button is not pressed, all counters are reset, and no outputs are active. When the button signal goes high, the machine moves to the debouncing state.
+1. **IDLE:** This is the resting state. The button is not pressed, all counters are reset, and no outputs are active. When the button signal goes HIGH, the machine moves to the debouncing state.
 2. **DEBOUNCING:** In this state, the machine checks that the button press is real and not just contact bounce. As long as the button stays pressed, a counter increments. If the button is released before the debounce time expires, the machine returns to IDLE. If the button remains pressed for the full debounce time, the press is considered valid and the machine moves to the PRESSED state.
 3. **PRESSED:** Here, the button is confirmed as pressed and the machine measures how long it is held. A counter increments while the button stays pressed. 
     * If the button is released before the long-press time is reached, this is treated as a short press: the machine generates a short count_up pulse and returns to IDLE.
     * If the button stays pressed long enough to exceed the long-press threshold, the machine transitions to the LONG_PRESS state and generates a short count_down pulse.
 4. **LONG_PRESS:** This state indicates that a long press has already been detected and reported. No further pulses are generated here. The machine simply waits for the button to be released, and once it is, it returns to the IDLE state, ready for the next press.
+
+For the time measurements we need flip-flops to count the clock ticks. As higher frequencies would need more flip-flops to measure the same amout of time, I choose a very low clock speed of 1kHz for this project. This is still fast enough to process pushbutton signals but saves a lot of tile area due to the smaller number of flip-flops.
 
 ```
 // Timing parameters for 1kHz clock
@@ -166,8 +168,6 @@ end
 
 ```
 
-For the time measurements we need flip-flops to count the clock ticks. As higher frequencies would need more flip-flops to measure the same amout of time, I choose a very low clock speed of 1kHz for this project. This is still fast enough to process pushbutton signals and is also well suited for the display later on.
-
 ### Testing of the pushbutton processor
 
 To test the pushbutton processor I wrote a testbench file *pushbutton_processor_tb.v* that simulates different pushbutton presses with bouncing.
@@ -179,18 +179,18 @@ With the command
 
 I start the testbenchfile with a shell-script that starts up gtkwave for the simulation where we can analyze the results.
 
-When analyzing the simulation results, it should be noted that we have selected a higher clock frequency in the testbench file. We therefore only need to look at the ticks. For the entire project, the clock frequency is set to 1 kHz, which means that 1 tick = 1 ms. Even though nanoseconds are now visible in gtkwave, this corresponds to milliseconds later on with the correct clock.
+When analyzing the simulation results, it should be noted that I have selected a higher clock frequency in the testbench file. Therefore I only need to look at the ticks. For the entire project, the clock frequency is set to 1 kHz, which means that 1 tick = 1 ms. Even though nanoseconds are now visible in gtkwave, this corresponds to milliseconds later on with the correct clock speed.
 
-If we look at the screenshot below we can see the behaviour of the module. At about t=15 ms the pushbutton signal gets HIGH, bounces a few times and gets low at about t=54 ms. We can see that this triggers the count_up to go high for 10 ms. This shows that the debouncing and the short press works like its supposed to be.  
+If we look at the screenshot below we can see the behaviour of the module. At about t=15 ms the pushbutton signal gets HIGH, bounces a few times and gets low at about t=54 ms. We can see that this triggers the count_up to go HIGH for 10 ms. This shows that the debouncing and the short press works like its supposed to be.  
 
 <img width="1845" height="328" alt="grafik" src="https://github.com/user-attachments/assets/ed472d7d-585b-4a8a-955d-8915012eb2f0" />
 
-The next screenshot shows a more zoomed out image of the same simulation. After the short press a long press is made that is about 2s long. After 1.5s the count down is triggerd and the output for the count_down gets high for 10ms. When the pushbutton is finally released, no additional count up or down is triggered. This shows that the module works extactly as intended. 
+The next screenshot shows a more zoomed out image of the same simulation. After the short press a long press is simulated that is about 2s long. After 1.5s the 'count down' is triggerd and the output for the count_down gets HIGH for 10ms. When the pushbutton is finally released, no additional count up or down is triggered. This shows that the module works extactly as intended. 
 <img width="2362" height="274" alt="grafik" src="https://github.com/user-attachments/assets/f453d49f-5f32-400f-90e8-7a8f7db9820c" />
 
 
 ## Counter
-The counter module *counter_v2.v* two inputs - one for the *count_up* and one for the *count_down* signal of the previous module. Output of the module is a 7 bit counter value *counter_val_o*. As we want to display a 2-digit number which can be maximum 99, 7-Bits are enough as we can store 0-127 with it. 
+The counter module *counter_v2.v* has two inputs - one for the *count_up* and one for the *count_down* signal of the previous module. Output of the module is a 7-bit counter value *counter_val_o*. As we want to display a 2-digit number which can be maximum 99, 7-Bits are enough as we can store 0-127 with it. The number of bits can be adjusted with the parameter **BW** so that this module can be used for other projects as well where a different counting range is needed.
 
 ```
 module counter_v2
@@ -207,7 +207,7 @@ module counter_v2
 ``` 
 
 ### Purpose
-The purpose of this module is to count and safe the score of one player. If a *count_up* signal appears, the counter counts up by 1. If a *count_down* signal appears, the counter counts down by 1. In addition, the score is limited to the range 00-99 (decimal). So if the score reaches 99 and a *count_up* signal appears, the counter remains at 99 and does not go on to 100, as this could no longer be displayed on the screen.
+The purpose of this module is to count and save the score of a player. If a *count_up* signal appears, the counter counts up by 1. If a *count_down* signal appears, the counter counts down by 1. In addition, the score is limited to the range 00-99 (decimal). So if the score reaches 99 and a *count_up* signal appears, the counter remains at 99 and does not go on to 100, as this could no longer be displayed with the two displays.
 
 The following code snippet shows the implementaion of this logic in the module:
 
@@ -229,10 +229,10 @@ end
 ```
 
 ### Testing of the Counter
-To test the module a testbenchfile *counter_v2_tb.v* is made that counts up and down from 0 to 99 and above to test the counting and the intended boundarys. As shown before we use gtkwave for the simulation.  
+To test the module a testbenchfile *counter_v2_tb.v* is made that counts up and down from 0 to 99 and above to test the counting and the intended boundaries. As shown before we use gtkwave for the simulation.  
 
-The screenshot below shows the results of the simulation. The simulation can be split into 3 time frames. In the first 
-we have a toggling signal for the up counter while the down counting signal is constant low. In the end we have the opposite were the count down signal is toggling while count up is constant ag low. Inbetween we have a short time frame were both are toggling. 
+The screenshot below show the results of the simulation. The simulation can be split into 3 time frames. In the first 
+we have a signal toggling between HIGH and LOW for the up counter while the down counting signal is constant LOW. In the end we have the opposite were the count down signal is toggling while count up is constant at LOW. Inbetween we have a short time frame were both are toggling. 
 
 <img width="2307" height="180" alt="grafik" src="https://github.com/user-attachments/assets/1127c933-77d3-40d0-8de6-3c9a3928811c" />
 
@@ -240,7 +240,7 @@ If we zoom into the first region we can see that the counter *cnt_val* counts up
 
 <img width="1726" height="196" alt="grafik" src="https://github.com/user-attachments/assets/d8eb22f5-a21a-4cd0-9967-049f66970769" />
 
-We can also see that the counter reaches a limit of 63 (bin) which is equal to 99 (dec).
+We can also see that the counter reaches a limit of 63 (hex) which is equal to 99 (dec).
 
 <img width="2228" height="227" alt="grafik" src="https://github.com/user-attachments/assets/d2add1bc-4289-4e81-bc23-fc9151af7f83" />
 
@@ -248,7 +248,7 @@ When the up and down signals are alternatingly triggered, we can see the counter
 
 <img width="1888" height="221" alt="grafik" src="https://github.com/user-attachments/assets/d800f7e6-527b-4013-8ee4-8b3e377d5a46" />
 
-If only the count down signal toggles, then we see the counter counting down again until it finally reaches 0.
+If only the count down signal toggles, then we see the counter counting down until it finally reaches 0. This shows that the counter modules works as supposed to.
 
 <img width="2524" height="225" alt="grafik" src="https://github.com/user-attachments/assets/23cc4b4d-fcc3-4d30-a9f8-cd3fed1f4a59" />
 
@@ -256,7 +256,7 @@ If only the count down signal toggles, then we see the counter counting down aga
 
 
 ## Bin to Dec
-The module *bin_to_decimal.v* gets a binary number as an input and gives back the ones and tens of a decimal number.
+The module *bin_to_decimal.v* gets a binary number as an input and gives back the **ones** and **tens** of a decimal number.
 
 ```
 module bin_to_decimal (
@@ -270,11 +270,11 @@ module bin_to_decimal (
 ### Purpose
 As we want to display our score as a 2 digit decimal number, this module converts the binary count of the previous module and converts it into a decimal number which is split up into ones and tens.  
 
-The conversion is done with the following code. The expression bin_i / 10 computes how many tens are contained in the binary input, and the modulo operation % 10 limits this result to a single decimal digit.
-The expression bin_i % 10 computes the remainder of the division by 10, which directly corresponds to the ones digit.
+The conversion is done with the following code. The expression **bin_i / 10** computes how many tens are contained in the binary input, and the modulo operation **% 10** limits this result to a single decimal digit.
+The expression **bin_i % 10** computes the remainder of the division by 10, which directly corresponds to the ones digit.
 Together, these lines split the binary input value into its decimal tens and ones components. Furthermore, we receive the result as a decimal number because, with 7'd10, we explicitly specify it is a decimal number. 
 
-As single digits only goes from 0-9 we reduce the number of bits for the output with [3:0] to 4 bits.
+As single digits only goe from 0-9, we reduce the number of bits for the output with [3:0] to 4 bits.
 
 ```
     wire [6:0] tens_full = (bin_i / 7'd10) % 7'd10;
@@ -303,7 +303,7 @@ The screenshot below shows the results of the simulation. The first binary numbe
 
 ## Display Controller
 
-The display controller gets the score as ones and tens of the two players as input. The module has two outputs - one for each 7-segment display where one display is for the ones and one is for the tens of the decimal number.
+The display controller *display_controller.v* gets the score as ones and tens of the two players as input. The module has two outputs - one for each 7-segment display where one display is for the ones and one is for the tens of the decimal number.
 
 ```
 module display_controller (
@@ -324,12 +324,12 @@ module display_controller (
 ### Purpose
 The problem that this module solves is that we need to display a two-digit score for two players, but only have two 7-segment displays available. The solution to this problem is to animate the score so that the score of player 1 and player 2 are displayed alternately. 
 
-The animation is structured as follows. To distinguish which score belongs to which player, the respective player is always displayed before the score with the text ‘P1’ or ‘P2’. The corresponding two-digit score is then displayed.
+The animation is structured as follows: To distinguish which score belongs to which player, the respective player is always displayed before the score with the text ‘P1’ or ‘P2’. The corresponding two-digit score is then displayed afterwards.
 
-To better distinguish between the score and the ‘player text’, the player text blinks and the score remains permanently visible. The player text blinks twice for half a second before the score is then displayed for 2 seconds. The entire sequence alternates between player 1 and player 2.
+To better distinguish between the 'score' and the ‘player text’, the player text blinks and the score remains permanently visible. The player text blinks twice for half a second before the score is then displayed for 2 seconds. The entire sequence alternates between player 1 and player 2.
 
 The entire animation is implemented again using a state machine which has the following states:
-1. **P1_BLINK:** The display blinks “P1” to indicate that player 1 is active. The digits are periodically turned on and off using BLINK_TIME (500 ms). After a fixed number of blink cycles, the machine moves to the next state.
+1. **P1_BLINK:** The display blinks “P1” to indicate that player 1 is active. The digits are periodically turned on and off using BLINK_TIME (500 ms). After 2 blink cycles, the machine moves to the next state.
 2. **P1_DISPLAY:** The actual score of player 1 (tens and ones) is shown steadily for DISPLAY_TIME (2000 ms) without blinking. After this time expires, the machine switches to player 2.
 3. **P2_BLINK:** The display blinks “P2” in the same way as for player 1, again to indicate the active player. After the defined number of blink cycles, the machine advances to the display state.
 4. **P2_DISPLAY:** The actual score of player 2 is shown steadily for DISPLAY_TIME. Once this time is over, the machine returns to P1_BLINK, and the cycle repeats. 
@@ -431,7 +431,7 @@ $0
 end
 ```
 
-The display controller module tells the subsequent display driver module what should be displayed on the screen and simply sends it the digits 0-9. However, there are two special cases—namely, when the display should be turned off completely, or when a ‘P’ should be displayed for the text ‘P1’ and ‘P2’. In these cases, the module sends the numbers ‘10’ for ‘off’ and ‘11’ for ‘P’ to its outputs. 
+The display controller module tells the subsequent display driver module what should be displayed on the screen and simply sends it the digits 0-9. However, there are two special cases: when the display should be turned off completely, or when a ‘P’ should be displayed for the text ‘P1’ and ‘P2’. In these cases, the module sends the numbers ‘10’ for ‘OFF’ and ‘11’ for ‘P’ to its outputs. 
 
 Following screenshots show the different states of the animation for a score of P1=03 and P2=15.
 
@@ -457,13 +457,13 @@ Following screenshots show the different states of the animation for a score of 
 To test the animation I wrote a simple testbenchfile *display_controller_tb.v* that sets the score of the players to P1=12 and P2=7 and simulates the animation. 
 
 
-The screenshot below shows the results of the gtkwave simulation. At first we can see the blinking 'P1' text where both segments are alternating set to **off** and **P1** so that 'P1' appers blinking two times. Just to remember, 10 = segments off, 11 = 'P'. After the blinking we can see that the score '12' of player 1 is shown. After that the same process begins for player 2.
+The screenshot below shows the results of the gtkwave simulation. At first we can see the blinking 'P1' text where both segments are alternating set to **OFF** and **P1** so that **P1** appers blinking two times. Just to remember, 10 = segments off, 11 = 'P'. After the blinking we can see that the score '12' of player 1 is shown. After that the same process begins for player 2. The simulation shows that the animation is working.
 
 <img width="2366" height="316" alt="grafik" src="https://github.com/user-attachments/assets/4555641e-f493-466a-b531-0064ecf0d58f" />
 
 
 ## Dual 7 Segment Driver
-The dual 7 segment display driver *dual_7_seg.v* has an input for the ones and the tens. Furthermore it has 2x 7 bit outputs to control the individual segments of the displays.
+The dual 7 segment display driver *dual_7_seg.v* has an input for the ones and the tens. Furthermore it has 2x 7-bit outputs to control the individual segments of the two 7-segment displays.
 
 ```
 module dual_7_seg
@@ -479,7 +479,7 @@ module dual_7_seg
 ```
 
 ### Purpose
-The purpose of the dual 7 segment driver is to display the given decimal numbers correctly with the 7 segment displays. Therfore a simple maping with bit masks is made. As the display is connected to a common anode we need to invert the bitmask - so 0 means HIGH and 1 menas LOW.
+The purpose of the dual 7 segment driver is to display the given decimal numbers and the 'P' correctly with the 7-segment displays. Therfore a simple mapping with bit masks is made. As the display is connected to a common anode we need to invert the bitmasks - so 0 means HIGH and 1 menas LOW.
 
 The following screenshot shows the order in which the segments are used, numbered from **a** to **g**.  As a example, to represent a '0' all segments need to be HIGH except **g**.
 
@@ -555,12 +555,12 @@ rst_i = 1'b0; #20;
 tens_i = 4'd8; ones_i = 4'd1; #20; // 81
 ```
 
-The screenshots below shows the result of the simulation. The first two lines show the input signals and the last two lines the output signals. In gtkwave we can switch the data format of the signals. The first screenshot shows the output in decimal and the second screenshots shows the output with binary numbers. Unfortunately both representations are not very practical to check if the representation is correct.
+The screenshots below shows the result of the simulation. The first two lines show the input signals and the last two lines show the output signals. In gtkwave we can switch the data format of the signals. The first screenshot shows the output in decimal and the second screenshots shows the output with binary numbers. Unfortunately both representations are not very practical to check if the representation is correct.
 
 <img width="2025" height="228" alt="grafik" src="https://github.com/user-attachments/assets/bd1e50ca-3129-438a-baa0-8265a83cc584" />
 <img width="2540" height="242" alt="grafik" src="https://github.com/user-attachments/assets/00b68255-cf28-4897-9a4f-ba894ef4e3d0" />
 
-However, gtkwave offers the option of using a filter script that converts the numbers into a different format. So I wrote and applied my own script, which interprets the binary numbers as decimal numbers/letters, just as they are displayed with the 7 segment displays.
+However, gtkwave offers the option of using a filter script that converts the numbers into a different format. So I wrote and applied my own script, which interprets the binary numbers as decimal numbers/letters, just as they would be displayed with the 7-segment displays.
 
 The filter script is a python file *filter-process.py* with the following code for the conversion:
 
@@ -590,12 +590,12 @@ def transform(value):
         return "?"
 ```
 
-To use the filter script for a signal you need to select the signal, make a right click and then go to **Data Format** => **Translate Filter Process** => **Enable and Select**. Then you choose the filter file *filter-process.py* and click **Ok**. 
+To use the filter script for a signal you need to select the signal in gtkwave, make a right click and then go to **Data Format** => **Translate Filter Process** => **Enable and Select**. Then you choose the filter file *filter-process.py* and click **Ok**. 
 
 <img width="1000" height="600" alt="grafik" src="https://github.com/user-attachments/assets/f1f27867-e8d2-48f1-a198-393b0e65fe11" />
 <img width="500" height="350" alt="grafik" src="https://github.com/user-attachments/assets/f6c6ac4f-6a62-4eb2-8c73-1a2e4ea799d1" />
 
-At the screenshot below you can see new representation of the output. Now it is very easy to compare it to the input. The simulation shows that the 7 segment displays show the expected numbers and also the letter 'P'. If any other numbers than 0-11 are given in the input, the 7 segment display shows '-' which represents an error. The simulation shows, that the module works like intended.
+At the screenshot below you can see the new representation of the output. Now it is very easy to compare it to the input. The simulation shows that the 7 segment displays show the expected numbers and also the letter 'P'. If any other numbers than 0-11 are given in the input, the 7 segment display shows '-' which represents an error. The simulation shows, that the module works like intended.
 
 <img width="2426" height="227" alt="grafik" src="https://github.com/user-attachments/assets/43d21d64-5781-4974-a63c-4604fb7dfd8e" />
 
@@ -619,9 +619,9 @@ module scoreboard_top
 
 ### Testing of the Top Module
 
-To test the top module we make a testbench *scoreboard_top-2_tb.v* which is similar to the testbench of the pushbutton processor. We simulate different pushbutton presses and check if the displays show the expected results. Therefore we use our filter-process python script again.
+To test the top module we make a testbenchfile *scoreboard_top-2_tb.v* which is similar to the testbench of the pushbutton processor. We simulate different pushbutton presses and check if the displays shows the expected results. Therefore we use our filter-process python script again.
 
-The screenshot below shows the simulation result in gtkwave. The first two signals show the displayed values of the 7 segment displays and the last two signals are the signals of the pushbuttons of player 1 and 2. We can see the blinking animation. We can also see that the score of player 1 increases with the button presses of pushbutton 1. 
+The screenshot below shows the simulation result in gtkwave. The first two signals show the displayed values of the 7-segment displays and the last two signals are the signals of the pushbuttons of player 1 and 2. We can see the blinking animation. We can also see that the score of player 1 increases with the button presses of pushbutton 1. 
 
 <img width="2013" height="249" alt="grafik" src="https://github.com/user-attachments/assets/33da6fae-d73e-4111-8edf-34f96d10da0d" />
 
@@ -672,13 +672,13 @@ endmodule
 ```
 
 # Settings for Tiny Tapeout
-For the github-actions to run through we need to make all settings correct. So we need to update the *config.json*, *info.yamal* and the *docs.md*. Also the our modules must be flawless otherwise librelane will fail building the chip design.
+For the github-actions to run through we need to make all settings correctly. So we need to update the *config.json*, *info.yamal* and the *docs.md*. Also our modules must be flawless otherwise librelane will fail building the chip design.
 
 ## info.json
 In the *info.json* file the only thing we have to change is the CLOCK_PERIOD which we set to 1.000.000 ns which gives us the clock frequency of 1 kHz.
 
 ## info.yamal
-In the info.yamal file we include all our needed modules and describe wich pins are used for what. We also set the clock speed correctly to 1000 Hz and give the project and our top module a unique title.
+In the *info.yamal* file we include all our needed modules and describe wich pins are used for what. We also set the clock speed correctly to 1000 Hz and give the project title and our top module a unique name.
 
 ```
 # Tiny Tapeout project information
@@ -746,11 +746,11 @@ yaml_version: 6
 ```
 
 ## docs.md
-In the *docs.md* is my documentation which is this file you are reading right now. To save some time I did not make an extra protrocoll and wrote my documentation in heren.
+In the *docs.md* is my documentation which is this file you are reading right now. To save some time I did not make an extra protrocol and wrote my documentation in here.
 
 ## Github Actions
 
-Here it an be seen that all github actions are green:
+Here it can be seen that all github actions are green:
 
 <img width="400" height="220" alt="grafik" src="https://github.com/user-attachments/assets/424c35ab-eed9-4083-ba5a-50dcb13a1c04" />
 
@@ -766,6 +766,4 @@ The design uses 34.97 % of the tile area. When the gds action runs through we ca
 
 ## Testing Design with Wokwi
 
-## Sonstiges 
-## filter
-### github actions, erkenntnisse/learnings, allgemeine anleitung wie man testet / simuliert
+
