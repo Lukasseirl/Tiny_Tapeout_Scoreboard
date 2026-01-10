@@ -7,6 +7,37 @@
 
 **Wokwi Design:** https://wokwi.com/projects/446954697164307457
 
+# Table of Contents
+
+- [Tiny Tapeout Scoreboard](#tiny-tapeout-scoreboard)
+  - [Introduction](#introduction)
+    - [Hardware](#hardware)
+    - [Structure of the Top Module](#structure-of-the-top-module)
+  - [Pushbutton Processor](#pushbutton-processor)
+    - [Purpose](#purpose)
+    - [Testing of the pushbutton processor](#testing-of-the-pushbutton-processor)
+  - [Counter](#counter)
+    - [Purpose](#purpose-1)
+    - [Testing of the Counter](#testing-of-the-counter)
+  - [Bin to Dec](#bin-to-dec)
+    - [Purpose](#purpose-2)
+    - [Testing of Bin to Dec](#testing-of-bin-to-dec)
+  - [Display Controller](#display-controller)
+    - [Purpose](#purpose-3)
+  - [Dual 7 Segment Driver](#dual-7-segment-driver)
+    - [Purpose](#purpose-4)
+    - [Testing of the Dual 7 Segment Driver](#testing-of-the-dual-7-segment-driver)
+  - [Top Module](#top-module)
+    - [Testing of the Top Module](#testing-of-the-top-module)
+  - [Tiny Tapeout Module](#tiny-tapeout-module)
+  - [Settings for Tiny Tapeout](#settings-for-tiny-tapeout)
+    - [info.json](#infojson)
+    - [info.yamal](#infoyamal)
+    - [docs.md](#docsmd)
+  - [Github Actions](#github-actions)
+  - [Testing Design with Wokwi](#testing-design-with-wokwi)
+  - [Learnings](#learnings)
+
 
 # Tiny Tapeout Scoreboard
 
@@ -672,13 +703,13 @@ module tt_um_Lukasseirl (
 endmodule
 ```
 
-# Settings for Tiny Tapeout
+## Settings for Tiny Tapeout
 For the github-actions to run through we need to make all settings correctly. So we need to update the *config.json*, *info.yamal* and the *docs.md*. Also our modules must be flawless otherwise librelane will fail building the chip design.
 
-## info.json
+### info.json
 In the *info.json* file the only thing we have to change is the CLOCK_PERIOD which we set to 1.000.000 ns which gives us the clock frequency of 1 kHz.
 
-## info.yamal
+### info.yamal
 In the *info.yamal* file we include all our needed modules and describe wich pins are used for what. We also set the clock speed correctly to 1000 Hz and give the project title and our top module a unique name.
 
 ```
@@ -746,7 +777,7 @@ pinout:
 yaml_version: 6
 ```
 
-## docs.md
+### docs.md
 In the *docs.md* is my documentation which is this file you are reading right now. To save some time I did not make an extra protrocol and wrote my documentation in here.
 
 ## Github Actions
