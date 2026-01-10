@@ -766,4 +766,114 @@ The design uses 34.97 % of the tile area. When the gds action runs through we ca
 
 ## Testing Design with Wokwi
 
+With Wokwi we are able to test our chip design including all the hardware we would have in the real world. For this we build our circuit in Wokwi and for our chip we use the **Custom Chip**. When adding the chip, it is important to set the language to Verilog.
 
+<img width="374" height="216" alt="grafik" src="https://github.com/user-attachments/assets/37ee67b8-a141-4d31-9df6-94d831ad5bc4" />
+
+After creating the chip, two new files, **my-verilog-project.chip.json** and **my-verilog-project.chip.v** are created.
+
+In the .json file we need define the Inputs and outputs of the Chip:
+```
+{
+  "name": "scoreboard",
+  "author": "Lukas Seirlehner",
+  "pins": [
+    "clk",
+    "rst_n",
+    "ui_in_0",    
+    "ui_in_1",
+    "uo_out_0",
+    "uo_out_1",
+    "uo_out_2",
+    "uo_out_3",
+    "uo_out_4",
+    "uo_out_5",
+    "uo_out_6",
+    "uio_out_0",
+    "uio_out_1",
+    "uio_out_2",
+    "uio_out_3",
+    "uio_out_4",
+    "uio_out_5",
+    "uio_out_6"
+  ],
+  "controls": []
+}
+```
+
+In the .v file we copy all of our verilog modules:
+
+* tt_um_Lukasseirl
+* scoreboard_top
+* pushbutton_processor
+* dual_7_seg
+* display_controller
+* counter_v2
+* bin_to_decimal
+
+Additionaly there is a automatically generate module called **wokwi** in this file. It is the top level module that is executed by the created chip. The inputs and outputs of the module must be adjusted so that it matches the previously created .josn file.
+```
+module wokwi (
+  input wire clk,
+  input wire rst_n,
+  input wire ui_in_0,
+  input wire ui_in_1,
+
+  output wire uo_out_0,
+  output wire uo_out_1,
+  output wire uo_out_2,
+  output wire uo_out_3,
+  output wire uo_out_4,
+  output wire uo_out_5,
+  output wire uo_out_6,
+
+  output wire uio_out_0,
+  output wire uio_out_1,
+  output wire uio_out_2,
+  output wire uio_out_3,
+  output wire uio_out_4,
+  output wire uio_out_5,
+  output wire uio_out_6
+  );
+
+wire [7:0] ui_in;
+wire [7:0] uo_out;
+wire [7:0] uio_in = 8'b0;
+wire [7:0] uio_out;
+wire [7:0] uio_oe; 
+wire ena = 1'b1;
+
+assign ui_in = {6'b0, ui_in_1, ui_in_0}; 
+
+tt_um_Lukasseirl uut (
+  .ui_in(ui_in),
+  .uo_out(uo_out),
+  .uio_in(uio_in),
+  .uio_out(uio_out),
+  .uio_oe(uio_oe),
+  .ena(ena),
+  .clk(clk),
+  .rst_n(rst_n)
+);
+
+// Mappe 8-bit Ausgang auf einzelne Segmente
+assign uo_out_0 = uo_out[0];
+assign uo_out_1 = uo_out[1];
+assign uo_out_2 = uo_out[2];
+assign uo_out_3 = uo_out[3];
+assign uo_out_4 = uo_out[4];
+assign uo_out_5 = uo_out[5];
+assign uo_out_6 = uo_out[6];
+
+assign uio_out_0 = uio_out[0];
+assign uio_out_1 = uio_out[1];
+assign uio_out_2 = uio_out[2];
+assign uio_out_3 = uio_out[3];
+assign uio_out_4 = uio_out[4];
+assign uio_out_5 = uio_out[5];
+assign uio_out_6 = uio_out[6];
+
+endmodule
+```
+
+## Learnings
