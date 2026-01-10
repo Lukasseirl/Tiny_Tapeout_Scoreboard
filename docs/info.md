@@ -1,8 +1,12 @@
 # Preamble
 **Name:** Lukas Seirlehner
+
 **Student Number: ** k12105181
+
 **GitHub Repository:** https://github.com/Lukasseirl/Tiny_Tapeout_Scoreboard
+
 **Wokwi Design:** https://wokwi.com/projects/446954697164307457
+
 
 # Tiny Tapeout Scoreboard
 
