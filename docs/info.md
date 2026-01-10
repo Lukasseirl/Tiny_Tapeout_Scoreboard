@@ -24,6 +24,7 @@
     - [Testing of Bin to Dec](#testing-of-bin-to-dec)
   - [Display Controller](#display-controller)
     - [Purpose](#purpose-3)
+    - [Testing of the Display Controller](#testing-of-the-display-controller)
   - [Dual 7 Segment Driver](#dual-7-segment-driver)
     - [Purpose](#purpose-4)
     - [Testing of the Dual 7 Segment Driver](#testing-of-the-dual-7-segment-driver)
@@ -37,6 +38,7 @@
   - [Github Actions](#github-actions)
   - [Testing Design with Wokwi](#testing-design-with-wokwi)
   - [Learnings](#learnings)
+
 
 
 # Tiny Tapeout Scoreboard
