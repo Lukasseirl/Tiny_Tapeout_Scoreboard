@@ -1,7 +1,7 @@
 # Preamble
 **Name:** Lukas Seirlehner
 
-**Student Number: ** k12105181
+**Student Number:** k12105181
 
 **GitHub Repository:** https://github.com/Lukasseirl/Tiny_Tapeout_Scoreboard
 
@@ -18,7 +18,7 @@ Furthermore, there is a pushbutton-processor that, not only recognises a long pr
 
 ### Hardware
 
-The screenshot below shows the required hardware for the project. For the user inputs we use two pushbuttons with a pullup resistor which are connected to the tiny tapeout board at IN0 and IN1. For the representation of the score we use two 7-segment display. To control them we use 7 of the 8 output pins and additionally use the bidirectional pins as output. 
+The screenshot below shows the required hardware for the project. For the user inputs we use two pushbuttons with a pullup resistor which are connected to the tiny tapeout board at **IN0** and **IN1**. For the representation of the score we use two 7-segment display. To control them we use 7 output pins and additionally use the bidirectional pins as output as well. 
 
 Our tiny tapeout chip is the heart of the hardware and processes the button presses and controlls the 7-segment displays.
 
@@ -28,13 +28,12 @@ Our tiny tapeout chip is the heart of the hardware and processes the button pres
 
 The project consists of several modules. The general structure of the modules can be seen in the screenshot below.
 
-For each player we have a pushbutton processor. This processes the bushbutton signal and sends a 'count up' or 'count down' signal to a counter module which increases or decreases a counter and safes the current score. This binary count is then convertet into a decimal number with another module. The the two scores go to the display controller which controlls the represantation animation of the score and tells the display driver what should be displayed. The display driver then controlls the the single bits of the 7-segment displays to display the commands of the display controller correctly.
+For each player we have a pushbutton processor. This processes the pushbutton signal and sends a 'count up' or 'count down' signal to a counter module which increases or decreases a counter and saves the current score. This binary count is then convertet into a decimal number with another module. The the two scores go to the display controller which controlls the represantation animation of the score and tells the display driver what should be displayed. The display driver then controlls the single bits of the 7-segment displays to display the numbers/letters of the display controller correctly.
 
 
 <img width="1359" height="424" alt="grafik" src="https://github.com/user-attachments/assets/ac7c8c91-59c5-4f75-a638-3c5ba374a46f" />
 
-Further below all modules are will be explained in more detail.
-
+In the following all modules are explained in more detail.
 
 
 ## Pushbutton Processor
