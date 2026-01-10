@@ -1,4 +1,3 @@
-# Preamble
 **Name:** Lukas Seirlehner
 
 **Student Number:** k12105181
