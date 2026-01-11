@@ -8,6 +8,8 @@
 
 **Wokwi Design:** https://wokwi.com/projects/446954697164307457
 
+**Reminder:** To ensure that the chapter links work and the display is better, it is best to view the protocol directly in GitHub: https://github.com/Lukasseirl/Tiny_Tapeout_Scoreboard/edit/main/docs/info.md
+
 # Table of Contents
 
 - [Tiny Tapeout Scoreboard](#tiny-tapeout-scoreboard)
